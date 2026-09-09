@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -36,13 +36,13 @@
         
         <!-- SELETTORE LINGUA (IT / EN / ES) -->
         <div class="flex items-center bg-slate-900/90 border border-white/10 rounded-lg p-0.5 shadow-inner">
-          <button type="button" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition bg-purple-600 text-white shadow-sm" data-lang="it" title="Italiano">
+          <button type="button" onclick="setLanguage('it')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition bg-purple-600 text-white shadow-sm" data-lang="it" title="Italiano">
             <span>🇮🇹</span> <span class="hidden sm:inline">IT</span>
           </button>
-          <button type="button" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="en" title="English">
+          <button type="button" onclick="setLanguage('en')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="en" title="English">
             <span>🇬🇧</span> <span class="hidden sm:inline">EN</span>
           </button>
-          <button type="button" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="es" title="Español">
+          <button type="button" onclick="setLanguage('es')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="es" title="Español">
             <span>🇪🇸</span> <span class="hidden sm:inline">ES</span>
           </button>
         </div>
@@ -417,6 +417,8 @@
   </footer>
 
   <script src="js/translations.js"></script>
+  <script src="translations.js"></script>
   <script src="js/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
