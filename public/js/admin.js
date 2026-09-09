@@ -1,0 +1,513 @@
+﻿// Logica Amministratore / Grafico
+let adminToken = localStorage.getItem("admin_pin") || "";
+let adminBookings = [];
+let adminFilter = "all";
+let adminSearch = "";
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.lucide) lucide.createIcons();
+
+  // Verifica se già loggato
+  if (adminToken) {
+    tryLogin(adminToken, true);
+  } else {
+    showLogin();
+  }
+
+  // Form Login
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const pin = document.getElementById("pinInput").value.trim();
+      tryLogin(pin, false);
+    });
+  }
+
+  // Logout
+  const btnLogout = document.getElementById("btnLogout");
+  if (btnLogout) {
+    btnLogout.addEventListener("click", () => {
+      localStorage.removeItem("admin_pin");
+      adminToken = "";
+      showLogin();
+    });
+  }
+
+  // Refresh
+  const btnRefresh = document.getElementById("btnRefresh");
+  if (btnRefresh) {
+    btnRefresh.addEventListener("click", loadAdminData);
+  }
+
+  // Filtri & Ricerca
+  const filterSelect = document.getElementById("adminStatusFilter");
+  if (filterSelect) {
+    filterSelect.addEventListener("change", (e) => {
+      adminFilter = e.target.value;
+      renderAdminList();
+    });
+  }
+
+  const searchInput = document.getElementById("adminSearchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      adminSearch = e.target.value.toLowerCase().trim();
+      renderAdminList();
+    });
+  }
+
+  // Impostazioni Modal
+  const btnOpenSettings = document.getElementById("btnOpenSettings");
+  const settingsModal = document.getElementById("settingsModal");
+  const btnCloseSettings = document.getElementById("btnCloseSettings");
+  const btnCancelSettings = document.getElementById("btnCancelSettings");
+
+  if (btnOpenSettings) {
+    btnOpenSettings.addEventListener("click", openSettingsModal);
+  }
+  if (btnCloseSettings) {
+    btnCloseSettings.addEventListener("click", () => settingsModal.classList.add("hidden"));
+  }
+  if (btnCancelSettings) {
+    btnCancelSettings.addEventListener("click", () => settingsModal.classList.add("hidden"));
+  }
+
+  const settingsForm = document.getElementById("settingsForm");
+  if (settingsForm) {
+    settingsForm.addEventListener("submit", handleSaveSettings);
+  }
+
+  // Test Email
+  const btnTestEmail = document.getElementById("btnTestEmail");
+  if (btnTestEmail) {
+    btnTestEmail.addEventListener("click", handleTestEmail);
+  }
+});
+
+function showLogin() {
+  document.getElementById("loginSection").classList.remove("hidden");
+  document.getElementById("dashboardSection").classList.add("hidden");
+  document.getElementById("authActions").classList.add("hidden");
+  if (window.lucide) lucide.createIcons();
+}
+
+function showDashboard() {
+  document.getElementById("loginSection").classList.add("hidden");
+  document.getElementById("dashboardSection").classList.remove("hidden");
+  document.getElementById("authActions").classList.remove("hidden");
+  loadAdminData();
+  if (window.lucide) lucide.createIcons();
+}
+
+async function tryLogin(pin, isAuto = false) {
+  try {
+    const res = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pin })
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success) {
+      adminToken = pin;
+      localStorage.setItem("admin_pin", pin);
+      showDashboard();
+    } else {
+      if (!isAuto) {
+        alert("PIN non valido. Riprova.");
+      } else {
+        showLogin();
+      }
+    }
+  } catch (err) {
+    console.error("Errore login:", err);
+    if (!isAuto) alert("Errore di connessione al server.");
+  }
+}
+
+async function loadAdminData() {
+  try {
+    const res = await fetch("/api/admin/bookings", {
+      headers: { "Authorization": `Bearer ${adminToken}` }
+    });
+
+    if (res.status === 401) {
+      localStorage.removeItem("admin_pin");
+      showLogin();
+      return;
+    }
+
+    if (!res.ok) throw new Error("Errore recupero dati");
+    adminBookings = await res.json();
+    updateStats();
+    renderAdminList();
+  } catch (err) {
+    console.error("Errore loadAdminData:", err);
+  }
+}
+
+function updateStats() {
+  const total = adminBookings.length;
+  const aspetto = adminBookings.filter(b => b.status === "Aspetto").length;
+  const occupato = adminBookings.filter(b => b.status === "Occupato").length;
+  const libero = adminBookings.filter(b => b.status === "Libero").length;
+
+  document.getElementById("statTotal").textContent = total;
+  document.getElementById("statAspetto").textContent = aspetto;
+  document.getElementById("statOccupato").textContent = occupato;
+  document.getElementById("statLibero").textContent = libero;
+}
+
+function renderAdminList() {
+  const container = document.getElementById("adminBookingsList");
+  const noBookings = document.getElementById("adminNoBookings");
+
+  let filtered = adminBookings.filter(b => {
+    const matchesFilter = (adminFilter === "all") || (b.status === adminFilter);
+    const searchTarget = `${b.id} ${b.clientName} ${b.workType} ${b.email} ${b.phone} ${b.description}`.toLowerCase();
+    const matchesSearch = !adminSearch || searchTarget.includes(adminSearch);
+    return matchesFilter && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = "";
+    noBookings.classList.remove("hidden");
+    return;
+  }
+
+  noBookings.classList.add("hidden");
+
+  container.innerHTML = filtered.map(b => {
+    const dateFormatted = new Date(b.createdAt).toLocaleString("it-IT", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    const cleanPhone = (b.phone || "").replace(/[^0-9]/g, "");
+    const waChatUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Ciao ${b.clientName}, ti contatto in merito alla tua richiesta grafica #${b.id} (${b.workType}).`)}`;
+
+    // Badge stato
+    let badgeHtml = "";
+    if (b.status === "Aspetto") {
+      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-aspetto flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-aspetto animate-pulse-dot"></span> 🔴 ASPETTO</span>`;
+    } else if (b.status === "Occupato") {
+      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-occupato flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-occupato animate-pulse-dot"></span> 🟡 OCCUPATO</span>`;
+    } else if (b.status === "Libero") {
+      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-libero flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 LIBERO</span>`;
+    }
+
+    return `
+      <div class="glass-panel p-5 sm:p-6 border border-white/10 hover:border-purple-500/30 transition">
+        
+        <!-- HEADER CARD -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-lg border border-purple-500/20">
+              #${b.id}
+            </span>
+            <div>
+              <h3 class="font-heading font-bold text-base text-white flex items-center gap-2">
+                ${escapeHtml(b.clientName)}
+              </h3>
+              <span class="text-[11px] text-slate-400">Ricevuta il ${dateFormatted}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            ${badgeHtml}
+          </div>
+        </div>
+
+        <!-- CONTENUTO PRINCIPALE (VISIBILE SOLO AL GRAFICO) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-4">
+          
+          <!-- Dettagli del lavoro & descrizione -->
+          <div class="lg:col-span-8 space-y-3">
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Tipo di Lavoro Richiesto (Nascosto al pubblico):</span>
+              <div class="mt-1 inline-block px-3 py-1.5 rounded-lg bg-purple-600/20 text-purple-300 font-semibold text-sm border border-purple-500/30">
+                🎨 ${escapeHtml(b.workType)}
+              </div>
+            </div>
+
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Descrizione & Istruzioni del Cliente:</span>
+              <div class="mt-1 p-3.5 rounded-xl bg-slate-900/90 border border-white/5 text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">
+                ${escapeHtml(b.description)}
+              </div>
+            </div>
+
+            <!-- Note Interne Grafico -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-1">
+                  <i data-lucide="edit-3" class="w-3 h-3"></i> Note Interne del Grafico (Private)
+                </span>
+                <button onclick="saveInternalNotes('${b.id}')" class="text-[10px] text-cyan-300 hover:underline">
+                  Salva Nota
+                </button>
+              </div>
+              <textarea id="notes-${b.id}" rows="2" placeholder="Es. Inviata bozza 1 via WhatsApp; pagamento acconto ricevuto..." 
+                class="glass-input w-full px-3 py-2 rounded-lg text-xs placeholder-slate-500">${escapeHtml(b.notes || "")}</textarea>
+            </div>
+          </div>
+
+          <!-- Dati Contatto & Economici -->
+          <div class="lg:col-span-4 bg-slate-900/60 rounded-xl p-4 border border-white/5 space-y-3 text-xs">
+            <div class="pb-2 border-b border-white/10 font-semibold text-slate-300 uppercase text-[11px] tracking-wider">
+              Contatti Cliente
+            </div>
+
+            <div>
+              <span class="text-slate-500 text-[11px] block">Telefono / WhatsApp:</span>
+              <a href="${waChatUrl}" target="_blank" class="mt-1 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#25D366]/20 text-[#25D366] hover:bg-[#25D366]/30 font-semibold transition">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                <span>${escapeHtml(b.phone)}</span>
+              </a>
+            </div>
+
+            <div>
+              <span class="text-slate-500 text-[11px] block">Email:</span>
+              <a href="mailto:${escapeHtml(b.email)}" class="text-purple-300 hover:underline">
+                ${escapeHtml(b.email || "Non fornita")}
+              </a>
+            </div>
+
+            <div class="pt-2 border-t border-white/10 grid grid-cols-2 gap-2">
+              <div>
+                <span class="text-slate-500 text-[11px] block">Budget:</span>
+                <span class="font-semibold text-emerald-400">${escapeHtml(b.budget || "N/D")}</span>
+              </div>
+              <div>
+                <span class="text-slate-500 text-[11px] block">Scadenza:</span>
+                <span class="font-semibold text-slate-300">${escapeHtml(b.deadline || "Flessibile")}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FOOTER CARD: CAMBIO RAPIDO STATO -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-slate-400">Imposta Stato:</span>
+            
+            <button onclick="updateStatus('${b.id}', 'Aspetto')" 
+              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${b.status === 'Aspetto' ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+              <span class="w-2 h-2 rounded-full dot-aspetto"></span> 🔴 Aspetto
+            </button>
+
+            <button onclick="updateStatus('${b.id}', 'Occupato')" 
+              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${b.status === 'Occupato' ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+              <span class="w-2 h-2 rounded-full dot-occupato"></span> 🟡 Occupato
+            </button>
+
+            <button onclick="updateStatus('${b.id}', 'Libero')" 
+              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${b.status === 'Libero' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+              <span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 Libero
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="deleteBooking('${b.id}')" class="px-2.5 py-1.5 rounded-lg text-xs text-red-400 hover:text-white hover:bg-red-950/60 border border-red-500/20 transition flex items-center gap-1">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Elimina</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }).join("");
+
+  if (window.lucide) lucide.createIcons();
+}
+
+// Cambio Stato Rapido
+async function updateStatus(id, newStatus) {
+  try {
+    const res = await fetch(`/api/admin/bookings/${id}/status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${adminToken}`
+      },
+      body: JSON.stringify({ status: newStatus })
+    });
+
+    if (res.ok) {
+      // Aggiorna stato locale
+      const item = adminBookings.find(b => b.id === id);
+      if (item) item.status = newStatus;
+      updateStats();
+      renderAdminList();
+    } else {
+      alert("Errore durante l'aggiornamento dello stato");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Errore di comunicazione col server");
+  }
+}
+
+// Salva Note Interne
+async function saveInternalNotes(id) {
+  const notesText = document.getElementById(`notes-${id}`).value;
+  try {
+    const res = await fetch(`/api/admin/bookings/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${adminToken}`
+      },
+      body: JSON.stringify({ notes: notesText })
+    });
+
+    if (res.ok) {
+      alert("Nota interna salvata con successo!");
+      const item = adminBookings.find(b => b.id === id);
+      if (item) item.notes = notesText;
+    } else {
+      alert("Errore salvataggio nota");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Elimina Prenotazione
+async function deleteBooking(id) {
+  if (!confirm(`Sei sicuro di voler eliminare la prenotazione #${id}?`)) return;
+
+  try {
+    const res = await fetch(`/api/admin/bookings/${id}`, {
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${adminToken}` }
+    });
+
+    if (res.ok) {
+      adminBookings = adminBookings.filter(b => b.id !== id);
+      updateStats();
+      renderAdminList();
+    } else {
+      alert("Errore eliminazione");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Gestione Impostazioni
+async function openSettingsModal() {
+  try {
+    const res = await fetch("/api/admin/settings", {
+      headers: { "Authorization": `Bearer ${adminToken}` }
+    });
+    if (!res.ok) return;
+    const cfg = await res.json();
+
+    document.getElementById("cfgStudioName").value = cfg.studioName || "";
+    document.getElementById("cfgAdminPin").value = cfg.adminPin || "";
+    document.getElementById("cfgWhatsappNumber").value = cfg.whatsappNumber || "";
+    document.getElementById("cfgEmailRecipient").value = cfg.emailRecipient || "";
+
+    document.getElementById("cfgSmtpEnabled").checked = !!cfg.smtp?.enabled;
+    document.getElementById("cfgSmtpHost").value = cfg.smtp?.host || "smtp.gmail.com";
+    document.getElementById("cfgSmtpPort").value = cfg.smtp?.port || 587;
+    document.getElementById("cfgSmtpUser").value = cfg.smtp?.user || "";
+    document.getElementById("cfgSmtpPass").value = cfg.smtp?.pass || "";
+
+    document.getElementById("settingsModal").classList.remove("hidden");
+    if (window.lucide) lucide.createIcons();
+  } catch (err) {
+    console.error("Errore apertura impostazioni:", err);
+  }
+}
+
+async function handleSaveSettings(e) {
+  e.preventDefault();
+
+  const payload = {
+    studioName: document.getElementById("cfgStudioName").value.trim(),
+    adminPin: document.getElementById("cfgAdminPin").value.trim(),
+    whatsappNumber: document.getElementById("cfgWhatsappNumber").value.trim(),
+    emailRecipient: document.getElementById("cfgEmailRecipient").value.trim(),
+    smtp: {
+      enabled: document.getElementById("cfgSmtpEnabled").checked,
+      host: document.getElementById("cfgSmtpHost").value.trim(),
+      port: Number(document.getElementById("cfgSmtpPort").value),
+      user: document.getElementById("cfgSmtpUser").value.trim(),
+      pass: document.getElementById("cfgSmtpPass").value.trim()
+    }
+  };
+
+  try {
+    const res = await fetch("/api/admin/settings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${adminToken}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      // Se il PIN è cambiato, aggiorna il token locale
+      if (payload.adminPin !== adminToken) {
+        adminToken = payload.adminPin;
+        localStorage.setItem("admin_pin", adminToken);
+      }
+      alert("Impostazioni salvate con successo!");
+      document.getElementById("settingsModal").classList.add("hidden");
+    } else {
+      alert("Errore salvataggio: " + (data.error || "Riprova"));
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Errore di connessione.");
+  }
+}
+
+async function handleTestEmail() {
+  const resultSpan = document.getElementById("testEmailResult");
+  resultSpan.textContent = "Invio in corso...";
+
+  try {
+    const res = await fetch("/api/admin/test-notification", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${adminToken}`
+      },
+      body: JSON.stringify({ type: "email" })
+    });
+
+    const data = await res.json();
+    if (data.result?.sent) {
+      resultSpan.textContent = "✅ Inviata con successo!";
+      resultSpan.className = "text-[11px] text-emerald-400";
+    } else {
+      resultSpan.textContent = "⚠️ " + (data.result?.error || data.result?.reason || "Fallita");
+      resultSpan.className = "text-[11px] text-amber-400";
+    }
+  } catch (err) {
+    resultSpan.textContent = "❌ Errore";
+    resultSpan.className = "text-[11px] text-red-400";
+  }
+}
+
+function escapeHtml(string) {
+  const entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  };
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+}

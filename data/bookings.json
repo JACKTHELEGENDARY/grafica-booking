@@ -1,0 +1,60 @@
+[
+  {
+    "id": "BK-7124",
+    "clientName": "Federico Verdi",
+    "publicName": "Federico V.",
+    "email": "federico@test.it",
+    "phone": "+39 348 7766554",
+    "workType": "Banner Twitch Animato & Overlay",
+    "description": "Necessito di un pacchetto streaming completo con scene Starting Soon, Be Right Back e webcam overlay.",
+    "deadline": "2026-09-30",
+    "budget": "180?",
+    "status": "Occupato",
+    "createdAt": "2026-09-09T20:50:41.049Z",
+    "notes": "",
+    "updatedAt": "2026-09-09T20:50:41.089Z"
+  },
+  {
+    "id": "BK-7821",
+    "clientName": "Marco Rossi",
+    "publicName": "Marco R.",
+    "email": "marco.rossi@example.com",
+    "phone": "+39 347 1122334",
+    "workType": "Logo & Brand Identity Completa",
+    "description": "Restyling logo per brand di abbigliamento streetwear, necessito file vettoriali e mockup magliette.",
+    "deadline": "2026-09-25",
+    "budget": "350€",
+    "status": "Aspetto",
+    "createdAt": "2026-09-08T14:30:00.000Z",
+    "notes": "Bozza 1 inviata via email. In attesa di feedback sulle varianti colore.",
+    "updatedAt": "2026-09-09T21:09:09.253Z"
+  },
+  {
+    "id": "BK-6419",
+    "clientName": "Giulia Bianchi",
+    "publicName": "Giulia B.",
+    "email": "giulia.bianchi@example.com",
+    "phone": "+39 349 9988776",
+    "workType": "Grafica Social & Template Post/Stories",
+    "description": "10 grafiche Instagram per lancio collezione autunno/inverno con stile minimal ed elegante.",
+    "deadline": "2026-09-18",
+    "budget": "200€",
+    "status": "Aspetto",
+    "createdAt": "2026-09-09T18:15:00.000Z",
+    "notes": "Richiesta appena ricevuta, da valutare materiale fotografico inviato."
+  },
+  {
+    "id": "BK-5104",
+    "clientName": "Luca Esposito",
+    "publicName": "Luca E.",
+    "email": "luca.esposito@example.com",
+    "phone": "+39 333 4455667",
+    "workType": "Locandina & Flyer Evento Musicale",
+    "description": "Locandina per festival techno e adattamenti formato reel.",
+    "deadline": "2026-09-05",
+    "budget": "150€",
+    "status": "Libero",
+    "createdAt": "2026-09-01T10:00:00.000Z",
+    "notes": "Lavoro consegnato, file definitivi approvati e pagamento saldato. Slot liberato."
+  }
+]

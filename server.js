@@ -1,0 +1,480 @@
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+
+const DATA_DIR = path.join(__dirname, "data");
+const BOOKINGS_FILE = path.join(DATA_DIR, "bookings.json");
+const CONFIG_FILE = path.join(DATA_DIR, "config.json");
+
+// Helper: Leggi/Scrivi JSON
+function readJson(filePath, defaultValue) {
+  try {
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, JSON.stringify(defaultValue, null, 2), "utf-8");
+      return defaultValue;
+    }
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const clean = raw.replace(/^\uFEFF/, "");
+    return JSON.parse(clean);
+  } catch (err) {
+    console.error(`Errore lettura ${filePath}:`, err);
+    return defaultValue;
+  }
+}
+
+function writeJson(filePath, data) {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+    return true;
+  } catch (err) {
+    console.error(`Errore scrittura ${filePath}:`, err);
+    return false;
+  }
+}
+
+// Config iniziale
+function getConfig() {
+  const fileConfig = readJson(CONFIG_FILE, {});
+  return {
+    studioName: fileConfig.studioName || process.env.STUDIO_NAME || "Creative Design Studio",
+    designerName: fileConfig.designerName || process.env.DESIGNER_NAME || "Graphic Designer",
+    adminPin: fileConfig.adminPin || process.env.ADMIN_PIN || "admin123",
+    whatsappNumber: fileConfig.whatsappNumber || process.env.WHATSAPP_NUMBER || "393400000000",
+    emailRecipient: fileConfig.emailRecipient || process.env.EMAIL_RECIPIENT || "",
+    smtp: {
+      enabled: fileConfig.smtp?.enabled || false,
+      host: fileConfig.smtp?.host || process.env.SMTP_HOST || "smtp.gmail.com",
+      port: Number(fileConfig.smtp?.port || process.env.SMTP_PORT || 587),
+      secure: fileConfig.smtp?.secure || false,
+      user: fileConfig.smtp?.user || process.env.SMTP_USER || "",
+      pass: fileConfig.smtp?.pass || process.env.SMTP_PASS || ""
+    },
+    callMeBot: {
+      enabled: fileConfig.callMeBot?.enabled || false,
+      phone: fileConfig.callMeBot?.phone || process.env.CALLMEBOT_PHONE || "",
+      apiKey: fileConfig.callMeBot?.apiKey || process.env.CALLMEBOT_API_KEY || ""
+    }
+  };
+}
+
+// Helper per mascherare nome per privacy (es. "Mario Rossi" -> "Mario R.")
+function maskName(fullName) {
+  if (!fullName) return "Anonimo";
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0];
+  const first = parts[0];
+  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase() + ".";
+  return `${first} ${lastInitial}`;
+}
+
+// Notifica via Email con Nodemailer
+async function sendEmailNotification(booking, config) {
+  if (!config.smtp.enabled || !config.smtp.user || !config.smtp.pass || !config.emailRecipient) {
+    console.log("[EMAIL] Notifica email non configurata o disabilitata. Dati salvati regolarmente.");
+    return { sent: false, reason: "SMTP non configurato" };
+  }
+
+  try {
+    const transporter = nodemailer.createTransporter({
+      host: config.smtp.host,
+      port: config.smtp.port,
+      secure: config.smtp.port === 465,
+      auth: {
+        user: config.smtp.user,
+        pass: config.smtp.pass
+      }
+    });
+
+    const mailOptions = {
+      from: `"${config.studioName}" <${config.smtp.user}>`,
+      to: config.emailRecipient,
+      subject: `🚨 NUOVA PRENOTAZIONE GRAFICA #${booking.id} - ${booking.clientName}`,
+      html: `
+        <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #f8fafc; border-radius: 12px; overflow: hidden; border: 1px solid #334155;">
+          <div style="background: linear-gradient(135deg, #7c3aed, #4f46e5); padding: 24px; text-align: center;">
+            <h1 style="margin: 0; font-size: 24px; color: #ffffff;">🎨 Nuova Richiesta di Lavoro Grafico</h1>
+            <p style="margin: 8px 0 0 0; color: #e0e7ff; font-size: 14px;">Codice Prenotazione: <strong>#${booking.id}</strong></p>
+          </div>
+          <div style="padding: 24px;">
+            <div style="background: #1e293b; border-radius: 8px; padding: 16px; margin-bottom: 20px; border-left: 4px solid #a855f7;">
+              <h3 style="margin: 0 0 10px 0; color: #cbd5e1; font-size: 14px; text-transform: uppercase;">Dati Cliente</h3>
+              <p style="margin: 4px 0;"><strong>Nome:</strong> ${booking.clientName}</p>
+              <p style="margin: 4px 0;"><strong>Email:</strong> <a href="mailto:${booking.email}" style="color: #38bdf8;">${booking.email}</a></p>
+              <p style="margin: 4px 0;"><strong>Telefono/WhatsApp:</strong> <a href="https://wa.me/${booking.phone.replace(/[^0-9]/g, "")}" style="color: #4ade80;">${booking.phone}</a></p>
+            </div>
+
+            <div style="background: #1e293b; border-radius: 8px; padding: 16px; margin-bottom: 20px; border-left: 4px solid #38bdf8;">
+              <h3 style="margin: 0 0 10px 0; color: #cbd5e1; font-size: 14px; text-transform: uppercase;">Dettagli Lavoro (Privati)</h3>
+              <p style="margin: 4px 0;"><strong>Tipo di Lavoro:</strong> <span style="background: #475569; padding: 2px 8px; border-radius: 4px; font-weight: bold;">${booking.workType}</span></p>
+              <p style="margin: 4px 0;"><strong>Budget Indicativo:</strong> ${booking.budget || "Non specificato"}</p>
+              <p style="margin: 4px 0;"><strong>Scadenza Desiderata:</strong> ${booking.deadline || "Flessibile"}</p>
+              <div style="margin-top: 10px; padding: 10px; background: #0f172a; border-radius: 6px;">
+                <strong>Descrizione:</strong><br/>
+                <p style="margin: 6px 0 0 0; white-space: pre-wrap; color: #94a3b8;">${booking.description}</p>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 24px;">
+              <span style="display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; background: #ef4444; color: white;">
+                🔴 STATO INIZIALE: ASPETTO
+              </span>
+            </div>
+          </div>
+          <div style="background: #090d16; padding: 12px; text-align: center; font-size: 12px; color: #64748b;">
+            Gestisci questa prenotazione dal tuo pannello admin di ${config.studioName}
+          </div>
+        </div>
+      `
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[EMAIL] Inviata con successo:", info.messageId);
+    return { sent: true, messageId: info.messageId };
+  } catch (err) {
+    console.error("[EMAIL ERROR]:", err.message);
+    return { sent: false, error: err.message };
+  }
+}
+
+// Notifica WhatsApp automatica via CallMeBot (opzionale)
+async function sendCallMeBotNotification(booking, config) {
+  if (!config.callMeBot.enabled || !config.callMeBot.phone || !config.callMeBot.apiKey) {
+    return { sent: false, reason: "CallMeBot non attivo" };
+  }
+  try {
+    const text = encodeURIComponent(
+      `🎨 *NUOVA PRENOTAZIONE GRAFICA #${booking.id}*\n\n` +
+      `👤 *Cliente:* ${booking.clientName}\n` +
+      `📁 *Lavoro:* ${booking.workType}\n` +
+      `📞 *Tel:* ${booking.phone}\n` +
+      `💰 *Budget:* ${booking.budget || "N/D"}\n` +
+      `📝 *Descrizione:* ${booking.description.substring(0, 150)}...\n\n` +
+      `🔴 *Stato:* ASPETTO`
+    );
+    const url = `https://api.callmebot.com/whatsapp.php?phone=${config.callMeBot.phone}&text=${text}&apikey=${config.callMeBot.apiKey}`;
+    const response = await fetch(url);
+    return { sent: response.ok };
+  } catch (e) {
+    console.error("[CALLMEBOT ERROR]:", e.message);
+    return { sent: false, error: e.message };
+  }
+}
+
+// Generatore link WhatsApp Click-to-Chat precompilato
+function generateWhatsAppUrl(booking, targetPhone) {
+  const cleanPhone = (targetPhone || "").replace(/[^0-9]/g, "");
+  const message = 
+    `🎨 *RICHIESTA PRENOTAZIONE LAVORO GRAFICO*\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n` +
+    `📌 *ID Richiesta:* #${booking.id}\n` +
+    `👤 *Cliente:* ${booking.clientName}\n` +
+    `📧 *Email:* ${booking.email}\n` +
+    `📱 *Tel/WA:* ${booking.phone}\n` +
+    `🎯 *Tipo Lavoro:* ${booking.workType}\n` +
+    `💶 *Budget:* ${booking.budget || "Da concordare"}\n` +
+    `📅 *Scadenza:* ${booking.deadline || "Flessibile"}\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n` +
+    `📝 *Dettagli:* \n${booking.description}\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n` +
+    `🔴 *Stato sul sito:* ASPETTO`;
+
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+}
+
+// ==========================================
+// 1. API PUBBLICHE (Visibili a chiunque)
+// ==========================================
+
+// Info generali studio & statistiche slot
+app.get("/api/public/info", (req, res) => {
+  const config = getConfig();
+  const bookings = readJson(BOOKINGS_FILE, []);
+  
+  const stats = {
+    total: bookings.length,
+    aspetto: bookings.filter(b => b.status === "Aspetto").length,
+    occupato: bookings.filter(b => b.status === "Occupato").length,
+    libero: bookings.filter(b => b.status === "Libero").length
+  };
+
+  res.json({
+    studioName: config.studioName,
+    designerName: config.designerName,
+    whatsappNumber: config.whatsappNumber,
+    stats,
+    // Indicatore disponibilità generale
+    isAcceptingRequests: true
+  });
+});
+
+// LISTA PUBBLICA: Mostra SOLO la lista delle persone e lo stato (Rosso/Giallo/Verde)
+// OCCULTA TOTALMENTE il tipo del lavoro, dettagli, email, budget, etc.
+app.get("/api/public/bookings", (req, res) => {
+  const bookings = readJson(BOOKINGS_FILE, []);
+  
+  // SANITIZZAZIONE RIGOROSA PER LA PRIVACY
+  const publicList = bookings.map(b => ({
+    id: b.id,
+    publicName: b.publicName || maskName(b.clientName),
+    status: b.status || "Aspetto", // "Aspetto" (🔴), "Occupato" (🟡), "Libero" (🟢)
+    createdAt: b.createdAt
+  })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  res.json(publicList);
+});
+
+// Invio nuova prenotazione da parte del cliente
+app.post("/api/public/bookings", async (req, res) => {
+  try {
+    const { clientName, email, phone, workType, description, deadline, budget } = req.body;
+
+    if (!clientName || !phone || !workType || !description) {
+      return res.status(400).json({ 
+        error: "Compila tutti i campi obbligatori (Nome, Telefono, Tipo lavoro, Descrizione)." 
+      });
+    }
+
+    const config = getConfig();
+    const bookings = readJson(BOOKINGS_FILE, []);
+
+    const bookingId = "BK-" + Math.floor(1000 + Math.random() * 9000);
+    const newBooking = {
+      id: bookingId,
+      clientName: clientName.trim(),
+      publicName: maskName(clientName),
+      email: (email || "").trim(),
+      phone: phone.trim(),
+      workType: workType.trim(),
+      description: description.trim(),
+      deadline: deadline || "",
+      budget: budget || "",
+      status: "Aspetto", // Default iniziale: ROSSO ASPETTO
+      createdAt: new Date().toISOString(),
+      notes: ""
+    };
+
+    bookings.unshift(newBooking);
+    writeJson(BOOKINGS_FILE, bookings);
+
+    // Genera URL WhatsApp per il grafico
+    const waUrl = generateWhatsAppUrl(newBooking, config.whatsappNumber);
+
+    // Esegui notifiche in background senza bloccare la risposta
+    sendEmailNotification(newBooking, config).catch(e => console.error(e));
+    sendCallMeBotNotification(newBooking, config).catch(e => console.error(e));
+
+    res.status(201).json({
+      success: true,
+      booking: {
+        id: newBooking.id,
+        publicName: newBooking.publicName,
+        status: newBooking.status,
+        createdAt: newBooking.createdAt
+      },
+      whatsappUrl: waUrl,
+      message: "Prenotazione inviata con successo! Verrai ricontattato a breve."
+    });
+  } catch (err) {
+    console.error("Errore salvataggio prenotazione:", err);
+    res.status(500).json({ error: "Si è verificato un errore durante la prenotazione." });
+  }
+});
+
+// ==========================================
+// 2. MIDDLEWARE & API ADMIN (Area Riservata Grafico)
+// ==========================================
+
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers["authorization"] || req.headers["x-admin-pin"];
+  const config = getConfig();
+
+  let token = "";
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  } else if (authHeader) {
+    token = authHeader.trim();
+  }
+
+  if (token && token === config.adminPin) {
+    return next();
+  }
+  return res.status(401).json({ error: "Accesso non autorizzato. PIN errato." });
+}
+
+// Login Admin
+app.post("/api/admin/login", (req, res) => {
+  const { pin } = req.body;
+  const config = getConfig();
+
+  if (pin && pin === config.adminPin) {
+    return res.json({ success: true, token: config.adminPin, message: "Accesso autorizzato" });
+  }
+  return res.status(401).json({ error: "PIN non corretto" });
+});
+
+// Vista COMPLETA per il grafico (con tipo del lavoro, telefono, email, note, ecc.)
+app.get("/api/admin/bookings", authMiddleware, (req, res) => {
+  const bookings = readJson(BOOKINGS_FILE, []);
+  res.json(bookings);
+});
+
+// Cambio rapido stato (Aspetto 🔴 / Occupato 🟡 / Libero 🟢)
+app.patch("/api/admin/bookings/:id/status", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  const validStatuses = ["Aspetto", "Occupato", "Libero"];
+  if (!validStatuses.includes(status)) {
+    return res.status(400).json({ error: "Stato non valido. Consentiti: Aspetto, Occupato, Libero" });
+  }
+
+  const bookings = readJson(BOOKINGS_FILE, []);
+  const index = bookings.findIndex(b => b.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Prenotazione non trovata" });
+  }
+
+  bookings[index].status = status;
+  bookings[index].updatedAt = new Date().toISOString();
+  writeJson(BOOKINGS_FILE, bookings);
+
+  res.json({ success: true, booking: bookings[index] });
+});
+
+// Aggiorna note o dati interni
+app.put("/api/admin/bookings/:id", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const bookings = readJson(BOOKINGS_FILE, []);
+  const index = bookings.findIndex(b => b.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Prenotazione non trovata" });
+  }
+
+  const { notes, workType, budget, deadline, clientName, email, phone } = req.body;
+  if (notes !== undefined) bookings[index].notes = notes;
+  if (workType !== undefined) bookings[index].workType = workType;
+  if (budget !== undefined) bookings[index].budget = budget;
+  if (deadline !== undefined) bookings[index].deadline = deadline;
+  if (clientName !== undefined) {
+    bookings[index].clientName = clientName;
+    bookings[index].publicName = maskName(clientName);
+  }
+  if (email !== undefined) bookings[index].email = email;
+  if (phone !== undefined) bookings[index].phone = phone;
+
+  bookings[index].updatedAt = new Date().toISOString();
+  writeJson(BOOKINGS_FILE, bookings);
+
+  res.json({ success: true, booking: bookings[index] });
+});
+
+// Elimina o archivia prenotazione
+app.delete("/api/admin/bookings/:id", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  let bookings = readJson(BOOKINGS_FILE, []);
+  const initialLength = bookings.length;
+  bookings = bookings.filter(b => b.id !== id);
+
+  if (bookings.length === initialLength) {
+    return res.status(404).json({ error: "Prenotazione non trovata" });
+  }
+
+  writeJson(BOOKINGS_FILE, bookings);
+  res.json({ success: true, message: "Prenotazione rimossa con successo" });
+});
+
+// Leggi impostazioni configurabili
+app.get("/api/admin/settings", authMiddleware, (req, res) => {
+  const config = getConfig();
+  // Maschera parzialmente password per sicurezza
+  const safeConfig = {
+    ...config,
+    smtp: {
+      ...config.smtp,
+      pass: config.smtp.pass ? "********" : ""
+    }
+  };
+  res.json(safeConfig);
+});
+
+// Salva nuove impostazioni
+app.post("/api/admin/settings", authMiddleware, (req, res) => {
+  const currentConfig = getConfig();
+  const updates = req.body;
+
+  const newConfig = {
+    studioName: updates.studioName || currentConfig.studioName,
+    designerName: updates.designerName || currentConfig.designerName,
+    adminPin: updates.adminPin || currentConfig.adminPin,
+    whatsappNumber: updates.whatsappNumber || currentConfig.whatsappNumber,
+    emailRecipient: updates.emailRecipient || currentConfig.emailRecipient,
+    smtp: {
+      enabled: updates.smtp?.enabled ?? currentConfig.smtp.enabled,
+      host: updates.smtp?.host || currentConfig.smtp.host,
+      port: Number(updates.smtp?.port || currentConfig.smtp.port),
+      secure: updates.smtp?.secure ?? currentConfig.smtp.secure,
+      user: updates.smtp?.user || currentConfig.smtp.user,
+      pass: (updates.smtp?.pass && updates.smtp.pass !== "********") ? updates.smtp.pass : currentConfig.smtp.pass
+    },
+    callMeBot: {
+      enabled: updates.callMeBot?.enabled ?? currentConfig.callMeBot.enabled,
+      phone: updates.callMeBot?.phone || currentConfig.callMeBot.phone,
+      apiKey: updates.callMeBot?.apiKey || currentConfig.callMeBot.apiKey
+    }
+  };
+
+  writeJson(CONFIG_FILE, newConfig);
+  res.json({ success: true, message: "Impostazioni aggiornate con successo", config: newConfig });
+});
+
+// Test notifica manuale
+app.post("/api/admin/test-notification", authMiddleware, async (req, res) => {
+  const { type } = req.body;
+  const config = getConfig();
+
+  const dummyBooking = {
+    id: "TEST-" + Math.floor(1000 + Math.random() * 9000),
+    clientName: "Cliente Test",
+    email: "test@example.com",
+    phone: "+39 340 0000000",
+    workType: "Logo Test di Prova",
+    description: "Questa è una notifica di test inviata dal pannello di controllo.",
+    budget: "100€",
+    deadline: "Immediata",
+    status: "Aspetto"
+  };
+
+  if (type === "email") {
+    const result = await sendEmailNotification(dummyBooking, config);
+    return res.json({ result });
+  } else if (type === "whatsapp") {
+    const result = await sendCallMeBotNotification(dummyBooking, config);
+    const link = generateWhatsAppUrl(dummyBooking, config.whatsappNumber);
+    return res.json({ result, testLink: link });
+  }
+
+  res.status(400).json({ error: "Tipo di test non valido (email o whatsapp)" });
+});
+
+// Avvio Server
+app.listen(PORT, () => {
+  console.log(`====================================================`);
+  console.log(`🎨 SERVER GRAFICA BOOKING ATTIVO SU: http://localhost:${PORT}`);
+  console.log(`🌐 Home pubblica: http://localhost:${PORT}`);
+  console.log(`🔒 Area riservata Grafico: http://localhost:${PORT}/admin.html`);
+  console.log(`🔑 PIN Grafico predefinito: ${getConfig().adminPin}`);
+  console.log(`====================================================`);
+});

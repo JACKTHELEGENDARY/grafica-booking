@@ -1,0 +1,20 @@
+﻿{
+  "studioName": "Creative Visual Studio",
+  "designerName": "Graphic Designer",
+  "adminPin": "admin123",
+  "whatsappNumber": "393400000000",
+  "emailRecipient": "grafico@esempio.com",
+  "smtp": {
+    "enabled": false,
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "secure": false,
+    "user": "",
+    "pass": ""
+  },
+  "callMeBot": {
+    "enabled": false,
+    "apiKey": "",
+    "phone": ""
+  }
+}
