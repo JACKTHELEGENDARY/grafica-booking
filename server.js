@@ -11,11 +11,21 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Supporta file statici sia nella cartella root sia in public/
+app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/js", express.static(__dirname));
+app.use("/js", express.static(path.join(__dirname, "public", "js")));
+app.use("/css", express.static(__dirname));
+app.use("/css", express.static(path.join(__dirname, "public", "css")));
 
-const DATA_DIR = path.join(__dirname, "data");
-const BOOKINGS_FILE = path.join(DATA_DIR, "bookings.json");
-const CONFIG_FILE = path.join(DATA_DIR, "config.json");
+const BOOKINGS_FILE = fs.existsSync(path.join(__dirname, "data", "bookings.json"))
+  ? path.join(__dirname, "data", "bookings.json")
+  : (fs.existsSync(path.join(__dirname, "bookings.json")) ? path.join(__dirname, "bookings.json") : path.join(__dirname, "data", "bookings.json"));
+
+const CONFIG_FILE = fs.existsSync(path.join(__dirname, "data", "config.json"))
+  ? path.join(__dirname, "data", "config.json")
+  : (fs.existsSync(path.join(__dirname, "config.json")) ? path.join(__dirname, "config.json") : path.join(__dirname, "data", "config.json"));
 
 // Helper: Leggi/Scrivi JSON
 function readJson(filePath, defaultValue) {
