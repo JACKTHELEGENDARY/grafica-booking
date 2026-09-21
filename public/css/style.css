@@ -1,16 +1,23 @@
-﻿/* Stile personalizzato per Creative Graphic Studio */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+/* ===================================================================
+   JL GRAPHIC STUDIO - THEME STYLESHEET
+   Aesthetic: Toxic Neon Lime, Cyber Obsidian & Metallic Bevel
+   Matching JL 3D Gaming / Esports Logo
+=================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap');
 
 :root {
-  --color-bg: #090d16;
-  --color-card: rgba(17, 24, 39, 0.85);
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-primary: #8b5cf6;
-  --color-primary-hover: #7c3aed;
-  --color-accent: #06b6d4;
+  --color-bg: #05080c;
+  --color-card: rgba(9, 14, 23, 0.88);
+  --color-border: rgba(74, 222, 128, 0.18);
+  --color-primary: #22c55e;
+  --color-primary-hover: #16a34a;
+  --color-neon: #39ff14;
+  --color-lime: #a3e635;
+  --color-accent: #10b981;
   --color-red: #ef4444;
   --color-yellow: #f59e0b;
-  --color-green: #10b981;
+  --color-green: #22c55e;
 }
 
 * {
@@ -22,32 +29,42 @@
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: var(--color-bg);
-  color: #f3f4f6;
+  color: #f1f5f9;
   min-height: 100vh;
   overflow-x: hidden;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(239, 68, 68, 0.05) 0px, transparent 50%);
+    radial-gradient(at 15% 15%, rgba(34, 197, 94, 0.16) 0px, transparent 40%),
+    radial-gradient(at 85% 10%, rgba(163, 230, 53, 0.12) 0px, transparent 40%),
+    radial-gradient(at 50% 50%, rgba(6, 78, 59, 0.12) 0px, transparent 55%),
+    radial-gradient(at 80% 85%, rgba(34, 197, 94, 0.14) 0px, transparent 45%),
+    radial-gradient(at 20% 90%, rgba(16, 185, 129, 0.1) 0px, transparent 40%);
   background-attachment: fixed;
 }
 
-h1, h2, h3, .font-heading {
+h1, h2, h3, h4, .font-heading {
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Glassmorphism Cards */
+/* Glassmorphism & Cyber Panels */
 .glass-panel {
   background: var(--color-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--color-border);
-  border-radius: 16px;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  border-radius: 18px;
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
+.glass-panel-neon {
+  background: rgba(9, 14, 23, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.15), 0 20px 45px -15px rgba(0, 0, 0, 0.8);
+}
+
+/* Inputs */
 .glass-input {
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(6, 9, 14, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #ffffff;
   transition: all 0.2s ease;
@@ -55,56 +72,109 @@ h1, h2, h3, .font-heading {
 
 .glass-input:focus {
   outline: none;
-  border-color: #a855f7;
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
-  background: rgba(15, 23, 42, 0.95);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25), 0 0 15px rgba(34, 197, 94, 0.2);
+  background: rgba(6, 9, 14, 0.98);
 }
 
-/* Badge Stati con colori specificati dall'utente */
+/* Neon Glow Utilities */
+.neon-glow {
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.4), 0 0 10px rgba(74, 222, 128, 0.6);
+}
+
+.neon-border {
+  border-color: rgba(74, 222, 128, 0.5);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.25);
+}
+
+.neon-text {
+  text-shadow: 0 0 16px rgba(74, 222, 128, 0.8), 0 0 30px rgba(34, 197, 94, 0.4);
+}
+
+/* Pulsante Primario Neon Toxic Green */
+.btn-neon-green {
+  background: linear-gradient(135deg, #a3e635 0%, #22c55e 50%, #10b981 100%);
+  color: #05080c;
+  font-weight: 800;
+  box-shadow: 0 6px 25px rgba(34, 197, 94, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-neon-green:hover {
+  background: linear-gradient(135deg, #bef264 0%, #4ade80 50%, #22c55e 100%);
+  box-shadow: 0 8px 32px rgba(57, 255, 20, 0.6);
+  transform: translateY(-1.5px);
+}
+
+/* Badge Stati Semaforo */
 /* 🔴 ROSSO - ASPETTO */
 .badge-aspetto {
   background: rgba(239, 68, 68, 0.15);
   color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  border: 1px solid rgba(239, 68, 68, 0.45);
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.25);
 }
 .dot-aspetto {
   background-color: #ef4444;
-  box-shadow: 0 0 8px #ef4444;
+  box-shadow: 0 0 10px #ef4444;
 }
 
 /* 🟡 GIALLO - OCCUPATO */
 .badge-occupato {
   background: rgba(245, 158, 11, 0.15);
   color: #fcd34d;
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  border: 1px solid rgba(245, 158, 11, 0.45);
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
 }
 .dot-occupato {
   background-color: #f59e0b;
-  box-shadow: 0 0 8px #f59e0b;
+  box-shadow: 0 0 10px #f59e0b;
 }
 
 /* 🟢 VERDE - LIBERO */
 .badge-libero {
-  background: rgba(16, 185, 129, 0.15);
-  color: #6ee7b7;
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+  background: rgba(34, 197, 94, 0.18);
+  color: #86efac;
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.35);
 }
 .dot-libero {
-  background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
+  background-color: #22c55e;
+  box-shadow: 0 0 12px #39ff14;
 }
 
 /* Pulse animation per stato attivo */
 @keyframes pulse-slow {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 0.4; transform: scale(0.85); }
 }
 
 .animate-pulse-dot {
   animation: pulse-slow 2s infinite ease-in-out;
+}
+
+/* Showcase Card Hover Effects */
+.showcase-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(9, 14, 23, 0.85);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.6);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(34, 197, 94, 0.25);
+}
+
+.showcase-card .card-img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-card:hover .card-img {
+  transform: scale(1.06);
 }
 
 /* Custom Scrollbar */
@@ -113,12 +183,13 @@ h1, h2, h3, .font-heading {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #05080c;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #1e293b;
   border-radius: 4px;
+  border: 1px solid rgba(74, 222, 128, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #22c55e;
 }

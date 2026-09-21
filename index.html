@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creative Studio • Booking & Commissions</title>
+  <title>JL Graphic Studio • Esports, Gaming & Brand Identity</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -11,32 +12,34 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+<body class="bg-[#05080c] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-lime-500 selection:text-black">
 
   <!-- NAVBAR -->
-  <header class="border-b border-white/10 bg-slate-950/70 backdrop-blur-md sticky top-0 z-40">
+  <header class="border-b border-lime-500/20 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 shadow-lg shadow-black/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 via-indigo-500 to-cyan-400 p-0.5 shadow-lg shadow-purple-500/20">
-          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-            <i data-lucide="palette" class="w-6 h-6 text-purple-400"></i>
-          </div>
-        </div>
+      
+      <!-- LOGO & BRAND IDENTITÀ JL -->
+      <div class="flex items-center space-x-3.5">
+        <a href="#" class="relative w-12 h-12 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-lime-400 via-emerald-500 to-green-600 shadow-lg shadow-lime-500/30 shrink-0 transform hover:scale-105 transition">
+          <img src="images/logo.jpg" alt="JL Graphic Studio Logo" class="w-full h-full object-cover rounded-[10px]">
+        </a>
         <div>
-          <h1 id="brandStudioName" class="font-heading font-bold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2">
-            Studio Grafico
-            <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-normal border border-purple-500/30">Creative</span>
+          <h1 id="brandStudioName" class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2">
+            <span>JL Graphic Studio</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-lime-500/20 text-lime-300 font-bold border border-lime-500/40 uppercase tracking-widest shadow-sm">
+              ESPORTS
+            </span>
           </h1>
-          <p id="brandDesignerName" data-i18n="brandSubtitle" class="text-xs text-slate-400">Commissioni & Grafica Personalizzata</p>
+          <p id="brandDesignerName" data-i18n="brandSubtitle" class="text-xs text-slate-400">Esports, Gaming & Brand Identity ad Alto Impatto</p>
         </div>
       </div>
 
-      <!-- Azioni Nav & Selettore Lingua -->
+      <!-- AZIONI NAV & SELETTORE LINGUA -->
       <div class="flex items-center space-x-2 sm:space-x-3">
         
         <!-- SELETTORE LINGUA (IT / EN / ES) -->
-        <div class="flex items-center bg-slate-900/90 border border-white/10 rounded-lg p-0.5 shadow-inner">
-          <button type="button" onclick="setLanguage('it')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition bg-purple-600 text-white shadow-sm" data-lang="it" title="Italiano">
+        <div class="flex items-center bg-slate-900/90 border border-lime-500/20 rounded-lg p-0.5 shadow-inner">
+          <button type="button" onclick="setLanguage('it')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition bg-lime-500 text-black font-bold shadow-sm" data-lang="it" title="Italiano">
             <span>🇮🇹</span> <span class="hidden sm:inline">IT</span>
           </button>
           <button type="button" onclick="setLanguage('en')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="en" title="English">
@@ -47,13 +50,18 @@
           </button>
         </div>
 
-        <a href="#tabella-lavori" class="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition">
-          <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-cyan-400"></i>
+        <a href="#vetrina" class="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-lime-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-lime-500/30 transition">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-lime-400"></i>
+          <span data-i18n="showcaseNav">Vetrina Creazioni</span>
+        </a>
+
+        <a href="#tabella-lavori" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 transition">
+          <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-emerald-400"></i>
           <span data-i18n="viewQueue">Vedi Coda Lavori</span>
         </a>
 
-        <a href="admin.html" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-purple-300 bg-purple-950/50 hover:bg-purple-900/60 border border-purple-500/30 hover:border-purple-400 transition shadow-sm">
-          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+        <a href="admin.html" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-lime-300 bg-lime-950/40 hover:bg-lime-900/50 border border-lime-500/40 hover:border-lime-400 transition shadow-sm">
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
           <span data-i18n="adminArea">Area Grafico</span>
         </a>
       </div>
@@ -63,17 +71,31 @@
   <!-- MAIN CONTENT -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-1">
 
-    <!-- HERO & STATO ATTUALE -->
-    <div class="text-center max-w-3xl mx-auto mb-14">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-medium mb-4">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span data-i18n="openBadge">Prenotazioni Aperte • Notifica Immediata Email & WhatsApp</span>
+    <!-- HERO SECTION AD ALTO IMPATTO CON LOGO JL -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      
+      <!-- LOGO BADGE IN HERO CON GLOW VERDE NEON -->
+      <div class="flex justify-center mb-6">
+        <div class="relative group cursor-pointer" onclick="document.getElementById('vetrina').scrollIntoView({behavior: 'smooth'})">
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-lime-400 via-emerald-500 to-green-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500"></div>
+          <div class="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-lime-400/80 bg-black shadow-2xl">
+            <img src="images/logo.jpg" alt="JL Brand Logo" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+          </div>
+        </div>
       </div>
+
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-300 text-xs font-semibold mb-4 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-lime-400 animate-ping"></span>
+        <span data-i18n="openBadge">JL CREATIVE STUDIO • PRENOTAZIONI APERTE</span>
+      </div>
+
       <h2 class="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-        <span data-i18n="heroTitlePrefix">Prenota il tuo</span> <span data-i18n="heroTitleHighlight" class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">Progetto Grafico</span>
+        <span data-i18n="heroTitlePrefix">Prenota il tuo</span> 
+        <span data-i18n="heroTitleHighlight" class="neon-text bg-gradient-to-r from-lime-300 via-emerald-400 to-green-300 bg-clip-text text-transparent">Progetto Grafico</span>
       </h2>
+      
       <p data-i18n="heroDesc" class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-        Compila il modulo per prenotare il tuo slot. Monitora lo stato di avanzamento in tempo reale nella lista pubblica qui sotto!
+        Compila il modulo per prenotare il tuo slot. Monitora lo stato di avanzamento in tempo reale nella lista pubblica e scopri le ultime creazioni nella vetrina!
       </p>
 
       <!-- SEMAFORO STATO DEI LAVORI (LEGENDA VELOCE) -->
@@ -86,38 +108,81 @@
           <span class="w-3 h-3 rounded-full dot-occupato animate-pulse-dot"></span>
           <span class="text-slate-300"><span data-i18n="legendYellow">Giallo:</span> <strong id="legendTxtOccupato" class="text-amber-400">Occupato</strong></span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-emerald-500/30 flex items-center justify-center gap-2 text-xs font-medium">
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-lime-500/40 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-libero animate-pulse-dot"></span>
-          <span class="text-slate-300"><span data-i18n="legendGreen">Verde:</span> <strong id="legendTxtLibero" class="text-emerald-400">Libero</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendGreen">Verde:</span> <strong id="legendTxtLibero" class="text-lime-400">Libero</strong></span>
         </div>
       </div>
     </div>
 
-    <!-- SEZIONE GRID: FORM PRENOTAZIONE (A SINISTRA) + VANTAGGI -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+    <!-- ============================================================= -->
+    <!-- SEZIONE SHOWCASE / ULTIME CREAZIONI & VETRINA PUBBLICITARIA -->
+    <!-- ============================================================= -->
+    <section id="vetrina" class="mb-20 scroll-mt-24">
+      <div class="glass-panel p-6 sm:p-8 border border-lime-500/30 shadow-2xl relative overflow-hidden">
+        
+        <!-- Sfondo con glow verde tenue -->
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-lime-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 relative z-10">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-400 text-xs font-semibold uppercase tracking-wider mb-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span data-i18n="showcaseBadge">Vetrina Esclusiva • Ultime Creazioni</span>
+            </div>
+            <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <span data-i18n="showcaseTitle">Ultime Creazioni & Lavori Realizzati</span>
+            </h3>
+            <p data-i18n="showcaseSubtitle" class="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
+              Dai loghi esports alle grafiche per streamer e merchandise: scopri gli ultimi progetti d'impatto firmati JL Graphic.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="#prenota-ora" class="btn-neon-green px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span data-i18n="showcaseCta">Prenota una Grafica Simile</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- GRIGLIA CREAZIONI POPOLATA DINAMICAMENTE DA API -->
+        <div id="showcaseGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+          <!-- Inserito dinamicamente da app.js -->
+          <div class="col-span-full text-center py-10 text-slate-500 text-xs">
+            Caricamento creazioni in corso...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- SEZIONE GRID: FORM PRENOTAZIONE (A SINISTRA) + INFO PRIVACY -->
+    <!-- ============================================================= -->
+    <div id="prenota-ora" class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 scroll-mt-24">
       
       <!-- FORM PRENOTAZIONE -->
-      <div class="lg:col-span-7 glass-panel p-6 sm:p-8">
-        <div class="flex items-center justify-between pb-5 mb-6 border-b border-white/10">
+      <div class="lg:col-span-7 glass-panel p-6 sm:p-8 border border-lime-500/20">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
           <div>
-            <h3 class="font-heading text-xl font-bold text-white flex items-center gap-2">
-              <i data-lucide="send" class="w-5 h-5 text-purple-400"></i>
-              <span data-i18n="formTitle">Richiedi la tua Prenotazione</span>
+            <h3 data-i18n="formTitle" class="font-heading text-xl font-bold text-white flex items-center gap-2">
+              Richiedi la tua Prenotazione
             </h3>
             <p data-i18n="formSubtitle" class="text-xs text-slate-400 mt-0.5">I dettagli specifici del lavoro rimarranno 100% privati.</p>
           </div>
-          <span data-i18n="stepBadge" class="text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-white/5">Step 1 di 1</span>
+          <span data-i18n="stepBadge" class="text-[11px] font-semibold text-lime-400 bg-lime-500/10 px-2.5 py-1 rounded-full border border-lime-500/30">
+            Step 1 di 1
+          </span>
         </div>
 
         <form id="bookingForm" class="space-y-4">
-          <!-- Nome Reale (RISERVATO SOLO ALL'AMMINISTRATORE) & Nickname Pubblico (OBBLIGATORIO) -->
+          <!-- Nome Reale (RISERVATO SOLO ALL'AMMINISTRATORE) -->
           <div>
             <div class="flex items-center justify-between mb-1">
               <label for="clientName" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 <span data-i18n="clientNameLabel">Nome e Cognome Reale</span> <span class="text-red-400">*</span>
               </label>
-              <span class="inline-flex items-center gap-1 text-[11px] font-medium text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
-                <i data-lucide="lock" class="w-3 h-3 text-purple-400"></i>
+              <span class="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                <i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i>
                 <span data-i18n="realNamePrivateBadge">Solo Amministratore</span>
               </span>
             </div>
@@ -129,7 +194,7 @@
                 class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
             </div>
             <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-lime-400 shrink-0"></i>
               <span data-i18n="clientNameHint">Privato: visibile ESCLUSIVAMENTE all'amministratore per fini contrattuali (NON mostrato sul sito).</span>
             </p>
           </div>
@@ -140,20 +205,20 @@
               <label for="nickname" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 <span data-i18n="nicknameLabel">Nickname Pubblico</span> <span class="text-red-400">*</span>
               </label>
-              <span class="inline-flex items-center gap-1 text-[11px] font-medium text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
-                <i data-lucide="globe" class="w-3 h-3 text-cyan-400"></i>
+              <span class="inline-flex items-center gap-1 text-[11px] font-medium text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/20">
+                <i data-lucide="globe" class="w-3 h-3 text-lime-400"></i>
                 <span data-i18n="nicknamePublicBadge">Visibile sul Sito</span>
               </span>
             </div>
             <div class="relative">
               <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                <i data-lucide="at-sign" class="w-4 h-4 text-cyan-400"></i>
+                <i data-lucide="at-sign" class="w-4 h-4 text-lime-400"></i>
               </span>
               <input type="text" id="nickname" required data-i18n-placeholder="nicknamePlaceholder" placeholder="Es. ShadowArt99 o @fantastico" 
                 class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
             </div>
             <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <i data-lucide="eye" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <i data-lucide="eye" class="w-3.5 h-3.5 text-lime-400 shrink-0"></i>
               <span data-i18n="nicknameHint">Obbligatorio: questo è l'UNICO nome che comparirà pubblicamente nella coda dei lavori sul sito.</span>
             </p>
           </div>
@@ -171,7 +236,7 @@
                 <input type="tel" id="phone" required data-i18n-placeholder="phonePlaceholder" placeholder="Es. +39 340 1234567" 
                   class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
               </div>
-              <span data-i18n="phoneHint" class="text-[10px] text-purple-300/70">Per conferme e bozze via WhatsApp</span>
+              <span data-i18n="phoneHint" class="text-[10px] text-lime-300/80">Per conferme e bozze via WhatsApp</span>
             </div>
 
             <div>
@@ -199,7 +264,7 @@
                 <i data-lucide="lock" class="w-3 h-3"></i> <span data-i18n="workTypePrivateBadge">Nascosto al pubblico (Visibile solo al grafico)</span>
               </span>
             </div>
-            <select id="workType" required class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm bg-slate-900">
+            <select id="workType" required class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm bg-slate-900 text-slate-100">
               <option value="" disabled selected data-i18n="workTypeSelect">Seleziona la tipologia di lavoro...</option>
               <option value="Logo & Brand Identity" data-i18n="workTypeLogo">🎨 Logo & Brand Identity Completa</option>
               <option value="Grafiche Social / Post / Stories" data-i18n="workTypeSocial">📱 Grafiche Social (Post, Stories, Carousel)</option>
@@ -244,63 +309,61 @@
             </div>
           </div>
 
-          
           <!-- CONSENSO PRIVACY & OPZIONE ANONIMATO (GDPR UE 2016/679 & CCPA USA) -->
           <div class="pt-2 space-y-2.5">
             <label class="flex items-start gap-2.5 cursor-pointer select-none">
-              <input type="checkbox" id="privacyConsent" required class="mt-0.5 rounded bg-slate-800 border-white/20 text-purple-600 focus:ring-purple-500 w-4 h-4 cursor-pointer shrink-0">
+              <input type="checkbox" id="privacyConsent" required class="mt-0.5 rounded bg-slate-800 border-white/20 text-lime-500 focus:ring-lime-500 w-4 h-4 cursor-pointer shrink-0">
               <span id="privacyConsentLabelText" class="text-slate-300 text-xs leading-relaxed">
-                Dichiaro di aver letto l'<a href="javascript:void(0)" onclick="openLegalModal('privacy')" class="text-purple-400 hover:text-purple-300 underline font-semibold">Informativa sulla Privacy (GDPR & CCPA)</a> e acconsento al trattamento dei dati personali per l'elaborazione del preventivo. <span class="text-red-400 font-bold">*</span>
+                Dichiaro di aver letto l'<a href="javascript:void(0)" onclick="openLegalModal('privacy')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Informativa sulla Privacy (GDPR & CCPA)</a> e acconsento al trattamento dei dati personali per l'elaborazione del preventivo. <span class="text-red-400 font-bold">*</span>
               </span>
             </label>
             <label class="flex items-start gap-2.5 cursor-pointer select-none">
-              <input type="checkbox" id="anonymousQueue" class="mt-0.5 rounded bg-slate-800 border-white/20 text-purple-600 focus:ring-purple-500 w-4 h-4 cursor-pointer shrink-0">
+              <input type="checkbox" id="anonymousQueue" class="mt-0.5 rounded bg-slate-800 border-white/20 text-lime-500 focus:ring-lime-500 w-4 h-4 cursor-pointer shrink-0">
               <span id="anonymousQueueLabelText" class="text-slate-400 text-xs leading-relaxed">
-                🔒 <strong>Massima Riservatezza</strong>: Mantieni il mio nome 100% anonimo ("Riservato #BK-XXXX") nella coda pubblica dei lavori.
+                🔒 <strong>Massima Riservatezza</strong>: Mantieni anche il mio nickname anonimo ("Riservato #BK-XXXX") nella coda pubblica dei lavori.
               </span>
             </label>
           </div>
 
           <!-- Pulsante Submit -->
           <div class="pt-3">
-            <button type="submit" id="btnSubmit" class="w-full py-3.5 px-6 rounded-xl font-heading font-bold text-sm tracking-wide text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-400 transition-all shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 group">
-              <i data-lucide="check-circle-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+            <button type="submit" id="btnSubmit" class="btn-neon-green w-full py-3.5 px-6 rounded-xl font-heading font-extrabold text-sm tracking-wide text-black flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
               <span id="btnSubmitText" data-i18n="submitBtn">INVIA RICHIESTA & ENTRA IN CODA</span>
             </button>
-            <p data-i18n="submitHint" class="text-center text-[11px] text-slate-500 mt-2">
-              Riceverai notifica immediata e potrai contattare il grafico subito su WhatsApp.
+            <p data-i18n="submitHint" class="text-center text-[11px] text-slate-400 mt-2">
+              Riceverai conferma immediata e potrai chattare direttamente con il grafico su WhatsApp.
             </p>
           </div>
         </form>
       </div>
 
-      <!-- COLONNA DESTRA: VANTAGGI, COME FUNZIONA & CARD PRIVACY -->
-      <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
-        <!-- Box Notifica Diretta -->
-        <div class="glass-panel p-6 border-l-4 border-l-emerald-500">
+      <!-- COLONNA DESTRA: VANTAGGI & INFO PRIVACY -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <div class="glass-panel p-6 border-l-4 border-l-lime-400">
           <div class="flex items-start gap-4">
-            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <i data-lucide="message-square" class="w-6 h-6"></i>
+            <div class="p-3 rounded-xl bg-lime-500/20 text-lime-400 shrink-0">
+              <i data-lucide="zap" class="w-6 h-6"></i>
             </div>
             <div>
               <h4 data-i18n="feature1Title" class="font-heading font-bold text-base text-white">Notifica Diretta al Grafico</h4>
               <p data-i18n="feature1Desc" class="text-xs text-slate-400 mt-1">
-                Ogni richiesta inviata genera istantaneamente un avviso via Email e permette l'invio diretto su WhatsApp, così la tua commissione viene presa in carico rapidamente!
+                Ogni richiesta genera istantaneamente un avviso per email e permette l'invio immediato su WhatsApp con tutti i dettagli per iniziare subito!
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Box Privacy Garantita -->
-        <div class="glass-panel p-6 border-l-4 border-l-purple-500">
+        <div class="glass-panel p-6 border-l-4 border-l-emerald-500">
           <div class="flex items-start gap-4">
-            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <div class="p-3 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
               <i data-lucide="shield-check" class="w-6 h-6"></i>
             </div>
             <div>
               <h4 data-i18n="feature2Title" class="font-heading font-bold text-base text-white">Privacy 100% Blindata</h4>
               <p data-i18n="feature2Desc" class="text-xs text-slate-400 mt-1">
-                I visitatori del sito possono vedere solamente il tuo nome e lo stato del lavoro. Il tipo di grafica, la descrizione, i prezzi e i tuoi contatti sono rigorosamente visibili solo al grafico!
+                I visitatori del sito possono vedere solamente il tuo nickname pubblico e lo stato del lavoro. Il tuo vero nome, la descrizione, i prezzi e i tuoi contatti sono rigorosamente visibili solo al grafico!
               </p>
             </div>
           </div>
@@ -309,7 +372,7 @@
         <!-- Box Come Funzionano gli Stati -->
         <div class="glass-panel p-6">
           <h4 data-i18n="feature3Title" class="font-heading font-bold text-sm text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <i data-lucide="info" class="w-4 h-4 text-cyan-400"></i> Come funzionano i 3 stati
+            <i data-lucide="info" class="w-4 h-4 text-lime-400"></i> Come funzionano i 3 stati
           </h4>
           <ul class="space-y-3 text-xs text-slate-300">
             <li class="flex items-center gap-2.5">
@@ -329,8 +392,10 @@
       </div>
     </div>
 
+    <!-- ============================================================= -->
     <!-- SEZIONE 2: TABELLA PUBBLICA PRENOTAZIONI -->
-    <section id="tabella-lavori" class="glass-panel p-6 sm:p-8">
+    <!-- ============================================================= -->
+    <section id="tabella-lavori" class="glass-panel p-6 sm:p-8 border border-lime-500/20 scroll-mt-24">
       
       <!-- Intestazione Tabella & Contatori -->
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-white/10">
@@ -339,41 +404,31 @@
             <h3 data-i18n="tableTitle" class="font-heading text-xl sm:text-2xl font-bold text-white">
               Lista Prenotazioni & Stato Lavori
             </h3>
-            <span id="bookingsCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span id="bookingsCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-lime-500/20 text-lime-300 border border-lime-500/30">
               0 Richieste
             </span>
           </div>
           <p class="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
-            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i>
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-lime-400"></i>
             <span data-i18n="tableConcealNotice">Il tipo di lavoro e i dati sensibili sono occultati per garantire riservatezza.</span>
           </p>
         </div>
 
-        <!-- Filtro per Stato e Ricerca -->
-        <div class="flex flex-wrap items-center gap-2">
-          <!-- Cerca per nome -->
-          <div class="relative">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-slate-500">
-              <i data-lucide="search" class="w-3.5 h-3.5"></i>
-            </span>
-            <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Cerca persona..." 
-              class="glass-input pl-8 pr-3 py-1.5 rounded-lg text-xs placeholder-slate-500 w-36 sm:w-44">
+        <!-- Controlli Filtri e Ricerca Rapida -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center bg-slate-900/90 border border-white/10 rounded-xl p-1">
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-lime-500 text-black shadow-sm" data-filter="all" data-i18n="filterAll">Tutti</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Aspetto" id="filterLabelAspetto">🔴 Aspetto</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Occupato" id="filterLabelOccupato">🟡 Occupato</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Libero" id="filterLabelLibero">🟢 Libero</button>
           </div>
 
-          <!-- Filtri a pulsante per stato -->
-          <div class="flex items-center rounded-lg bg-slate-900/90 p-1 border border-white/10 text-xs">
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-300 hover:text-white bg-purple-600 text-white font-medium transition" data-filter="all">
-              <span data-i18n="filterAll">Tutti</span>
-            </button>
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition flex items-center gap-1" data-filter="Aspetto">
-              <span class="w-2 h-2 rounded-full dot-aspetto"></span> <span id="filterLabelAspetto">Aspetto</span>
-            </button>
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition flex items-center gap-1" data-filter="Occupato">
-              <span class="w-2 h-2 rounded-full dot-occupato"></span> <span id="filterLabelOccupato">Occupato</span>
-            </button>
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition flex items-center gap-1" data-filter="Libero">
-              <span class="w-2 h-2 rounded-full dot-libero"></span> <span id="filterLabelLibero">Libero</span>
-            </button>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+            </span>
+            <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Cerca codice o nick..." 
+              class="glass-input pl-8 pr-3 py-1.5 rounded-xl text-xs placeholder-slate-500 w-36 sm:w-44">
           </div>
         </div>
       </div>
@@ -384,7 +439,7 @@
           <thead>
             <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
               <th data-i18n="thCode" class="py-3 px-4">Codice</th>
-              <th data-i18n="thClient" class="py-3 px-4">Richiedente (Cliente)</th>
+              <th data-i18n="thClient" class="py-3 px-4">Nickname Pubblico</th>
               <th data-i18n="thDate" class="py-3 px-4">Data Richiesta</th>
               <th data-i18n="thDetails" class="py-3 px-4">Dettagli Lavoro</th>
               <th data-i18n="thStatus" class="py-3 px-4 text-center">Stato Lavoro</th>
@@ -407,64 +462,74 @@
 
   </main>
 
-  <!-- MODAL SUCCESSO & NOTIFICA WHATSAPP / EMAIL -->
+  <!-- MODAL SUCCESSO PRENOTAZIONE -->
   <div id="successModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-panel max-w-md w-full p-6 sm:p-8 text-center relative border border-purple-500/30 animate-in fade-in zoom-in-95 duration-200">
-      <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/20">
+    <div class="glass-panel max-w-md w-full p-6 sm:p-8 text-center relative border border-lime-500/40 animate-in fade-in zoom-in-95 duration-200">
+      <div class="w-16 h-16 rounded-full bg-lime-500/20 text-lime-400 border border-lime-500/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-lime-500/20">
         <i data-lucide="check" class="w-8 h-8"></i>
       </div>
 
       <h3 data-i18n="modalTitle" class="font-heading text-2xl font-bold text-white mb-1">Richiesta Inviata!</h3>
       <p class="text-xs text-slate-300 mb-4">
-        <span data-i18n="modalSub">Il tuo codice prenotazione è</span> <span id="modalBookingId" class="font-mono font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">#BK-0000</span>
+        <span data-i18n="modalSub">Il tuo codice prenotazione è</span> <span id="modalBookingId" class="font-mono font-bold text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded">#BK-0000</span>
       </p>
 
-      <div class="bg-slate-900/90 rounded-xl p-4 mb-5 border border-white/10 text-left space-y-2 text-xs">
+      <div class="p-4 rounded-xl bg-slate-900/90 border border-white/10 text-xs text-left space-y-2 mb-6">
         <div class="flex justify-between">
-          <span data-i18n="modalClientLabel" class="text-slate-400">Cliente in lista:</span>
-          <span id="modalClientName" class="font-semibold text-white">Marco R.</span>
+          <span data-i18n="modalClientLabel" class="text-slate-400">Nickname in lista:</span>
+          <span id="modalClientName" class="font-bold text-white">--</span>
         </div>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between">
           <span data-i18n="modalStatusLabel" class="text-slate-400">Stato iniziale:</span>
-          <span class="px-2 py-0.5 rounded-full text-[11px] font-bold badge-aspetto flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full dot-aspetto"></span> <span id="modalStatusText">🔴 ASPETTO</span>
-          </span>
+          <span id="modalStatusText" class="font-semibold text-red-400">🔴 ASPETTO</span>
         </div>
-        <div class="flex justify-between">
-          <span data-i18n="modalDetailsLabel" class="text-slate-400">Dettagli lavoro:</span>
-          <span class="text-amber-400/90 flex items-center gap-1">
-            <i data-lucide="lock" class="w-3 h-3"></i> <span data-i18n="modalDetailsHidden">Nascosti al pubblico</span>
-          </span>
-        </div>
+        <p data-i18n="modalExplanation" class="text-[11px] text-slate-500 pt-2 border-t border-white/10">
+          I dettagli sensibili del tuo progetto non sono visibili pubblicamente nella lista per proteggere la tua privacy.
+        </p>
       </div>
 
-      <!-- Pulsanti Azione WhatsApp & Chiusura -->
       <div class="space-y-2.5">
-        <a id="btnWhatsAppDirect" href="#" target="_blank" class="w-full py-3 px-4 rounded-xl font-heading font-bold text-sm text-white bg-[#25D366] hover:bg-[#20bd5a] transition flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20">
-          <i data-lucide="message-circle" class="w-5 h-5"></i>
-          <span data-i18n="modalBtnWa">NOTIFICA IL GRAFICO SU WHATSAPP</span>
+        <a id="btnWhatsAppDirect" href="#" target="_blank" class="w-full py-3 px-4 rounded-xl font-heading font-bold text-xs tracking-wide text-black bg-[#25D366] hover:bg-[#20ba59] transition flex items-center justify-center gap-2 shadow-lg shadow-green-600/30">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span data-i18n="btnChatWa">AVVIA CHAT WHATSAPP CON IL GRAFICO</span>
         </a>
 
-        <button id="btnCloseModal" class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-800 transition">
-          <span data-i18n="modalBtnClose">Chiudi e Torna alla Coda</span>
+        <button type="button" id="btnCloseModal" data-i18n="btnCloseModal" class="w-full py-2.5 px-4 rounded-xl text-xs text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition">
+          Chiudi e Torna alla Coda
         </button>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  
+  <!-- MODAL LIGHTBOX SHOWCASE HD -->
+  <div id="modalShowcase" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-3xl w-full p-4 sm:p-6 border border-lime-500/40 relative max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95">
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+        <div>
+          <span id="lightboxCategory" class="text-[10px] font-bold uppercase tracking-wider text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/30"></span>
+          <h3 id="lightboxTitle" class="font-heading font-bold text-lg text-white mt-1"></h3>
+        </div>
+        <button onclick="closeShowcaseModal()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="relative overflow-hidden rounded-xl max-h-[58vh] flex items-center justify-center bg-black/70 border border-white/10">
+        <img id="lightboxImg" src="" alt="Creation Preview" class="max-h-[56vh] w-auto object-contain rounded-lg shadow-2xl">
+      </div>
+      <div class="pt-4 mt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p id="lightboxDesc" class="text-xs text-slate-300 leading-relaxed"></p>
+        <button onclick="selectShowcaseStyle()" class="btn-neon-green shrink-0 px-4 py-2 rounded-xl text-xs flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span data-i18n="showcaseOrderThis">Voglio questa Grafica!</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) -->
-  
-
-  <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) -->
-  
-
-  <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) -->
-  <footer class="border-t border-white/10 bg-slate-950/80 py-8 mt-16 text-center text-xs text-slate-500">
+  <footer class="border-t border-lime-500/20 bg-slate-950/80 py-8 mt-16 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p data-i18n="footerCopyright">© 2026 Studio Grafico • Piattaforma Gestione Commissioni</p>
+      <p data-i18n="footerCopyright">© 2026 JL Graphic Studio • Piattaforma Gestione Commissioni</p>
       
       <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
         <a href="javascript:void(0)" onclick="openLegalModal('privacy')" id="footerLinkPrivacy" class="text-slate-400 hover:text-white transition underline font-medium">Informativa Privacy (GDPR & CCPA)</a>
@@ -477,12 +542,13 @@
           <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Cancella Dati (Art. 17 GDPR)
         </a>
         <span class="text-slate-700 hidden sm:inline">•</span>
-        <a href="admin.html" data-i18n="footerAdmin" class="text-purple-400 hover:text-purple-300 font-semibold">Area Grafico</a>
+        <a href="admin.html" data-i18n="footerAdmin" class="text-lime-400 hover:text-lime-300 font-semibold">Area Grafico</a>
       </div>
     </div>
   </footer>
 
-
+  <!-- MODALI LEGALI & BANNER PRIVACY -->
+  
   <!-- MODAL INFORMATIVA PRIVACY (GDPR & CCPA) -->
   <div id="modalPrivacy" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="glass-panel max-w-3xl w-full p-6 sm:p-8 my-8 border border-purple-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
@@ -635,12 +701,12 @@
   </div>
 
 
-  <!-- SCRIPT UNIFICATO AUTONOMO (MULTI-LINGUA & CONFORMITÀ LEGALE GDPR/CCPA) -->
+  <!-- SCRIPT UNIFICATO AUTONOMO (MULTI-LINGUA, SHOWCASE & CONFORMITÀ LEGALE) -->
   <script>
     window.I18N = {
   "it": {
     "langName": "Italiano",
-    "brandSubtitle": "Commissioni & Grafica Personalizzata",
+    "brandSubtitle": "Esports, Gaming & Brand Identity ad Alto Impatto",
     "viewQueue": "Vedi Coda Lavori",
     "adminArea": "Area Grafico",
     "openBadge": "Prenotazioni Aperte • Notifica Immediata Email & WhatsApp",
@@ -738,11 +804,18 @@
     "nicknamePlaceholder": "Es. ShadowArt99 o @fantastico",
     "nicknameHint": "Obbligatorio: questo è l'UNICO nome che comparirà pubblicamente nella coda dei lavori sul sito.",
     "nicknamePublicBadge": "Visibile sul Sito",
-    "privacyConsentRequired": "È obbligatorio accettare l'Informativa sulla Privacy prima di inviare."
+    "privacyConsentRequired": "È obbligatorio accettare l'Informativa sulla Privacy prima di inviare.",
+    "showcaseNav": "Vetrina Creazioni",
+    "showcaseBadge": "Vetrina Esclusiva • Ultime Creazioni",
+    "showcaseTitle": "Ultime Creazioni & Lavori Realizzati",
+    "showcaseSubtitle": "Dai loghi esports alle grafiche per streamer e merchandise: scopri gli ultimi progetti d'impatto firmati JL Graphic.",
+    "showcaseCta": "Prenota una Grafica Simile",
+    "showcaseViewHd": "Visualizza in HD",
+    "showcaseOrderThis": "Voglio questa Grafica!"
   },
   "en": {
     "langName": "English",
-    "brandSubtitle": "Custom Graphics & Design Commissions",
+    "brandSubtitle": "High-Impact Esports, Gaming & Brand Identity",
     "viewQueue": "View Queue",
     "adminArea": "Artist Area",
     "openBadge": "Commissions Open • Instant Email & WhatsApp Notification",
@@ -840,11 +913,18 @@
     "nicknamePlaceholder": "e.g. ShadowArt99 or @cooluser",
     "nicknameHint": "Mandatory: this is the ONLY name that will appear publicly in the queue on the site.",
     "nicknamePublicBadge": "Visible on Site",
-    "privacyConsentRequired": "You must accept the Privacy Policy before submitting."
+    "privacyConsentRequired": "You must accept the Privacy Policy before submitting.",
+    "showcaseNav": "Showcase Works",
+    "showcaseBadge": "Exclusive Showcase • Latest Releases",
+    "showcaseTitle": "Latest Works & Featured Creations",
+    "showcaseSubtitle": "From esports logos to streamer overlays and brand identities: explore the latest high-impact projects by JL Graphic.",
+    "showcaseCta": "Book a Similar Design",
+    "showcaseViewHd": "View in HD",
+    "showcaseOrderThis": "I want this Design!"
   },
   "es": {
     "langName": "Español",
-    "brandSubtitle": "Diseño Gráfico & Comisiones Personalizadas",
+    "brandSubtitle": "Diseño Gráfico de Alto Impacto para Esports y Gaming",
     "viewQueue": "Ver Cola de Trabajos",
     "adminArea": "Área Diseñador",
     "openBadge": "Comisiones Abiertas • Notificación Inmediata por Email y WhatsApp",
@@ -942,14 +1022,23 @@
     "nicknamePlaceholder": "Ej. LoboCreativo99 o @usuario",
     "nicknameHint": "Obligatorio: este es el ÚNICO nombre que aparecerá públicamente en la lista de reservas.",
     "nicknamePublicBadge": "Visible en la Web",
-    "privacyConsentRequired": "Debes aceptar la Política de Privacidad antes de enviar."
+    "privacyConsentRequired": "Debes aceptar la Política de Privacidad antes de enviar.",
+    "showcaseNav": "Muestra de Diseños",
+    "showcaseBadge": "Vitrinas Exclusiva • Últimas Creaciones",
+    "showcaseTitle": "Últimas Creaciones y Diseños Destacados",
+    "showcaseSubtitle": "De logotipos esports a diseños para streamers e identidad de marca: descubre las últimas creaciones de JL Graphic.",
+    "showcaseCta": "Reserva un Diseño Similar",
+    "showcaseViewHd": "Ver en HD",
+    "showcaseOrderThis": "¡Quiero este Diseño!"
   }
 };
 
     var currentLang = localStorage.getItem("app_lang") || "it";
     var allBookings = [];
+    var allShowcase = [];
     var currentFilter = "all";
     var searchQuery = "";
+    var currentSelectedCategory = "";
 
     window.setLanguage = function(lang) {
       if (!window.I18N || !window.I18N[lang]) return;
@@ -960,7 +1049,7 @@
       // Aggiorna stile pulsanti lingua nell'header
       document.querySelectorAll(".lang-btn").forEach(function(btn) {
         if (btn.getAttribute("data-lang") === lang) {
-          btn.className = "lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition bg-purple-600 text-white shadow-sm";
+          btn.className = "lang-btn px-2 py-1 rounded text-xs font-bold flex items-center gap-1 transition bg-lime-500 text-black shadow-sm";
         } else {
           btn.className = "lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white";
         }
@@ -1002,11 +1091,11 @@
       var pLabel = document.getElementById("privacyConsentLabelText");
       if (pLabel) {
         if (lang === "en") {
-          pLabel.innerHTML = 'I declare that I have read and agree to the <a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-purple-400 hover:text-purple-300 underline font-semibold">Privacy Policy (EU GDPR & US CCPA)</a> and consent to the processing of my personal data. <span class="text-red-400 font-bold">*</span>';
+          pLabel.innerHTML = 'I declare that I have read and agree to the <a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Privacy Policy (EU GDPR & US CCPA)</a> and consent to the processing of my personal data. <span class="text-red-400 font-bold">*</span>';
         } else if (lang === "es") {
-          pLabel.innerHTML = 'Declaro que he leído y acepto la <a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-purple-400 hover:text-purple-300 underline font-semibold">Política de Privacidad (GDPR UE y CCPA)</a> y consiento el tratamiento de mis datos personales. <span class="text-red-400 font-bold">*</span>';
+          pLabel.innerHTML = 'Declaro que he leído y acepto la <a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Política de Privacidad (GDPR UE y CCPA)</a> y consiento el tratamiento de mis datos personales. <span class="text-red-400 font-bold">*</span>';
         } else {
-          pLabel.innerHTML = 'Dichiaro di aver letto l\'<a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-purple-400 hover:text-purple-300 underline font-semibold">Informativa sulla Privacy (GDPR & CCPA)</a> e acconsento al trattamento dei dati personali per l\'elaborazione del preventivo. <span class="text-red-400 font-bold">*</span>';
+          pLabel.innerHTML = 'Dichiaro di aver letto l\'<a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Informativa sulla Privacy (GDPR & CCPA)</a> e acconsento al trattamento dei dati personali per l\'elaborazione del preventivo. <span class="text-red-400 font-bold">*</span>';
         }
       }
 
@@ -1051,7 +1140,7 @@
       var oBtnCancel = document.getElementById("btnCancelDelete");
       if (oBtnCancel && dict.oblioBtnCancel) oBtnCancel.textContent = dict.oblioBtnCancel;
 
-      // Se una modale e' aperta durante il cambio lingua, aggiorna i suoi contenuti dinamici
+      // Aggiorna modali legali se aperte
       var modalP = document.getElementById("modalPrivacy");
       if (modalP && !modalP.classList.contains("hidden")) {
         var privCont = document.getElementById("legalPrivContent");
@@ -1068,13 +1157,112 @@
         if (cookCont) cookCont.innerHTML = dict.cookieHtml || "";
       }
 
-      // Re-render tabella pubblica con traduzione stati
+      // Re-render tabella pubblica e showcase
       renderBookingsTable();
+      renderShowcase();
 
       if (window.lucide) lucide.createIcons();
     };
 
-    // Gestione Modali Legali
+    // ==========================================
+    // LOGICA VETRINA SHOWCASE PUBBLICA
+    // ==========================================
+    function loadShowcase() {
+      fetch("/api/public/showcase")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          allShowcase = data;
+          renderShowcase();
+        })
+        .catch(function(err) {
+          console.error("Errore caricamento showcase:", err);
+        });
+    }
+
+    function renderShowcase() {
+      var container = document.getElementById("showcaseGrid");
+      if (!container) return;
+      var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
+
+      if (!allShowcase || allShowcase.length === 0) {
+        container.innerHTML = '<div class="col-span-full text-center py-8 text-slate-500 text-xs">Nessuna creazione disponibile al momento.</div>';
+        return;
+      }
+
+      container.innerHTML = allShowcase.map(function(item) {
+        var viewText = dict.showcaseViewHd || "Visualizza in HD";
+        return (
+          '<div class="showcase-card flex flex-col justify-between group cursor-pointer" onclick="openShowcaseLightbox(\'' + item.id + '\')">' +
+            '<div class="relative overflow-hidden aspect-[4/3] bg-black/60">' +
+              '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.title) + '" class="card-img w-full h-full object-cover">' +
+              '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-60 transition"></div>' +
+              '<div class="absolute top-3 left-3">' +
+                '<span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-black/80 text-lime-300 border border-lime-500/40 shadow-sm backdrop-blur-sm">' +
+                  escapeHtml(item.tag || "✨ CREAZIONE") +
+                '</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="p-4 flex-1 flex flex-col justify-between space-y-2">' +
+              '<div>' +
+                '<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">' + escapeHtml(item.category) + '</span>' +
+                '<h4 class="font-heading font-bold text-sm text-white group-hover:text-lime-300 transition line-clamp-1 mt-0.5">' + escapeHtml(item.title) + '</h4>' +
+                '<p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-relaxed">' + escapeHtml(item.description || "") + '</p>' +
+              '</div>' +
+              '<div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">' +
+                '<span class="text-[10px] font-semibold text-lime-400/90 flex items-center gap-1 group-hover:underline">' +
+                  '<i data-lucide="eye" class="w-3 h-3"></i> ' + viewText +
+                '</span>' +
+                '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500 group-hover:text-lime-400 transition"></i>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join("");
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.openShowcaseLightbox = function(id) {
+      var item = allShowcase.find(function(x) { return x.id === id; });
+      if (!item) return;
+
+      currentSelectedCategory = item.category || "";
+      document.getElementById("lightboxCategory").textContent = item.category;
+      document.getElementById("lightboxTitle").textContent = item.title;
+      document.getElementById("lightboxDesc").textContent = item.description || "";
+      document.getElementById("lightboxImg").src = item.imageUrl;
+
+      document.getElementById("modalShowcase").classList.remove("hidden");
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.closeShowcaseModal = function() {
+      var m = document.getElementById("modalShowcase");
+      if (m) m.classList.add("hidden");
+    };
+
+    window.selectShowcaseStyle = function() {
+      closeShowcaseModal();
+      var prenotaEl = document.getElementById("prenota-ora");
+      if (prenotaEl) prenotaEl.scrollIntoView({ behavior: "smooth" });
+
+      if (currentSelectedCategory) {
+        var workSelect = document.getElementById("workType");
+        if (workSelect) {
+          for (var i = 0; i < workSelect.options.length; i++) {
+            if (workSelect.options[i].value.toLowerCase().includes(currentSelectedCategory.toLowerCase()) || 
+                currentSelectedCategory.toLowerCase().includes(workSelect.options[i].value.toLowerCase())) {
+              workSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+    };
+
+    // ==========================================
+    // GESTIONE MODALI LEGALI & COOKIE BANNER
+    // ==========================================
     window.openLegalModal = function(type) {
       var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : (window.I18N ? window.I18N["it"] : {});
       
@@ -1192,12 +1380,12 @@
 
         return (
           '<tr class="hover:bg-white/[0.02] transition">' +
-            '<td class="py-3.5 px-4 font-mono text-xs text-purple-400 font-semibold">#' + item.id + '</td>' +
+            '<td class="py-3.5 px-4 font-mono text-xs text-lime-400 font-semibold">#' + item.id + '</td>' +
             '<td class="py-3.5 px-4 font-medium text-white flex items-center gap-2">' +
-              '<div class="w-7 h-7 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-xs text-cyan-300 font-bold shrink-0">' +
+              '<div class="w-7 h-7 rounded-full bg-slate-900 border border-lime-500/30 flex items-center justify-center text-xs text-lime-300 font-bold shrink-0">' +
                 item.publicName.charAt(0).toUpperCase() +
               '</div>' +
-              '<span class="text-cyan-200 font-medium">@' + escapeHtml(item.publicName) + '</span>' +
+              '<span class="text-lime-200 font-medium">@' + escapeHtml(item.publicName) + '</span>' +
             '</td>' +
             '<td class="py-3.5 px-4 text-xs text-slate-400">' + dateFormatted + '</td>' +
             '<td class="py-3.5 px-4">' +
@@ -1218,6 +1406,7 @@
       if (window.lucide) lucide.createIcons();
       window.setLanguage(currentLang);
       loadStudioInfo();
+      loadShowcase();
       loadPublicBookings();
 
       // Controlla stato banner privacy
@@ -1355,10 +1544,10 @@
       document.querySelectorAll(".filter-btn").forEach(function(btn) {
         btn.addEventListener("click", function() {
           document.querySelectorAll(".filter-btn").forEach(function(b) {
-            b.classList.remove("bg-purple-600", "text-white", "font-medium");
+            b.classList.remove("bg-lime-500", "text-black", "font-bold");
             b.classList.add("text-slate-400");
           });
-          btn.classList.add("bg-purple-600", "text-white", "font-medium");
+          btn.classList.add("bg-lime-500", "text-black", "font-bold");
           btn.classList.remove("text-slate-400");
           currentFilter = btn.getAttribute("data-filter");
           renderBookingsTable();

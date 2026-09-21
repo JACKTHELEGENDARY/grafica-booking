@@ -1,4 +1,4 @@
-﻿// Logica Amministratore / Grafico
+// Logica Amministratore / Grafico
 let adminToken = localStorage.getItem("admin_pin") || "";
 let adminBookings = [];
 let adminFilter = "all";
@@ -165,7 +165,7 @@ function renderAdminList() {
 
   let filtered = adminBookings.filter(b => {
     const matchesFilter = (adminFilter === "all") || (b.status === adminFilter);
-    const searchTarget = `${b.id} ${b.clientName} ${b.workType} ${b.email} ${b.phone} ${b.description}`.toLowerCase();
+    const searchTarget = `${b.id} ${b.clientName} ${b.nickname || ''} ${b.workType} ${b.email} ${b.phone} ${b.description}`.toLowerCase();
     const matchesSearch = !adminSearch || searchTarget.includes(adminSearch);
     return matchesFilter && matchesSearch;
   });
@@ -188,7 +188,7 @@ function renderAdminList() {
     });
 
     const cleanPhone = (b.phone || "").replace(/[^0-9]/g, "");
-    const waChatUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Ciao ${b.clientName}, ti contatto in merito alla tua richiesta grafica #${b.id} (${b.workType}).`)}`;
+    const waChatUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Ciao ${b.clientName} (@${b.nickname || b.publicName}), ti contatto in merito alla tua richiesta grafica #${b.id} (${b.workType}).`)}`;
 
     // Badge stato
     let badgeHtml = "";
@@ -211,7 +211,10 @@ function renderAdminList() {
             </span>
             <div>
               <h3 class="font-heading font-bold text-base text-white flex items-center gap-2">
-                ${escapeHtml(b.clientName)}
+                <span>${escapeHtml(b.clientName)}</span>
+                <span class="text-xs font-normal text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-500/30">
+                  Nick pubblico: @${escapeHtml(b.nickname || b.publicName)}
+                </span>
               </h3>
               <span class="text-[11px] text-slate-400">Ricevuta il ${dateFormatted}</span>
             </div>
@@ -511,3 +514,133 @@ function escapeHtml(string) {
   };
   return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
+
+
+  // ==========================================
+  // GESTIONE VETRINA SHOWCASE (ADMIN)
+  // ==========================================
+  const btnOpenShowcase = document.getElementById("btnOpenShowcase");
+  const btnCloseShowcase = document.getElementById("btnCloseShowcase");
+  const showcaseModal = document.getElementById("showcaseModal");
+  const formAddShowcase = document.getElementById("formAddShowcase");
+  const shFileInput = document.getElementById("shFileInput");
+  const shImageUrl = document.getElementById("shImageUrl");
+
+  if (btnOpenShowcase) {
+    btnOpenShowcase.addEventListener("click", () => {
+      if (showcaseModal) showcaseModal.classList.remove("hidden");
+      loadAdminShowcase();
+      if (window.lucide) lucide.createIcons();
+    });
+  }
+
+  if (btnCloseShowcase) {
+    btnCloseShowcase.addEventListener("click", () => {
+      if (showcaseModal) showcaseModal.classList.add("hidden");
+    });
+  }
+
+  // Upload file immagine locale in base64
+  if (shFileInput) {
+    shFileInput.addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        if (shImageUrl) shImageUrl.value = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Invio nuova creazione
+  if (formAddShowcase) {
+    formAddShowcase.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("btnSubmitShowcase");
+      if (btn) btn.disabled = true;
+
+      const payload = {
+        title: document.getElementById("shTitle").value.trim(),
+        category: document.getElementById("shCategory").value,
+        imageUrl: document.getElementById("shImageUrl").value.trim(),
+        tag: document.getElementById("shTag").value.trim(),
+        description: document.getElementById("shDescription").value.trim()
+      };
+
+      try {
+        const res = await fetch("/api/admin/showcase", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + adminToken
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+
+        alert("Creazione pubblicata con successo nella vetrina!");
+        formAddShowcase.reset();
+        loadAdminShowcase();
+      } catch (err) {
+        alert("Errore pubblicazione: " + err.message);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+  }
+
+  async function loadAdminShowcase() {
+    const listEl = document.getElementById("adminShowcaseList");
+    if (!listEl) return;
+
+    try {
+      const res = await fetch("/api/public/showcase");
+      const items = await res.json();
+
+      if (!items || items.length === 0) {
+        listEl.innerHTML = '<div class="text-center py-6 text-slate-500 text-xs">Nessuna creazione in vetrina. Aggiungine una sopra!</div>';
+        return;
+      }
+
+      listEl.innerHTML = items.map(item => {
+        return (
+          '<div class="flex items-center justify-between p-3 rounded-xl bg-slate-950/70 border border-white/10 hover:border-lime-500/30 transition gap-3">' +
+            '<div class="flex items-center gap-3 min-w-0">' +
+              '<div class="w-12 h-12 rounded-lg overflow-hidden bg-black shrink-0 border border-white/10">' +
+                '<img src="' + escapeHtml(item.imageUrl) + '" alt="" class="w-full h-full object-cover">' +
+              '</div>' +
+              '<div class="min-w-0">' +
+                '<h5 class="text-xs font-bold text-white truncate">' + escapeHtml(item.title) + '</h5>' +
+                '<span class="text-[10px] text-lime-400 font-semibold">' + escapeHtml(item.category) + '</span>' +
+                (item.tag ? ' <span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded">' + escapeHtml(item.tag) + '</span>' : '') +
+              '</div>' +
+            '</div>' +
+            '<button onclick="deleteShowcaseItem(\'' + item.id + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-red-300 bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 transition shrink-0">' +
+              'Elimina' +
+            '</button>' +
+          '</div>'
+        );
+      }).join("");
+
+      if (window.lucide) lucide.createIcons();
+    } catch (e) {
+      listEl.innerHTML = '<div class="text-red-400 text-xs">Errore caricamento creazioni: ' + e.message + '</div>';
+    }
+  }
+
+  window.deleteShowcaseItem = async function(id) {
+    if (!confirm("Sei sicuro di voler rimuovere questa creazione dalla vetrina?")) return;
+    try {
+      const res = await fetch("/api/admin/showcase/" + id, {
+        method: "DELETE",
+        headers: { "Authorization": "Bearer " + adminToken }
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      loadAdminShowcase();
+    } catch (e) {
+      alert("Errore eliminazione: " + e.message);
+    }
+  };

@@ -27,6 +27,10 @@ const CONFIG_FILE = fs.existsSync(path.join(__dirname, "data", "config.json"))
   ? path.join(__dirname, "data", "config.json")
   : (fs.existsSync(path.join(__dirname, "config.json")) ? path.join(__dirname, "config.json") : path.join(__dirname, "data", "config.json"));
 
+const SHOWCASE_FILE = fs.existsSync(path.join(__dirname, "data", "showcase.json"))
+  ? path.join(__dirname, "data", "showcase.json")
+  : (fs.existsSync(path.join(__dirname, "showcase.json")) ? path.join(__dirname, "showcase.json") : path.join(__dirname, "data", "showcase.json"));
+
 // Helper: Leggi/Scrivi JSON
 function readJson(filePath, defaultValue) {
   try {
@@ -57,7 +61,7 @@ function writeJson(filePath, data) {
 function getConfig() {
   const fileConfig = readJson(CONFIG_FILE, {});
   return {
-    studioName: fileConfig.studioName || process.env.STUDIO_NAME || "Creative Design Studio",
+    studioName: fileConfig.studioName || process.env.STUDIO_NAME || "JL Graphic Studio",
     designerName: fileConfig.designerName || process.env.DESIGNER_NAME || "Graphic Designer",
     adminPin: fileConfig.adminPin || process.env.ADMIN_PIN || "admin123",
     whatsappNumber: fileConfig.whatsappNumber || process.env.WHATSAPP_NUMBER || "393400000000",
@@ -231,7 +235,12 @@ app.get("/api/public/info", (req, res) => {
   });
 });
 
-// LISTA PUBBLICA: Mostra SOLO la lista delle persone e lo stato (Rosso/Giallo/Verde)
+// VETRINA SHOWCASE PUBBLICA: Ultime Creazioni & Lavori Realizzati
+app.get("/api/public/showcase", (req, res) => {
+  const showcase = readJson(SHOWCASE_FILE, []);
+  res.json(showcase);
+});
+
 // LISTA PUBBLICA: Mostra SOLO la lista delle persone (tramite Nickname pubblico) e lo stato (Rosso/Giallo/Verde)
 // OCCULTA TOTALMENTE il nome reale, tipo del lavoro, dettagli, email, budget, etc.
 app.get("/api/public/bookings", (req, res) => {
@@ -527,6 +536,69 @@ app.post("/api/admin/test-notification", authMiddleware, async (req, res) => {
   }
 
   res.status(400).json({ error: "Tipo di test non valido (email o whatsapp)" });
+});
+
+// ==========================================
+// GESTIONE VETRINA & CREAZIONI (ADMIN)
+// ==========================================
+
+// Aggiungi creazione nella vetrina pubblica
+app.post("/api/admin/showcase", authMiddleware, (req, res) => {
+  const { title, category, description, imageUrl, tag } = req.body;
+  if (!title || !imageUrl) {
+    return res.status(400).json({ error: "Titolo e Immagine sono obbligatori per pubblicare la creazione." });
+  }
+
+  const showcase = readJson(SHOWCASE_FILE, []);
+  const newItem = {
+    id: "CW-" + Math.floor(100 + Math.random() * 900),
+    title: title.trim(),
+    category: (category || "Grafica Personalizzata").trim(),
+    description: (description || "").trim(),
+    imageUrl: imageUrl.trim(),
+    tag: (tag || "✨ NUOVO").trim(),
+    createdAt: new Date().toISOString()
+  };
+
+  showcase.unshift(newItem);
+  writeJson(SHOWCASE_FILE, showcase);
+  res.status(201).json({ success: true, item: newItem, message: "Creazione pubblicata con successo nella vetrina!" });
+});
+
+// Modifica creazione esistente
+app.put("/api/admin/showcase/:id", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const { title, category, description, imageUrl, tag } = req.body;
+
+  const showcase = readJson(SHOWCASE_FILE, []);
+  const index = showcase.findIndex(item => item.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: "Creazione non trovata." });
+  }
+
+  if (title !== undefined) showcase[index].title = title.trim();
+  if (category !== undefined) showcase[index].category = category.trim();
+  if (description !== undefined) showcase[index].description = description.trim();
+  if (imageUrl !== undefined) showcase[index].imageUrl = imageUrl.trim();
+  if (tag !== undefined) showcase[index].tag = tag.trim();
+
+  writeJson(SHOWCASE_FILE, showcase);
+  res.json({ success: true, item: showcase[index], message: "Creazione aggiornata!" });
+});
+
+// Elimina creazione dalla vetrina
+app.delete("/api/admin/showcase/:id", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  let showcase = readJson(SHOWCASE_FILE, []);
+  const initialLength = showcase.length;
+  showcase = showcase.filter(item => item.id !== id);
+
+  if (showcase.length === initialLength) {
+    return res.status(404).json({ error: "Creazione non trovata." });
+  }
+
+  writeJson(SHOWCASE_FILE, showcase);
+  res.json({ success: true, message: "Creazione rimossa dalla vetrina con successo." });
 });
 
 // Avvio Server

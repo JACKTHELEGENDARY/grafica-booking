@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prenotazioni & Commissioni Grafiche</title>
+  <title>JL Graphic Studio • Esports, Gaming & Brand Identity</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -11,35 +12,57 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+<body class="bg-[#05080c] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-lime-500 selection:text-black">
 
   <!-- NAVBAR -->
-  <header class="border-b border-white/10 bg-slate-950/70 backdrop-blur-md sticky top-0 z-40">
+  <header class="border-b border-lime-500/20 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 shadow-lg shadow-black/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 via-indigo-500 to-cyan-400 p-0.5 shadow-lg shadow-purple-500/20">
-          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-            <i data-lucide="palette" class="w-6 h-6 text-purple-400"></i>
-          </div>
-        </div>
+      
+      <!-- LOGO & BRAND IDENTITÀ JL -->
+      <div class="flex items-center space-x-3.5">
+        <a href="#" class="relative w-12 h-12 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-lime-400 via-emerald-500 to-green-600 shadow-lg shadow-lime-500/30 shrink-0 transform hover:scale-105 transition">
+          <img src="images/logo.jpg" alt="JL Graphic Studio Logo" class="w-full h-full object-cover rounded-[10px]">
+        </a>
         <div>
-          <h1 id="brandStudioName" class="font-heading font-bold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2">
-            Studio Grafico
-            <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-normal border border-purple-500/30">Creative</span>
+          <h1 id="brandStudioName" class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2">
+            <span>JL Graphic Studio</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-lime-500/20 text-lime-300 font-bold border border-lime-500/40 uppercase tracking-widest shadow-sm">
+              ESPORTS
+            </span>
           </h1>
-          <p id="brandDesignerName" class="text-xs text-slate-400">Commissioni & Grafica Personalizzata</p>
+          <p id="brandDesignerName" data-i18n="brandSubtitle" class="text-xs text-slate-400">Esports, Gaming & Brand Identity ad Alto Impatto</p>
         </div>
       </div>
 
-      <!-- Azioni Nav -->
-      <div class="flex items-center space-x-3">
-        <a href="#tabella-lavori" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition">
-          <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span>Vedi Coda Lavori</span>
+      <!-- AZIONI NAV & SELETTORE LINGUA -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        
+        <!-- SELETTORE LINGUA (IT / EN / ES) -->
+        <div class="flex items-center bg-slate-900/90 border border-lime-500/20 rounded-lg p-0.5 shadow-inner">
+          <button type="button" onclick="setLanguage('it')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition bg-lime-500 text-black font-bold shadow-sm" data-lang="it" title="Italiano">
+            <span>🇮🇹</span> <span class="hidden sm:inline">IT</span>
+          </button>
+          <button type="button" onclick="setLanguage('en')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="en" title="English">
+            <span>🇬🇧</span> <span class="hidden sm:inline">EN</span>
+          </button>
+          <button type="button" onclick="setLanguage('es')" class="lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white" data-lang="es" title="Español">
+            <span>🇪🇸</span> <span class="hidden sm:inline">ES</span>
+          </button>
+        </div>
+
+        <a href="#vetrina" class="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-lime-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-lime-500/30 transition">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-lime-400"></i>
+          <span data-i18n="showcaseNav">Vetrina Creazioni</span>
         </a>
-        <a href="admin.html" class="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-purple-300 bg-purple-950/50 hover:bg-purple-900/60 border border-purple-500/30 hover:border-purple-400 transition shadow-sm">
-          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-          <span>Area Grafico</span>
+
+        <a href="#tabella-lavori" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 transition">
+          <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span data-i18n="viewQueue">Vedi Coda Lavori</span>
+        </a>
+
+        <a href="admin.html" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-lime-300 bg-lime-950/40 hover:bg-lime-900/50 border border-lime-500/40 hover:border-lime-400 transition shadow-sm">
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+          <span data-i18n="adminArea">Area Grafico</span>
         </a>
       </div>
     </div>
@@ -48,68 +71,155 @@
   <!-- MAIN CONTENT -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-1">
 
-    <!-- HERO & STATO ATTUALE -->
-    <div class="text-center max-w-3xl mx-auto mb-14">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-medium mb-4">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>Prenotazioni Aperte • Notifica Immediata Email & WhatsApp</span>
+    <!-- HERO SECTION AD ALTO IMPATTO CON LOGO JL -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      
+      <!-- LOGO BADGE IN HERO CON GLOW VERDE NEON -->
+      <div class="flex justify-center mb-6">
+        <div class="relative group cursor-pointer" onclick="document.getElementById('vetrina').scrollIntoView({behavior: 'smooth'})">
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-lime-400 via-emerald-500 to-green-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500"></div>
+          <div class="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-lime-400/80 bg-black shadow-2xl">
+            <img src="images/logo.jpg" alt="JL Brand Logo" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+          </div>
+        </div>
       </div>
+
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-300 text-xs font-semibold mb-4 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-lime-400 animate-ping"></span>
+        <span data-i18n="openBadge">JL CREATIVE STUDIO • PRENOTAZIONI APERTE</span>
+      </div>
+
       <h2 class="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-        Prenota il tuo <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">Progetto Grafico</span>
+        <span data-i18n="heroTitlePrefix">Prenota il tuo</span> 
+        <span data-i18n="heroTitleHighlight" class="neon-text bg-gradient-to-r from-lime-300 via-emerald-400 to-green-300 bg-clip-text text-transparent">Progetto Grafico</span>
       </h2>
-      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-        Compila il modulo per prenotare il tuo slot. Monitora lo stato di avanzamento in tempo reale nella lista pubblica qui sotto!
+      
+      <p data-i18n="heroDesc" class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+        Compila il modulo per prenotare il tuo slot. Monitora lo stato di avanzamento in tempo reale nella lista pubblica e scopri le ultime creazioni nella vetrina!
       </p>
 
       <!-- SEMAFORO STATO DEI LAVORI (LEGENDA VELOCE) -->
       <div class="mt-8 grid grid-cols-3 gap-3 max-w-xl mx-auto">
         <div class="p-3 rounded-xl bg-slate-900/80 border border-red-500/30 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-aspetto animate-pulse-dot"></span>
-          <span class="text-slate-300">Rosso: <strong class="text-red-400">Aspetto</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendRed">Rosso:</span> <strong id="legendTxtAspetto" class="text-red-400">Aspetto</strong></span>
         </div>
         <div class="p-3 rounded-xl bg-slate-900/80 border border-amber-500/30 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-occupato animate-pulse-dot"></span>
-          <span class="text-slate-300">Giallo: <strong class="text-amber-400">Occupato</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendYellow">Giallo:</span> <strong id="legendTxtOccupato" class="text-amber-400">Occupato</strong></span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-emerald-500/30 flex items-center justify-center gap-2 text-xs font-medium">
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-lime-500/40 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-libero animate-pulse-dot"></span>
-          <span class="text-slate-300">Verde: <strong class="text-emerald-400">Libero</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendGreen">Verde:</span> <strong id="legendTxtLibero" class="text-lime-400">Libero</strong></span>
         </div>
       </div>
     </div>
 
-    <!-- SEZIONE GRID: FORM PRENOTAZIONE (A SINISTRA/IN ALTO) + VANTAGGI -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+    <!-- ============================================================= -->
+    <!-- SEZIONE SHOWCASE / ULTIME CREAZIONI & VETRINA PUBBLICITARIA -->
+    <!-- ============================================================= -->
+    <section id="vetrina" class="mb-20 scroll-mt-24">
+      <div class="glass-panel p-6 sm:p-8 border border-lime-500/30 shadow-2xl relative overflow-hidden">
+        
+        <!-- Sfondo con glow verde tenue -->
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-lime-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 relative z-10">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-400 text-xs font-semibold uppercase tracking-wider mb-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span data-i18n="showcaseBadge">Vetrina Esclusiva • Ultime Creazioni</span>
+            </div>
+            <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <span data-i18n="showcaseTitle">Ultime Creazioni & Lavori Realizzati</span>
+            </h3>
+            <p data-i18n="showcaseSubtitle" class="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
+              Dai loghi esports alle grafiche per streamer e merchandise: scopri gli ultimi progetti d'impatto firmati JL Graphic.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="#prenota-ora" class="btn-neon-green px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span data-i18n="showcaseCta">Prenota una Grafica Simile</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- GRIGLIA CREAZIONI POPOLATA DINAMICAMENTE DA API -->
+        <div id="showcaseGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+          <!-- Inserito dinamicamente da app.js -->
+          <div class="col-span-full text-center py-10 text-slate-500 text-xs">
+            Caricamento creazioni in corso...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- SEZIONE GRID: FORM PRENOTAZIONE (A SINISTRA) + INFO PRIVACY -->
+    <!-- ============================================================= -->
+    <div id="prenota-ora" class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 scroll-mt-24">
       
       <!-- FORM PRENOTAZIONE -->
-      <div class="lg:col-span-7 glass-panel p-6 sm:p-8">
-        <div class="flex items-center justify-between pb-5 mb-6 border-b border-white/10">
+      <div class="lg:col-span-7 glass-panel p-6 sm:p-8 border border-lime-500/20">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
           <div>
-            <h3 class="font-heading text-xl font-bold text-white flex items-center gap-2">
-              <i data-lucide="send" class="w-5 h-5 text-purple-400"></i>
+            <h3 data-i18n="formTitle" class="font-heading text-xl font-bold text-white flex items-center gap-2">
               Richiedi la tua Prenotazione
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">I dettagli specifici del lavoro rimarranno 100% privati.</p>
+            <p data-i18n="formSubtitle" class="text-xs text-slate-400 mt-0.5">I dettagli specifici del lavoro rimarranno 100% privati.</p>
           </div>
-          <span class="text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-white/5">Step 1 di 1</span>
+          <span data-i18n="stepBadge" class="text-[11px] font-semibold text-lime-400 bg-lime-500/10 px-2.5 py-1 rounded-full border border-lime-500/30">
+            Step 1 di 1
+          </span>
         </div>
 
         <form id="bookingForm" class="space-y-4">
-          <!-- Nome e Cognome (Mostrato pubblicamente solo nome + iniziale cognome) -->
+          <!-- Nome Reale (RISERVATO SOLO ALL'AMMINISTRATORE) -->
           <div>
-            <label for="clientName" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-              Nome e Cognome / Nickname <span class="text-red-400">*</span>
-            </label>
+            <div class="flex items-center justify-between mb-1">
+              <label for="clientName" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                <span data-i18n="clientNameLabel">Nome e Cognome Reale</span> <span class="text-red-400">*</span>
+              </label>
+              <span class="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                <i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i>
+                <span data-i18n="realNamePrivateBadge">Solo Amministratore</span>
+              </span>
+            </div>
             <div class="relative">
               <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                <i data-lucide="user" class="w-4 h-4"></i>
+                <i data-lucide="user-check" class="w-4 h-4"></i>
               </span>
-              <input type="text" id="clientName" required placeholder="Es. Marco Rossi o @designer_fan" 
+              <input type="text" id="clientName" required data-i18n-placeholder="clientNamePlaceholder" placeholder="Es. Marco Rossi" 
                 class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
             </div>
             <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <i data-lucide="eye-off" class="w-3 h-3 text-slate-400"></i>
-              Nella lista pubblica comparirà in forma protetta (es. <em>"Marco R."</em>)
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-lime-400 shrink-0"></i>
+              <span data-i18n="clientNameHint">Privato: visibile ESCLUSIVAMENTE all'amministratore per fini contrattuali (NON mostrato sul sito).</span>
+            </p>
+          </div>
+
+          <!-- Nickname Pubblico (OBBLIGATORIO - VISIBILE SUL SITO AL POSTO DEL NOME) -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label for="nickname" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                <span data-i18n="nicknameLabel">Nickname Pubblico</span> <span class="text-red-400">*</span>
+              </label>
+              <span class="inline-flex items-center gap-1 text-[11px] font-medium text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/20">
+                <i data-lucide="globe" class="w-3 h-3 text-lime-400"></i>
+                <span data-i18n="nicknamePublicBadge">Visibile sul Sito</span>
+              </span>
+            </div>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                <i data-lucide="at-sign" class="w-4 h-4 text-lime-400"></i>
+              </span>
+              <input type="text" id="nickname" required data-i18n-placeholder="nicknamePlaceholder" placeholder="Es. ShadowArt99 o @fantastico" 
+                class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+              <i data-lucide="eye" class="w-3.5 h-3.5 text-lime-400 shrink-0"></i>
+              <span data-i18n="nicknameHint">Obbligatorio: questo è l'UNICO nome che comparirà pubblicamente nella coda dei lavori sul sito.</span>
             </p>
           </div>
 
@@ -117,30 +227,30 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label for="phone" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Cellulare / WhatsApp <span class="text-red-400">*</span>
+                <span data-i18n="phoneLabel">Cellulare / WhatsApp</span> <span class="text-red-400">*</span>
               </label>
               <div class="relative">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
                   <i data-lucide="phone" class="w-4 h-4"></i>
                 </span>
-                <input type="tel" id="phone" required placeholder="Es. +39 340 1234567" 
+                <input type="tel" id="phone" required data-i18n-placeholder="phonePlaceholder" placeholder="Es. +39 340 1234567" 
                   class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
               </div>
-              <span class="text-[10px] text-purple-300/70">Per conferme e bozze via WhatsApp</span>
+              <span data-i18n="phoneHint" class="text-[10px] text-lime-300/80">Per conferme e bozze via WhatsApp</span>
             </div>
 
             <div>
               <label for="email" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Email
+                <span data-i18n="emailLabel">Email</span>
               </label>
               <div class="relative">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
                   <i data-lucide="mail" class="w-4 h-4"></i>
                 </span>
-                <input type="email" id="email" placeholder="nome@esempio.com" 
+                <input type="email" id="email" data-i18n-placeholder="emailPlaceholder" placeholder="nome@esempio.com" 
                   class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
               </div>
-              <span class="text-[10px] text-slate-400">Per invio file definitivi in alta risoluzione</span>
+              <span data-i18n="emailHint" class="text-[10px] text-slate-400">Per invio file definitivi in alta risoluzione</span>
             </div>
           </div>
 
@@ -148,97 +258,112 @@
           <div>
             <div class="flex items-center justify-between mb-1">
               <label for="workType" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                Tipo di Lavoro Grafico <span class="text-red-400">*</span>
+                <span data-i18n="workTypeLabel">Tipo di Lavoro Grafico</span> <span class="text-red-400">*</span>
               </label>
               <span class="inline-flex items-center gap-1 text-[11px] font-medium text-amber-400/90 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                <i data-lucide="lock" class="w-3 h-3"></i> Nascosto al pubblico (Visibile solo al grafico)
+                <i data-lucide="lock" class="w-3 h-3"></i> <span data-i18n="workTypePrivateBadge">Nascosto al pubblico (Visibile solo al grafico)</span>
               </span>
             </div>
-            <select id="workType" required class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm bg-slate-900">
-              <option value="" disabled selected>Seleziona la tipologia di lavoro...</option>
-              <option value="Logo & Brand Identity">🎨 Logo & Brand Identity Completa</option>
-              <option value="Grafiche Social / Post / Stories">📱 Grafiche Social (Post, Stories, Carousel)</option>
-              <option value="Banner Twitch / YouTube / Header">🎮 Banner Twitch / YouTube / Header Social</option>
-              <option value="Volantino / Locandina / Flyer">📄 Volantino / Flyer / Locandina Eventi</option>
-              <option value="Grafica per Abbigliamento / Merch">👕 Grafica T-Shirt / Merchandising</option>
-              <option value="Illustrazione Personalizzata">✏️ Illustrazione Digitale Personalizzata</option>
-              <option value="Altro Lavoro Grafico">✨ Altro (da specificare nella descrizione)</option>
+            <select id="workType" required class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm bg-slate-900 text-slate-100">
+              <option value="" disabled selected data-i18n="workTypeSelect">Seleziona la tipologia di lavoro...</option>
+              <option value="Logo & Brand Identity" data-i18n="workTypeLogo">🎨 Logo & Brand Identity Completa</option>
+              <option value="Grafiche Social / Post / Stories" data-i18n="workTypeSocial">📱 Grafiche Social (Post, Stories, Carousel)</option>
+              <option value="Banner Twitch / YouTube / Header" data-i18n="workTypeBanner">🎮 Banner Twitch / YouTube / Header Social</option>
+              <option value="Volantino / Locandina / Flyer" data-i18n="workTypeFlyer">📄 Volantino / Flyer / Locandina Eventi</option>
+              <option value="Grafica per Abbigliamento / Merch" data-i18n="workTypeMerch">👕 Grafica per Abbigliamento / Merch</option>
+              <option value="Illustrazione Personalizzata" data-i18n="workTypeIllustration">✏️ Illustrazione Digitale Personalizzata</option>
+              <option value="Altro Lavoro Grafico" data-i18n="workTypeOther">✨ Altro (da specificare nella descrizione)</option>
             </select>
           </div>
 
-          <!-- Dettagli del lavoro (SEGRETO - OCCULTATO AL PUBBLICO) -->
+          <!-- Dettagli del lavoro -->
           <div>
             <label for="description" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-              Descrizione & Dettagli del Lavoro <span class="text-red-400">*</span>
+              <span data-i18n="descLabel">Descrizione & Dettagli del Lavoro</span> <span class="text-red-400">*</span>
             </label>
-            <textarea id="description" rows="3" required placeholder="Spiega cosa desideri realizzare: colori preferiti, testi, riferimenti di stile, formati necessari..." 
+            <textarea id="description" rows="3" required data-i18n-placeholder="descPlaceholder" placeholder="Spiega cosa desideri realizzare: colori preferiti, testi, riferimenti di stile, formati necessari..." 
               class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm placeholder-slate-500"></textarea>
           </div>
 
-          <!-- Budget e Tempistiche (Opzionali) -->
+          <!-- Budget e Tempistiche -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label for="budget" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Budget Indicativo
+                <span data-i18n="budgetLabel">Budget Indicativo</span>
               </label>
               <div class="relative">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
                   <i data-lucide="euro" class="w-4 h-4"></i>
                 </span>
-                <input type="text" id="budget" placeholder="Es. 150€ o Da concordare" 
+                <input type="text" id="budget" data-i18n-placeholder="budgetPlaceholder" placeholder="Es. 150€ o Da concordare" 
                   class="glass-input w-full pl-9 pr-4 py-2.5 rounded-lg text-sm placeholder-slate-500">
               </div>
             </div>
 
             <div>
               <label for="deadline" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Data Consegna Desiderata
+                <span data-i18n="deadlineLabel">Data Consegna Desiderata</span>
               </label>
               <input type="date" id="deadline" 
                 class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm">
             </div>
           </div>
 
+          <!-- CONSENSO PRIVACY & OPZIONE ANONIMATO (GDPR UE 2016/679 & CCPA USA) -->
+          <div class="pt-2 space-y-2.5">
+            <label class="flex items-start gap-2.5 cursor-pointer select-none">
+              <input type="checkbox" id="privacyConsent" required class="mt-0.5 rounded bg-slate-800 border-white/20 text-lime-500 focus:ring-lime-500 w-4 h-4 cursor-pointer shrink-0">
+              <span id="privacyConsentLabelText" class="text-slate-300 text-xs leading-relaxed">
+                Dichiaro di aver letto l'<a href="javascript:void(0)" onclick="openLegalModal('privacy')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Informativa sulla Privacy (GDPR & CCPA)</a> e acconsento al trattamento dei dati personali per l'elaborazione del preventivo. <span class="text-red-400 font-bold">*</span>
+              </span>
+            </label>
+            <label class="flex items-start gap-2.5 cursor-pointer select-none">
+              <input type="checkbox" id="anonymousQueue" class="mt-0.5 rounded bg-slate-800 border-white/20 text-lime-500 focus:ring-lime-500 w-4 h-4 cursor-pointer shrink-0">
+              <span id="anonymousQueueLabelText" class="text-slate-400 text-xs leading-relaxed">
+                🔒 <strong>Massima Riservatezza</strong>: Mantieni anche il mio nickname anonimo ("Riservato #BK-XXXX") nella coda pubblica dei lavori.
+              </span>
+            </label>
+          </div>
+
           <!-- Pulsante Submit -->
           <div class="pt-3">
-            <button type="submit" id="btnSubmit" class="w-full py-3.5 px-6 rounded-xl font-heading font-bold text-sm tracking-wide text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-400 transition-all shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 group">
-              <i data-lucide="check-circle-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-              <span>INVIA RICHIESTA & ENTRA IN CODA</span>
+            <button type="submit" id="btnSubmit" class="btn-neon-green w-full py-3.5 px-6 rounded-xl font-heading font-extrabold text-sm tracking-wide text-black flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span id="btnSubmitText" data-i18n="submitBtn">INVIA RICHIESTA & ENTRA IN CODA</span>
             </button>
-            <p class="text-center text-[11px] text-slate-500 mt-2">
-              Riceverai notifica immediata e potrai contattare il grafico subito su WhatsApp.
+            <p data-i18n="submitHint" class="text-center text-[11px] text-slate-400 mt-2">
+              Riceverai conferma immediata e potrai chattare direttamente con il grafico su WhatsApp.
             </p>
           </div>
         </form>
       </div>
 
-      <!-- COLONNA DESTRA: VANTAGGI, COME FUNZIONA & CARD PRIVACY -->
-      <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
-        <!-- Box Notifica Diretta -->
-        <div class="glass-panel p-6 border-l-4 border-l-emerald-500">
+      <!-- COLONNA DESTRA: VANTAGGI & INFO PRIVACY -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <div class="glass-panel p-6 border-l-4 border-l-lime-400">
           <div class="flex items-start gap-4">
-            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <i data-lucide="message-square" class="w-6 h-6"></i>
+            <div class="p-3 rounded-xl bg-lime-500/20 text-lime-400 shrink-0">
+              <i data-lucide="zap" class="w-6 h-6"></i>
             </div>
             <div>
-              <h4 class="font-heading font-bold text-base text-white">Notifica Diretta al Grafico</h4>
-              <p class="text-xs text-slate-400 mt-1">
-                Ogni richiesta inviata genera istantaneamente un avviso via <strong>Email</strong> e permette l'invio diretto su <strong>WhatsApp</strong>, così la tua commissione viene presa in carico rapidamente!
+              <h4 data-i18n="feature1Title" class="font-heading font-bold text-base text-white">Notifica Diretta al Grafico</h4>
+              <p data-i18n="feature1Desc" class="text-xs text-slate-400 mt-1">
+                Ogni richiesta genera istantaneamente un avviso per email e permette l'invio immediato su WhatsApp con tutti i dettagli per iniziare subito!
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Box Privacy Garantita -->
-        <div class="glass-panel p-6 border-l-4 border-l-purple-500">
+        <div class="glass-panel p-6 border-l-4 border-l-emerald-500">
           <div class="flex items-start gap-4">
-            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <div class="p-3 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
               <i data-lucide="shield-check" class="w-6 h-6"></i>
             </div>
             <div>
-              <h4 class="font-heading font-bold text-base text-white">Privacy 100% Blindata</h4>
-              <p class="text-xs text-slate-400 mt-1">
-                I visitatori del sito possono vedere <strong>solamente</strong> il tuo nome e lo stato del lavoro. Il tipo di grafica, la descrizione, i prezzi e i tuoi contatti sono rigorosamente <strong>visibili solo al grafico</strong>!
+              <h4 data-i18n="feature2Title" class="font-heading font-bold text-base text-white">Privacy 100% Blindata</h4>
+              <p data-i18n="feature2Desc" class="text-xs text-slate-400 mt-1">
+                I visitatori del sito possono vedere solamente il tuo nickname pubblico e lo stato del lavoro. Il tuo vero nome, la descrizione, i prezzi e i tuoi contatti sono rigorosamente visibili solo al grafico!
               </p>
             </div>
           </div>
@@ -246,70 +371,64 @@
 
         <!-- Box Come Funzionano gli Stati -->
         <div class="glass-panel p-6">
-          <h4 class="font-heading font-bold text-sm text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <i data-lucide="info" class="w-4 h-4 text-cyan-400"></i> Come funzionano i 3 stati
+          <h4 data-i18n="feature3Title" class="font-heading font-bold text-sm text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-lime-400"></i> Come funzionano i 3 stati
           </h4>
           <ul class="space-y-3 text-xs text-slate-300">
             <li class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full dot-aspetto shrink-0"></span>
-              <span><strong class="text-red-400">🔴 Aspetto:</strong> La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.</span>
+              <span id="featDescAspetto" data-i18n="feature3Aspetto">🔴 Aspetto: La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.</span>
             </li>
             <li class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full dot-occupato shrink-0"></span>
-              <span><strong class="text-amber-400">🟡 Occupato:</strong> Il grafico ha preso in carico la commissione e sta lavorando alle bozze.</span>
+              <span id="featDescOccupato" data-i18n="feature3Occupato">🟡 Occupato: Il grafico ha preso in carico la commissione e sta lavorando alle bozze.</span>
             </li>
             <li class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full dot-libero shrink-0"></span>
-              <span><strong class="text-emerald-400">🟢 Libero:</strong> Lavoro completato, file consegnati e slot liberato per nuove commissioni!</span>
+              <span id="featDescLibero" data-i18n="feature3Libero">🟢 Libero: Lavoro completato, file consegnati e slot liberato per nuove commissioni!</span>
             </li>
           </ul>
         </div>
       </div>
     </div>
 
+    <!-- ============================================================= -->
     <!-- SEZIONE 2: TABELLA PUBBLICA PRENOTAZIONI -->
-    <section id="tabella-lavori" class="glass-panel p-6 sm:p-8">
+    <!-- ============================================================= -->
+    <section id="tabella-lavori" class="glass-panel p-6 sm:p-8 border border-lime-500/20 scroll-mt-24">
       
       <!-- Intestazione Tabella & Contatori -->
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-white/10">
         <div>
           <div class="flex items-center gap-2">
-            <h3 class="font-heading text-xl sm:text-2xl font-bold text-white">
+            <h3 data-i18n="tableTitle" class="font-heading text-xl sm:text-2xl font-bold text-white">
               Lista Prenotazioni & Stato Lavori
             </h3>
-            <span id="bookingsCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span id="bookingsCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-lime-500/20 text-lime-300 border border-lime-500/30">
               0 Richieste
             </span>
           </div>
           <p class="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
-            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>Il tipo di lavoro e i dati sensibili sono <strong>occultati</strong> per garantire riservatezza.</span>
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-lime-400"></i>
+            <span data-i18n="tableConcealNotice">Il tipo di lavoro e i dati sensibili sono occultati per garantire riservatezza.</span>
           </p>
         </div>
 
-        <!-- Filtro per Stato e Ricerca -->
-        <div class="flex flex-wrap items-center gap-2">
-          <!-- Cerca per nome -->
-          <div class="relative">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-slate-500">
-              <i data-lucide="search" class="w-3.5 h-3.5"></i>
-            </span>
-            <input type="text" id="searchInput" placeholder="Cerca persona..." 
-              class="glass-input pl-8 pr-3 py-1.5 rounded-lg text-xs placeholder-slate-500 w-36 sm:w-44">
+        <!-- Controlli Filtri e Ricerca Rapida -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center bg-slate-900/90 border border-white/10 rounded-xl p-1">
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-lime-500 text-black shadow-sm" data-filter="all" data-i18n="filterAll">Tutti</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Aspetto" id="filterLabelAspetto">🔴 Aspetto</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Occupato" id="filterLabelOccupato">🟡 Occupato</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Libero" id="filterLabelLibero">🟢 Libero</button>
           </div>
 
-          <!-- Filtri a pulsante per stato -->
-          <div class="flex items-center rounded-lg bg-slate-900/90 p-1 border border-white/10 text-xs">
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-300 hover:text-white bg-purple-600 text-white font-medium transition" data-filter="all">Tutti</button>
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition flex items-center gap-1" data-filter="Aspetto">
-              <span class="w-2 h-2 rounded-full dot-aspetto"></span> Aspetto
-            </button>
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition flex items-center gap-1" data-filter="Occupato">
-              <span class="w-2 h-2 rounded-full dot-occupato"></span> Occupato
-            </button>
-            <button class="filter-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition flex items-center gap-1" data-filter="Libero">
-              <span class="w-2 h-2 rounded-full dot-libero"></span> Libero
-            </button>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+            </span>
+            <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Cerca codice o nick..." 
+              class="glass-input pl-8 pr-3 py-1.5 rounded-xl text-xs placeholder-slate-500 w-36 sm:w-44">
           </div>
         </div>
       </div>
@@ -319,21 +438,15 @@
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-              <th class="py-3 px-4">Codice</th>
-              <th class="py-3 px-4">Richiedente (Cliente)</th>
-              <th class="py-3 px-4">Data Richiesta</th>
-              <th class="py-3 px-4">Dettagli Lavoro</th>
-              <th class="py-3 px-4 text-center">Stato Lavoro</th>
+              <th data-i18n="thCode" class="py-3 px-4">Codice</th>
+              <th data-i18n="thClient" class="py-3 px-4">Nickname Pubblico</th>
+              <th data-i18n="thDate" class="py-3 px-4">Data Richiesta</th>
+              <th data-i18n="thDetails" class="py-3 px-4">Dettagli Lavoro</th>
+              <th data-i18n="thStatus" class="py-3 px-4 text-center">Stato Lavoro</th>
             </tr>
           </thead>
           <tbody id="publicBookingsTableBody" class="divide-y divide-white/5 text-sm">
             <!-- Popolato dinamicamente da app.js -->
-            <tr>
-              <td colspan="5" class="py-12 text-center text-slate-400">
-                <i data-lucide="loader-2" class="w-6 h-6 animate-spin mx-auto text-purple-400 mb-2"></i>
-                Caricamento prenotazioni in corso...
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -343,68 +456,1126 @@
         <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-3 text-slate-500">
           <i data-lucide="folder-search" class="w-6 h-6"></i>
         </div>
-        <p class="text-sm text-slate-400">Nessuna prenotazione trovata con questi filtri.</p>
+        <p data-i18n="noBookings" class="text-sm text-slate-400">Nessuna prenotazione trovata con questi filtri.</p>
       </div>
     </section>
 
   </main>
 
-  <!-- MODAL SUCCESSO & NOTIFICA WHATSAPP / EMAIL -->
+  <!-- MODAL SUCCESSO PRENOTAZIONE -->
   <div id="successModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-panel max-w-md w-full p-6 sm:p-8 text-center relative border border-purple-500/30 animate-in fade-in zoom-in-95 duration-200">
-      <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/20">
+    <div class="glass-panel max-w-md w-full p-6 sm:p-8 text-center relative border border-lime-500/40 animate-in fade-in zoom-in-95 duration-200">
+      <div class="w-16 h-16 rounded-full bg-lime-500/20 text-lime-400 border border-lime-500/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-lime-500/20">
         <i data-lucide="check" class="w-8 h-8"></i>
       </div>
 
-      <h3 class="font-heading text-2xl font-bold text-white mb-1">Richiesta Inviata!</h3>
+      <h3 data-i18n="modalTitle" class="font-heading text-2xl font-bold text-white mb-1">Richiesta Inviata!</h3>
       <p class="text-xs text-slate-300 mb-4">
-        Il tuo codice prenotazione è <span id="modalBookingId" class="font-mono font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">#BK-0000</span>
+        <span data-i18n="modalSub">Il tuo codice prenotazione è</span> <span id="modalBookingId" class="font-mono font-bold text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded">#BK-0000</span>
       </p>
 
-      <div class="bg-slate-900/90 rounded-xl p-4 mb-5 border border-white/10 text-left space-y-2 text-xs">
+      <div class="p-4 rounded-xl bg-slate-900/90 border border-white/10 text-xs text-left space-y-2 mb-6">
         <div class="flex justify-between">
-          <span class="text-slate-400">Cliente in lista:</span>
-          <span id="modalClientName" class="font-semibold text-white">Marco R.</span>
-        </div>
-        <div class="flex justify-between items-center">
-          <span class="text-slate-400">Stato iniziale:</span>
-          <span class="px-2 py-0.5 rounded-full text-[11px] font-bold badge-aspetto flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full dot-aspetto"></span> 🔴 ASPETTO
-          </span>
+          <span data-i18n="modalClientLabel" class="text-slate-400">Nickname in lista:</span>
+          <span id="modalClientName" class="font-bold text-white">--</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-slate-400">Dettagli lavoro:</span>
-          <span class="text-amber-400/90 flex items-center gap-1">
-            <i data-lucide="lock" class="w-3 h-3"></i> Nascosti al pubblico
-          </span>
+          <span data-i18n="modalStatusLabel" class="text-slate-400">Stato iniziale:</span>
+          <span id="modalStatusText" class="font-semibold text-red-400">🔴 ASPETTO</span>
         </div>
+        <p data-i18n="modalExplanation" class="text-[11px] text-slate-500 pt-2 border-t border-white/10">
+          I dettagli sensibili del tuo progetto non sono visibili pubblicamente nella lista per proteggere la tua privacy.
+        </p>
       </div>
 
-      <!-- Pulsanti Azione WhatsApp & Chiusura -->
       <div class="space-y-2.5">
-        <a id="btnWhatsAppDirect" href="#" target="_blank" class="w-full py-3 px-4 rounded-xl font-heading font-bold text-sm text-white bg-[#25D366] hover:bg-[#20bd5a] transition flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20">
-          <i data-lucide="message-circle" class="w-5 h-5"></i>
-          <span>NOTIFICA IL GRAFICO SU WHATSAPP</span>
+        <a id="btnWhatsAppDirect" href="#" target="_blank" class="w-full py-3 px-4 rounded-xl font-heading font-bold text-xs tracking-wide text-black bg-[#25D366] hover:bg-[#20ba59] transition flex items-center justify-center gap-2 shadow-lg shadow-green-600/30">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span data-i18n="btnChatWa">AVVIA CHAT WHATSAPP CON IL GRAFICO</span>
         </a>
 
-        <button id="btnCloseModal" class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-800 transition">
+        <button type="button" id="btnCloseModal" data-i18n="btnCloseModal" class="w-full py-2.5 px-4 rounded-xl text-xs text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition">
           Chiudi e Torna alla Coda
         </button>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/10 bg-slate-950/80 py-6 mt-16 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>© 2026 Studio Grafico • Piattaforma Gestione Commissioni</p>
-      <div class="flex items-center gap-4">
-        <span class="text-slate-400">Stato: 🔴 Aspetto | 🟡 Occupato | 🟢 Libero</span>
-        <a href="admin.html" class="text-purple-400 hover:text-purple-300 font-medium">Accesso Amministratore</a>
+  <!-- MODAL LIGHTBOX SHOWCASE HD -->
+  <div id="modalShowcase" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-3xl w-full p-4 sm:p-6 border border-lime-500/40 relative max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95">
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+        <div>
+          <span id="lightboxCategory" class="text-[10px] font-bold uppercase tracking-wider text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/30"></span>
+          <h3 id="lightboxTitle" class="font-heading font-bold text-lg text-white mt-1"></h3>
+        </div>
+        <button onclick="closeShowcaseModal()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="relative overflow-hidden rounded-xl max-h-[58vh] flex items-center justify-center bg-black/70 border border-white/10">
+        <img id="lightboxImg" src="" alt="Creation Preview" class="max-h-[56vh] w-auto object-contain rounded-lg shadow-2xl">
+      </div>
+      <div class="pt-4 mt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p id="lightboxDesc" class="text-xs text-slate-300 leading-relaxed"></p>
+        <button onclick="selectShowcaseStyle()" class="btn-neon-green shrink-0 px-4 py-2 rounded-xl text-xs flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span data-i18n="showcaseOrderThis">Voglio questa Grafica!</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) -->
+  <footer class="border-t border-lime-500/20 bg-slate-950/80 py-8 mt-16 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p data-i18n="footerCopyright">© 2026 JL Graphic Studio • Piattaforma Gestione Commissioni</p>
+      
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
+        <a href="javascript:void(0)" onclick="openLegalModal('privacy')" id="footerLinkPrivacy" class="text-slate-400 hover:text-white transition underline font-medium">Informativa Privacy (GDPR & CCPA)</a>
+        <span class="text-slate-700">•</span>
+        <a href="javascript:void(0)" onclick="openLegalModal('terms')" id="footerLinkTerms" class="text-slate-400 hover:text-white transition underline font-medium">Termini di Servizio</a>
+        <span class="text-slate-700">•</span>
+        <a href="javascript:void(0)" onclick="openLegalModal('cookies')" id="footerLinkCookies" class="text-slate-400 hover:text-white transition underline font-medium">Cookie Policy</a>
+        <span class="text-slate-700">•</span>
+        <a href="javascript:void(0)" onclick="openLegalModal('delete')" id="footerLinkDelete" class="text-red-400/90 hover:text-red-300 transition underline font-medium flex items-center gap-1">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Cancella Dati (Art. 17 GDPR)
+        </a>
+        <span class="text-slate-700 hidden sm:inline">•</span>
+        <a href="admin.html" data-i18n="footerAdmin" class="text-lime-400 hover:text-lime-300 font-semibold">Area Grafico</a>
       </div>
     </div>
   </footer>
 
-  <script src="js/app.js"></script>
+  <!-- MODALI LEGALI & BANNER PRIVACY -->
+  
+  <!-- MODAL INFORMATIVA PRIVACY (GDPR & CCPA) -->
+  <div id="modalPrivacy" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-3xl w-full p-6 sm:p-8 my-8 border border-purple-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="legalPrivTitle" class="font-heading font-bold text-lg text-white">Informativa sulla Privacy & Protezione dei Dati</h3>
+            <p class="text-[11px] text-slate-400">Conforme a Regolamento UE 2016/679 (GDPR), D.Lgs. 196/2003 e CCPA / CPRA (USA)</p>
+          </div>
+        </div>
+        <button onclick="closeLegalModal('modalPrivacy')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="legalPrivContent" class="overflow-y-auto pr-2 space-y-4 text-xs leading-relaxed text-slate-300">
+        <!-- Inserito dinamicamente in base alla lingua -->
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeLegalModal('modalPrivacy')" class="px-5 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition">
+          Ho Letto e Compreso
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TERMINI DI SERVIZIO -->
+  <div id="modalTerms" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-3xl w-full p-6 sm:p-8 my-8 border border-cyan-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="legalTermsTitle" class="font-heading font-bold text-lg text-white">Termini e Condizioni di Servizio</h3>
+            <p class="text-[11px] text-slate-400">Condizioni generali per commissioni grafiche e prestazioni creative</p>
+          </div>
+        </div>
+        <button onclick="closeLegalModal('modalTerms')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="legalTermsContent" class="overflow-y-auto pr-2 space-y-4 text-xs leading-relaxed text-slate-300">
+        <!-- Inserito dinamicamente in base alla lingua -->
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeLegalModal('modalTerms')" class="px-5 py-2 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition">
+          Ho Letto e Accetto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL COOKIE & DATI TECNICI -->
+  <div id="modalCookies" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-2xl w-full p-6 sm:p-8 my-8 border border-amber-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-amber-600/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+            <i data-lucide="cookie" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="legalCookieTitle" class="font-heading font-bold text-lg text-white">Informativa Cookie & Memoria Locale</h3>
+            <p class="text-[11px] text-slate-400">Direttiva 2002/58/CE (ePrivacy) e Linee Guida Garante Privacy</p>
+          </div>
+        </div>
+        <button onclick="closeLegalModal('modalCookies')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="legalCookieContent" class="overflow-y-auto pr-2 space-y-4 text-xs leading-relaxed text-slate-300">
+        <!-- Inserito dinamicamente in base alla lingua -->
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeLegalModal('modalCookies')" class="px-5 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white transition">
+          Chiudi Informativa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DIRITTO ALL'OBLIO / CANCELLAZIONE DATI (GDPR ART. 17 & CCPA) -->
+  <div id="modalDeleteData" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-md w-full p-6 sm:p-8 relative border border-red-500/40 animate-in fade-in zoom-in-95">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2 text-red-400 font-bold text-sm">
+          <i data-lucide="user-x" class="w-4 h-4"></i>
+          <span id="txtOblioTitle">Esercizio Diritto all'Oblio (Art. 17 GDPR)</span>
+        </div>
+        <button onclick="closeLegalModal('modalDeleteData')" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <p id="txtOblioDesc" class="text-xs text-slate-300 mb-4 leading-relaxed">
+        Ai sensi del GDPR UE e delle leggi USA, puoi richiedere la cancellazione totale e definitiva di tutti i dati inseriti durante la prenotazione.
+      </p>
+
+      <form id="formDeleteData" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Codice Prenotazione (es. BK-1234) *</label>
+          <input type="text" id="delBookingId" required placeholder="BK-XXXX" class="glass-input w-full px-3 py-2 rounded-lg font-mono">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Email o Telefono associati alla richiesta *</label>
+          <input type="text" id="delContact" required placeholder="Inserisci il contatto usato per la prenotazione" class="glass-input w-full px-3 py-2 rounded-lg">
+        </div>
+        <div id="delMessageStatus" class="hidden p-2.5 rounded-lg text-xs font-semibold"></div>
+        <div class="pt-2 flex gap-2">
+          <button type="submit" id="btnConfirmDelete" class="flex-1 py-2.5 px-3 rounded-lg font-bold bg-red-600 hover:bg-red-500 text-white transition">
+            Elimina Definitivamente i Miei Dati
+          </button>
+          <button type="button" onclick="closeLegalModal('modalDeleteData')" class="py-2.5 px-3 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">
+            Annulla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BANNER PRIVACY & COOKIE A COMPARSA (GARANTE COMPLIANT) -->
+  <div id="privacyCookieBanner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-40 glass-panel p-4 border border-purple-500/30 shadow-2xl animate-in slide-in-from-bottom duration-300">
+    <div class="flex items-start gap-3">
+      <div class="p-2 rounded-lg bg-purple-600/20 text-purple-400 shrink-0">
+        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      </div>
+      <div class="flex-1 text-xs">
+        <p class="font-bold text-white mb-1" id="bannerTitle">Trasparenza & Rispetto della Privacy</p>
+        <p class="text-slate-400 text-[11px] leading-relaxed mb-3" id="bannerText">
+          Questo sito è rigorosamente conforme al <strong>GDPR (UE 2016/679)</strong> e alle normative USA (<strong>CCPA/CPRA</strong>). Non utilizziamo cookie di profilazione o tracciamento pubblicitario. I tuoi dati non vengono mai ceduti o venduti.
+        </p>
+        <div class="flex items-center gap-2">
+          <button onclick="acceptPrivacyBanner()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition shadow-sm">
+            Ho Capito & Accetto
+          </button>
+          <button onclick="openLegalModal('privacy')" class="text-[11px] text-purple-300 hover:text-white underline">
+            Leggi Informativa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SCRIPT UNIFICATO AUTONOMO (MULTI-LINGUA, SHOWCASE & CONFORMITÀ LEGALE) -->
+  <script>
+    window.I18N = {
+  "it": {
+    "langName": "Italiano",
+    "brandSubtitle": "Esports, Gaming & Brand Identity ad Alto Impatto",
+    "viewQueue": "Vedi Coda Lavori",
+    "adminArea": "Area Grafico",
+    "openBadge": "Prenotazioni Aperte • Notifica Immediata Email & WhatsApp",
+    "heroTitlePrefix": "Prenota il tuo",
+    "heroTitleHighlight": "Progetto Grafico",
+    "heroDesc": "Compila il modulo per prenotare il tuo slot. Monitora lo stato di avanzamento in tempo reale nella lista pubblica qui sotto!",
+    "legendRed": "Rosso:",
+    "legendYellow": "Giallo:",
+    "legendGreen": "Verde:",
+    "statusAspetto": "Aspetto",
+    "statusOccupato": "Occupato",
+    "statusLibero": "Libero",
+    "formTitle": "Richiedi la tua Prenotazione",
+    "formSubtitle": "I dettagli specifici del lavoro rimarranno 100% privati.",
+    "stepBadge": "Step 1 di 1",
+    "clientNameLabel": "Nome e Cognome Reale",
+    "clientNamePlaceholder": "Es. Marco Rossi",
+    "clientNameHint": "Privato: visibile ESCLUSIVAMENTE all'amministratore per fini contrattuali (NON mostrato sul sito).",
+    "phoneLabel": "Cellulare / WhatsApp",
+    "phonePlaceholder": "Es. +39 340 1234567",
+    "phoneHint": "Per conferme e bozze via WhatsApp",
+    "emailLabel": "Email",
+    "emailPlaceholder": "nome@esempio.com",
+    "emailHint": "Per invio file definitivi in alta risoluzione",
+    "workTypeLabel": "Tipo di Lavoro Grafico",
+    "workTypePrivateBadge": "Nascosto al pubblico (Visibile solo al grafico)",
+    "workTypeSelect": "Seleziona la tipologia di lavoro...",
+    "workTypeLogo": "🎨 Logo & Brand Identity Completa",
+    "workTypeSocial": "📱 Grafiche Social (Post, Stories, Carousel)",
+    "workTypeBanner": "🎮 Banner Twitch / YouTube / Header Social",
+    "workTypeFlyer": "📄 Volantino / Flyer / Locandina Eventi",
+    "workTypeMerch": "👕 Grafica per Abbigliamento / Merch",
+    "workTypeIllustration": "✏️ Illustrazione Digitale Personalizzata",
+    "workTypeOther": "✨ Altro (da specificare nella descrizione)",
+    "descLabel": "Descrizione & Dettagli del Lavoro",
+    "descPlaceholder": "Spiega cosa desideri realizzare: colori preferiti, testi, riferimenti di stile, formati necessari...",
+    "budgetLabel": "Budget Indicativo",
+    "budgetPlaceholder": "Es. 150€ o Da concordare",
+    "deadlineLabel": "Data Consegna Desiderata",
+    "submitBtn": "INVIA RICHIESTA & ENTRA IN CODA",
+    "submitBtnLoading": "Invio richiesta in corso...",
+    "submitHint": "Riceverai notifica immediata e potrai contattare il grafico subito su WhatsApp.",
+    "feature1Title": "Notifica Diretta al Grafico",
+    "feature1Desc": "Ogni richiesta inviata genera istantaneamente un avviso via Email e permette l'invio diretto su WhatsApp, così la tua commissione viene presa in carico rapidamente!",
+    "feature2Title": "Privacy 100% Blindata",
+    "feature2Desc": "I visitatori del sito possono vedere solamente il tuo nickname pubblico e lo stato del lavoro. Il tuo vero nome, la descrizione, i prezzi e i tuoi contatti sono rigorosamente visibili solo al grafico!",
+    "feature3Title": "Come funzionano i 3 stati",
+    "feature3Aspetto": "🔴 Aspetto: La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.",
+    "feature3Occupato": "🟡 Occupato: Il grafico ha preso in carico la commissione e sta lavorando alle bozze.",
+    "feature3Libero": "🟢 Libero: Lavoro completato, file consegnati e slot liberato per nuove commissioni!",
+    "tableTitle": "Lista Prenotazioni & Stato Lavori",
+    "tableConcealNotice": "Il tipo di lavoro e i dati sensibili sono occultati per garantire riservatezza.",
+    "searchPlaceholder": "Cerca persona...",
+    "filterAll": "Tutti",
+    "thCode": "Codice",
+    "thClient": "Nickname Pubblico",
+    "thDate": "Data Richiesta",
+    "thDetails": "Dettagli Lavoro",
+    "thStatus": "Stato Lavoro",
+    "reservedBadge": "Riservato al grafico",
+    "totalRequests": "Richieste Totali",
+    "noBookings": "Nessuna prenotazione trovata con questi filtri.",
+    "modalTitle": "Richiesta Inviata!",
+    "modalSub": "Il tuo codice prenotazione è",
+    "modalClientLabel": "Nickname in lista:",
+    "modalStatusLabel": "Stato iniziale:",
+    "modalDetailsLabel": "Dettagli lavoro:",
+    "modalDetailsHidden": "Nascosti al pubblico",
+    "modalBtnWa": "NOTIFICA IL GRAFICO SU WHATSAPP",
+    "modalBtnClose": "Chiudi e Torna alla Coda",
+    "footerCopyright": "© 2026 Studio Grafico • Piattaforma Gestione Commissioni",
+    "footerStatus": "Stato: 🔴 Aspetto | 🟡 Occupato | 🟢 Libero",
+    "footerAdmin": "Accesso Amministratore",
+    "privacyConsentText": "Dichiaro di aver letto e compreso l'Informativa sulla Privacy (GDPR UE 2016/679 & CCPA) e acconsento al trattamento dei miei dati personali.",
+    "anonymousQueueLabel": "🔒 Massima Riservatezza: Mantieni anche il mio nickname anonimo (\"Riservato #BK-XXXX\") nella coda pubblica dei lavori.",
+    "linkPrivacy": "Informativa Privacy (GDPR & CCPA)",
+    "linkTerms": "Termini di Servizio",
+    "linkCookies": "Informativa Cookie",
+    "linkDelete": "Cancella i miei Dati (Art. 17 GDPR)",
+    "bannerTitle": "Trasparenza & Rispetto della Privacy",
+    "bannerText": "Questo sito rispetta rigorosamente il GDPR (UE 2016/679) e le normative USA (CCPA/CPRA). Non utilizziamo cookie di profilazione o tracciamento. I tuoi dati non sono mai ceduti o venduti.",
+    "bannerBtnAccept": "Ho Capito & Accetto",
+    "bannerBtnRead": "Leggi Informativa",
+    "oblioTitle": "Esercizio Diritto all'Oblio (Art. 17 GDPR & CCPA)",
+    "oblioDesc": "In conformità alle leggi europee e americane sulla privacy, puoi richiedere la cancellazione totale e definitiva di tutti i dati registrati durante la prenotazione.",
+    "oblioBookingIdLabel": "Codice Prenotazione (es. BK-1234) *",
+    "oblioContactLabel": "Email o Telefono usato per la prenotazione *",
+    "oblioBtnSubmit": "Elimina Definitivamente i Miei Dati",
+    "oblioBtnCancel": "Annulla",
+    "privacyHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Titolare del Trattamento dei Dati</p>\n        <p>Il Titolare del trattamento è lo Studio Grafico Creative Visual Studio. Per qualsiasi richiesta relativa alla protezione dei dati o all'esercizio dei tuoi diritti di legge, puoi contattarci tramite WhatsApp o tramite i canali di contatto presenti nel sito.</p>\n        \n        <p class=\"text-slate-200 font-semibold\">2. Principi di Trattamento e Minimizzazione dei Dati (Art. 5 GDPR)</p>\n        <p>I dati personali raccolti (nome, cognome/nickname, numero di telefono, indirizzo email, descrizione del progetto, budget) sono trattati secondo i principi di liceità, correttezza, trasparenza e limitazione della finalità. Raccogliamo esclusivamente le informazioni strettamente necessarie per elaborare il preventivo e gestire la commissione artistica.</p>\n        \n        <p class=\"text-slate-200 font-semibold\">3. Basi Giuridiche del Trattamento (Art. 6 GDPR)</p>\n        <p>Il trattamento dei tuoi dati è fondato su:\n          <br/>• <strong>Esecuzione di misure precontrattuali e contrattuali (Art. 6.1.b)</strong>: per valutare i requisiti del lavoro grafico richiesto, elaborare bozze e preventivi.\n          <br/>• <strong>Consenso espresso (Art. 6.1.a)</strong>: manifestato tramite apposita casella di spunta per la gestione della richiesta e l'eventuale visualizzazione dello stato nella coda pubblica.\n          <br/>• <strong>Obblighi di legge (Art. 6.1.c)</strong>: per adempimenti contabili e fiscali connessi all'attività professionale.\n        </p>\n\n        <p class=\"text-slate-200 font-semibold\">4. Riservatezza della Coda Pubblica e Protezione Anti-Divulgazione (Art. 32 GDPR)</p>\n        <p>Per tutelare al massimo la riservatezza commerciale e personale dell'interessato:\n          <br/>• <strong>Il tipo di lavoro grafico, la descrizione, i budget e i contatti NON vengono mai divulgati al pubblico</strong> e rimangono criptati/riservati esclusivamente al grafico.\n          <br/>• Nella lista pubblica compare esclusivamente il codice prenotazione e, se acconsentito, un nome protetto (es. Marco R.). L'utente ha inoltre la possibilità di richiedere l'anonimato totale (Riservato #BK-XXXX).\n        </p>\n\n        <p class=\"text-slate-200 font-semibold\">5. Clausola \"Do Not Sell or Share\" (CCPA / CPRA - Normative USA)</p>\n        <p>Ai sensi del California Consumer Privacy Act (CCPA), dichiariamo che <strong>NON vendiamo, affittiamo, monetizziamo né cediamo a terzi alcuna categoria di dato personale</strong> degli utenti per scopi pubblicitari o commerciali di terze parti.</p>\n\n        <p class=\"text-slate-200 font-semibold\">6. Periodo di Conservazione dei Dati</p>\n        <p>I dati sono conservati per il tempo strettamente necessario all'evasione della richiesta e alla consegna degli elaborati grafici, e successivamente conservati solo per i termini di prescrizione legale e fiscale obbligatoria.</p>\n\n        <p class=\"text-slate-200 font-semibold\">7. Diritti dell'Interessato (Artt. 15-22 GDPR e Leggi USA)</p>\n        <p>In qualsiasi momento hai il diritto di:\n          <br/>• Chiedere l'accesso ai tuoi dati e una copia delle informazioni registrate.\n          <br/>• Chiedere la rettifica o l'aggiornamento dei dati inesatti.\n          <br/>• Chiedere la <strong>cancellazione definitiva (Diritto all'Oblio - Art. 17 GDPR)</strong> mediante lo strumento automatico presente sul sito.\n          <br/>• Opporsi al trattamento o chiederne la limitazione.\n          <br/>• Presentare reclamo all'Autorità Garante per la Protezione dei Dati Personali (Piazza Venezia 11, Roma - <a href=\"https://www.garanteprivacy.it\" target=\"_blank\" class=\"text-purple-400 underline\">garanteprivacy.it</a>).\n        </p>\n      </div>\n    ",
+    "termsHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Oggetto del Servizio</p>\n        <p>La piattaforma consente agli utenti di inoltrare richieste di commissione e prenotazione per servizi grafici, design e illustrazioni creative fornite dal Titolare.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Natura della Prenotazione</p>\n        <p>L'inoltro della richiesta tramite il modulo presente sul sito costituisce manifestazione di interesse e richiesta di preventivo non vincolante. Il contratto d'opera si intende perfezionato esclusivamente a seguito di conferma espressa e accettazione del preventivo definitivo da parte del cliente.</p>\n\n        <p class=\"text-slate-200 font-semibold\">3. Proprietà Intellettuale e Diritti d'Autore (L. 633/1941 & DMCA)</p>\n        <p>Tutte le creazioni grafiche, bozze, concept e opere visive realizzate restano di esclusiva proprietà morale e patrimoniale dell'autore sino al completo pagamento del corrispettivo pattuito. Al momento del saldo, viene concessa al committente la licenza d'uso dei file definitivi nei termini concordati tra le parti.</p>\n\n        <p class=\"text-slate-200 font-semibold\">4. Responsabilità sui Materiali Forniti dal Cliente</p>\n        <p>Il committente garantisce che i marchi, loghi, testi, fotografie o materiali inviati per l'inclusione nei progetti grafici sono di sua legittima proprietà o debitamente licenziati, manlevando integralmente il professionista da qualsiasi pretesa di terzi.</p>\n      </div>\n    ",
+    "cookieHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Assenza di Cookie di Profilazione o Tracciamento Terze Parti</p>\n        <p>Questo sito web <strong>non rilascia e non utilizza cookie di profilazione commerciale, cookie pubblicitari o tracker comportamentali di terze parti</strong>.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Utilizzo Esclusivo di Memoria Tecnica Locale (localStorage)</p>\n        <p>Il sito ricorre unicamente all'archiviazione tecnica locale del browser (tecnologia HTML5 Web Storage) per salvare:</p>\n        <ul class=\"list-disc pl-5 space-y-1\">\n          <li>La preferenza di lingua selezionata dall'utente (Italiano, English, Español) per consentire una navigazione coerente.</li>\n          <li>La presa visione del banner informativo sulla privacy.</li>\n        </ul>\n        <p>Questi dati tecnici non contengono identificativi tracciabili esternamente e non vengono condivisi con alcun soggetto terzo.</p>\n      </div>\n    ",
+    "realNamePrivateBadge": "Solo Amministratore",
+    "nicknameLabel": "Nickname Pubblico",
+    "nicknamePlaceholder": "Es. ShadowArt99 o @fantastico",
+    "nicknameHint": "Obbligatorio: questo è l'UNICO nome che comparirà pubblicamente nella coda dei lavori sul sito.",
+    "nicknamePublicBadge": "Visibile sul Sito",
+    "privacyConsentRequired": "È obbligatorio accettare l'Informativa sulla Privacy prima di inviare.",
+    "showcaseNav": "Vetrina Creazioni",
+    "showcaseBadge": "Vetrina Esclusiva • Ultime Creazioni",
+    "showcaseTitle": "Ultime Creazioni & Lavori Realizzati",
+    "showcaseSubtitle": "Dai loghi esports alle grafiche per streamer e merchandise: scopri gli ultimi progetti d'impatto firmati JL Graphic.",
+    "showcaseCta": "Prenota una Grafica Simile",
+    "showcaseViewHd": "Visualizza in HD",
+    "showcaseOrderThis": "Voglio questa Grafica!"
+  },
+  "en": {
+    "langName": "English",
+    "brandSubtitle": "High-Impact Esports, Gaming & Brand Identity",
+    "viewQueue": "View Queue",
+    "adminArea": "Artist Area",
+    "openBadge": "Commissions Open • Instant Email & WhatsApp Notification",
+    "heroTitlePrefix": "Book your",
+    "heroTitleHighlight": "Graphic Design Project",
+    "heroDesc": "Fill out the form to reserve your slot. Track live progress in the public list below!",
+    "legendRed": "Red:",
+    "legendYellow": "Yellow:",
+    "legendGreen": "Green:",
+    "statusAspetto": "Waiting",
+    "statusOccupato": "Busy",
+    "statusLibero": "Free",
+    "formTitle": "Submit Your Booking",
+    "formSubtitle": "Specific project details will remain 100% private.",
+    "stepBadge": "Step 1 of 1",
+    "clientNameLabel": "Full Real Name",
+    "clientNamePlaceholder": "e.g. John Doe",
+    "clientNameHint": "Private: visible ONLY to the administrator for billing/contracts (NOT shown on site).",
+    "phoneLabel": "Phone / WhatsApp",
+    "phonePlaceholder": "e.g. +1 555 123 4567",
+    "phoneHint": "For quick drafts and updates via WhatsApp",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "name@example.com",
+    "emailHint": "For final high-resolution file delivery",
+    "workTypeLabel": "Graphic Design Category",
+    "workTypePrivateBadge": "Hidden from public (Visible only to the artist)",
+    "workTypeSelect": "Select design service...",
+    "workTypeLogo": "🎨 Full Logo & Brand Identity",
+    "workTypeSocial": "📱 Social Media Graphics (Posts, Stories, Carousels)",
+    "workTypeBanner": "🎮 Twitch / YouTube Banner & Headers",
+    "workTypeFlyer": "📄 Flyer / Poster / Event Graphics",
+    "workTypeMerch": "👕 Apparel / Merch Graphic Design",
+    "workTypeIllustration": "✏️ Custom Digital Illustration",
+    "workTypeOther": "✨ Other (Specify in description)",
+    "descLabel": "Description & Project Details",
+    "descPlaceholder": "Describe your ideas: preferred colors, text, references, styles, dimensions...",
+    "budgetLabel": "Target Budget",
+    "budgetPlaceholder": "e.g. $200 or To negotiate",
+    "deadlineLabel": "Desired Delivery Date",
+    "submitBtn": "SUBMIT REQUEST & JOIN QUEUE",
+    "submitBtnLoading": "Sending request...",
+    "submitHint": "You will receive instant confirmation and can chat directly on WhatsApp.",
+    "feature1Title": "Direct Artist Notification",
+    "feature1Desc": "Every request instantly triggers an Email and WhatsApp alert with all details, so your project is reviewed immediately!",
+    "feature2Title": "100% Armored Privacy",
+    "feature2Desc": "Site visitors can only see your public nickname and job status. Your real name, project brief, budget, and contacts are strictly private to the designer!",
+    "feature3Title": "How the 3 status colors work",
+    "feature3Aspetto": "🔴 Waiting: Your request has been registered and is waiting for artist review.",
+    "feature3Occupato": "🟡 Busy: The artist has accepted your commission and is actively designing.",
+    "feature3Libero": "🟢 Free: Project completed, deliverables sent, and slot freed for new work!",
+    "tableTitle": "Public Queue & Project Status",
+    "tableConcealNotice": "Service type and private details are concealed for privacy.",
+    "searchPlaceholder": "Search client...",
+    "filterAll": "All",
+    "thCode": "ID",
+    "thClient": "Public Nickname",
+    "thDate": "Request Date",
+    "thDetails": "Design Details",
+    "thStatus": "Current Status",
+    "reservedBadge": "Reserved for artist",
+    "totalRequests": "Total Requests",
+    "noBookings": "No requests found matching your filters.",
+    "modalTitle": "Request Received!",
+    "modalSub": "Your booking reference is",
+    "modalClientLabel": "Nickname in queue:",
+    "modalStatusLabel": "Initial Status:",
+    "modalDetailsLabel": "Design Details:",
+    "modalDetailsHidden": "Hidden from public",
+    "modalBtnWa": "SEND DETAILS ON WHATSAPP",
+    "modalBtnClose": "Close & View Queue",
+    "footerCopyright": "© 2026 Graphic Studio • Client Management Platform",
+    "footerStatus": "Status: 🔴 Waiting | 🟡 Busy | 🟢 Free",
+    "footerAdmin": "Admin Login",
+    "privacyConsentText": "I declare that I have read and agree to the Privacy Policy (EU GDPR 2016/679 & US CCPA) and consent to the processing of my personal data.",
+    "anonymousQueueLabel": "🔒 Maximum Privacy: Keep even my nickname anonymous (\"Reserved #BK-XXXX\") in the public queue.",
+    "linkPrivacy": "Privacy Policy (GDPR & CCPA)",
+    "linkTerms": "Terms of Service",
+    "linkCookies": "Cookie Policy",
+    "linkDelete": "Delete My Data (GDPR Art. 17)",
+    "bannerTitle": "Privacy Transparency & Compliance",
+    "bannerText": "This website strictly adheres to GDPR (EU 2016/679) and US CCPA/CPRA regulations. We do not use profiling or tracking cookies. Your data is never sold or shared.",
+    "bannerBtnAccept": "I Understand & Accept",
+    "bannerBtnRead": "Read Policy",
+    "oblioTitle": "Exercise Right to Erasure (GDPR Art. 17 & CCPA)",
+    "oblioDesc": "In compliance with European and US privacy laws, you can request the permanent and irreversible deletion of your booking details.",
+    "oblioBookingIdLabel": "Booking Reference (e.g. BK-1234) *",
+    "oblioContactLabel": "Email or Phone used during booking *",
+    "oblioBtnSubmit": "Permanently Delete My Data",
+    "oblioBtnCancel": "Cancel",
+    "privacyHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Data Controller</p>\n        <p>The Data Controller is Creative Visual Studio. For any privacy requests or to exercise statutory rights, you may reach out via WhatsApp or via the contact channels on this site.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Principles of Processing & Data Minimization (Art. 5 GDPR)</p>\n        <p>Personal data collected (name/nickname, phone number, email, design brief, budget) is processed lawfully, fairly, and transparently. We only gather data strictly necessary to estimate and fulfill your design commission.</p>\n\n        <p class=\"text-slate-200 font-semibold\">3. Legal Bases for Processing (Art. 6 GDPR)</p>\n        <p>Processing is based on:\n          <br/>• <strong>Pre-contractual & Contractual Steps (Art. 6.1.b)</strong>: to review design requirements, produce drafts, and calculate quotes.\n          <br/>• <strong>Explicit Consent (Art. 6.1.a)</strong>: provided via checkboxes for processing and public status tracking.\n          <br/>• <strong>Legal Obligations (Art. 6.1.c)</strong>: for invoice and accounting compliance.\n        </p>\n\n        <p class=\"text-slate-200 font-semibold\">4. Public Queue Privacy & Concealment (Art. 32 GDPR)</p>\n        <p>To ensure total confidentiality:\n          <br/>• <strong>Design details, descriptions, budgets, and personal contact info are NEVER made public</strong> and remain accessible solely to the designer.\n          <br/>• The public list only displays the booking reference code and an obfuscated name (or Anonymous #BK-XXXX if requested).\n        </p>\n\n        <p class=\"text-slate-200 font-semibold\">5. \"Do Not Sell or Share My Personal Information\" (CCPA / CPRA)</p>\n        <p>Pursuant to the California Consumer Privacy Act (CCPA), we certify that <strong>we do NOT sell, rent, monetize, or trade any personal data</strong> to third parties for marketing purposes.</p>\n\n        <p class=\"text-slate-200 font-semibold\">6. Data Subject Rights (GDPR Arts. 15-22 & US Laws)</p>\n        <p>You maintain the right to access, rectify, or request <strong>permanent deletion (Right to be Forgotten - Art. 17 GDPR)</strong> of your data at any time through our automated portal.</p>\n      </div>\n    ",
+    "termsHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Scope of Service</p>\n        <p>This platform facilitates graphic design, visual branding, and custom illustration inquiries directly with the artist.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Non-Binding Inquiries</p>\n        <p>Submitting a request forms a preliminary inquiry and estimate request. Commercial agreements are formalized upon explicit confirmation and quote acceptance.</p>\n\n        <p class=\"text-slate-200 font-semibold\">3. Intellectual Property & Copyright</p>\n        <p>Moral and economic copyright on all visual concepts and creative files remain with the artist until invoices are settled in full, whereupon the agreed usage license is transferred.</p>\n      </div>\n    ",
+    "cookieHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Zero Third-Party Tracking Cookies</p>\n        <p>This website does not deploy commercial profiling cookies, advertising beacons, or third-party trackers.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Technical Local Storage</p>\n        <p>We only use browser local storage (HTML5 localStorage) to preserve your preferred interface language (IT, EN, ES) and banner acknowledgement.</p>\n      </div>\n    ",
+    "realNamePrivateBadge": "Admin Only",
+    "nicknameLabel": "Public Nickname",
+    "nicknamePlaceholder": "e.g. ShadowArt99 or @cooluser",
+    "nicknameHint": "Mandatory: this is the ONLY name that will appear publicly in the queue on the site.",
+    "nicknamePublicBadge": "Visible on Site",
+    "privacyConsentRequired": "You must accept the Privacy Policy before submitting.",
+    "showcaseNav": "Showcase Works",
+    "showcaseBadge": "Exclusive Showcase • Latest Releases",
+    "showcaseTitle": "Latest Works & Featured Creations",
+    "showcaseSubtitle": "From esports logos to streamer overlays and brand identities: explore the latest high-impact projects by JL Graphic.",
+    "showcaseCta": "Book a Similar Design",
+    "showcaseViewHd": "View in HD",
+    "showcaseOrderThis": "I want this Design!"
+  },
+  "es": {
+    "langName": "Español",
+    "brandSubtitle": "Diseño Gráfico de Alto Impacto para Esports y Gaming",
+    "viewQueue": "Ver Cola de Trabajos",
+    "adminArea": "Área Diseñador",
+    "openBadge": "Comisiones Abiertas • Notificación Inmediata por Email y WhatsApp",
+    "heroTitlePrefix": "Reserva tu",
+    "heroTitleHighlight": "Proyecto Gráfico",
+    "heroDesc": "Completa el formulario para reservar tu lugar. ¡Sigue el progreso en tiempo real en la lista pública abajo!",
+    "legendRed": "Rojo:",
+    "legendYellow": "Amarillo:",
+    "legendGreen": "Verde:",
+    "statusAspetto": "En Espera",
+    "statusOccupato": "Ocupado",
+    "statusLibero": "Libre",
+    "formTitle": "Solicita tu Reserva",
+    "formSubtitle": "Los detalles específicos del trabajo se mantendrán 100% privados.",
+    "stepBadge": "Paso 1 de 1",
+    "clientNameLabel": "Nombre y Apellido Real",
+    "clientNamePlaceholder": "Ej. Carlos García",
+    "clientNameHint": "Privado: visible ÚNICAMENTE para el administrador para fines legales (NO mostrado en la web).",
+    "phoneLabel": "Teléfono / WhatsApp",
+    "phonePlaceholder": "Ej. +34 600 123 456",
+    "phoneHint": "Para enviar bocetos y confirmaciones por WhatsApp",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "nombre@ejemplo.com",
+    "emailHint": "Para entrega de archivos finales en alta resolución",
+    "workTypeLabel": "Tipo de Trabajo Gráfico",
+    "workTypePrivateBadge": "Oculto al público (Visible solo para el diseñador)",
+    "workTypeSelect": "Selecciona el tipo de trabajo...",
+    "workTypeLogo": "🎨 Logo e Identidad de Marca Completa",
+    "workTypeSocial": "📱 Gráficas para Redes (Post, Stories, Carrusel)",
+    "workTypeBanner": "🎮 Banners para Twitch / YouTube / Redes",
+    "workTypeFlyer": "📄 Folletos / Flyers / Carteles de Eventos",
+    "workTypeMerch": "👕 Diseño para Camisetas y Merchandising",
+    "workTypeIllustration": "✏️ Ilustración Digital Personalizada",
+    "workTypeOther": "✨ Otro (especificar en la descripción)",
+    "descLabel": "Descripción y Detalles del Proyecto",
+    "descPlaceholder": "Explica lo que deseas: colores favoritos, textos, referencias de estilo, medidas...",
+    "budgetLabel": "Presupuesto Estimado",
+    "budgetPlaceholder": "Ej. 150€ o Por acordar",
+    "deadlineLabel": "Fecha de Entrega Deseada",
+    "submitBtn": "ENVIAR SOLICITUD Y UNIRSE A LA COLA",
+    "submitBtnLoading": "Enviando solicitud...",
+    "submitHint": "Recibirás notificación inmediata y podrás contactar al diseñador por WhatsApp.",
+    "feature1Title": "Notificación Directa al Diseñador",
+    "feature1Desc": "Cada solicitud genera un aviso por Email y permite el envío directo por WhatsApp para iniciar de inmediato.",
+    "feature2Title": "Privacidad 100% Blindada",
+    "feature2Desc": "Los visitantes de la web solo pueden ver tu apodo público y el estado del trabajo. Tu nombre real, descripción, presupuesto y contactos son estrictamente privados.",
+    "feature3Title": "Cómo funcionan los 3 estados",
+    "feature3Aspetto": "🔴 En Espera: Tu solicitud fue registrada y está pendiente de revisión por el diseñador.",
+    "feature3Occupato": "🟡 Ocupado: El diseñador ha aceptado tu comisión y está trabajando activamente.",
+    "feature3Libero": "🟢 Libre: Trabajo completado, archivos entregados y cupo liberado para nuevos pedidos.",
+    "tableTitle": "Lista de Reservas y Estado de Trabajos",
+    "tableConcealNotice": "El tipo de trabajo y datos sensibles están ocultos por confidencialidad.",
+    "searchPlaceholder": "Buscar persona...",
+    "filterAll": "Todos",
+    "thCode": "Código",
+    "thClient": "Nickname Público",
+    "thDate": "Fecha Solicitud",
+    "thDetails": "Detalles del Trabajo",
+    "thStatus": "Estado del Trabajo",
+    "reservedBadge": "Reservado al diseñador",
+    "totalRequests": "Solicitudes Totales",
+    "noBookings": "No se encontraron reservas con estos filtros.",
+    "modalTitle": "¡Solicitud Enviada con Éxito!",
+    "modalSub": "Tu código de reserva es",
+    "modalClientLabel": "Nickname en lista:",
+    "modalStatusLabel": "Estado inicial:",
+    "modalDetailsLabel": "Detalles del trabajo:",
+    "modalDetailsHidden": "Ocultos al público",
+    "modalBtnWa": "NOTIFICAR AL DISEÑADOR POR WHATSAPP",
+    "modalBtnClose": "Cerrar y Ver Cola",
+    "footerCopyright": "© 2026 Estudio Gráfico • Plataforma de Gestión de Comisiones",
+    "footerStatus": "Estado: 🔴 En Espera | 🟡 Ocupado | 🟢 Libre",
+    "footerAdmin": "Acceso Administrador",
+    "privacyConsentText": "Declaro que he leído y acepto la Política de Privacidad (GDPR UE 2016/679 y CCPA) y consiento el tratamiento de mis datos personales.",
+    "anonymousQueueLabel": "🔒 Máxima Privacidad: Mantener también mi nickname anónimo (\"Reservado #BK-XXXX\") en la cola pública.",
+    "linkPrivacy": "Política de Privacidad (GDPR y CCPA)",
+    "linkTerms": "Términos de Servicio",
+    "linkCookies": "Política de Cookies",
+    "linkDelete": "Eliminar mis Datos (Art. 17 GDPR)",
+    "bannerTitle": "Transparencia y Respeto a la Privacidad",
+    "bannerText": "Este sitio cumple estrictamente con el RGPD (UE 2016/679) y la normativa estadounidense CCPA/CPRA. No utilizamos cookies de rastreo ni vendemos tus datos a terceros.",
+    "bannerBtnAccept": "He Entendido y Acepto",
+    "bannerBtnRead": "Leer Política",
+    "oblioTitle": "Derecho al Olvido (Art. 17 GDPR y CCPA)",
+    "oblioDesc": "Conforme a las leyes de privacidad, puedes solicitar la eliminación permanente e irreversible de los datos de tu reserva.",
+    "oblioBookingIdLabel": "Código de Reserva (ej. BK-1234) *",
+    "oblioContactLabel": "Email o Teléfono usado en la reserva *",
+    "oblioBtnSubmit": "Eliminar Definitivamente mis Datos",
+    "oblioBtnCancel": "Cancelar",
+    "privacyHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Responsable del Tratamiento</p>\n        <p>El Responsable es Creative Visual Studio. Para cualquier consulta sobre tus datos o ejercer tus derechos legales, contáctanos por WhatsApp o mediante los canales del sitio.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Minimización de Datos (Art. 5 GDPR)</p>\n        <p>Los datos recopilados se procesan de forma legal y transparente, solicitando solo la información imprescindible para cotizar y elaborar la comisión artística.</p>\n\n        <p class=\"text-slate-200 font-semibold\">3. Confidencialidad en la Cola Pública (Art. 32 GDPR)</p>\n        <p>Para garantizar absoluta reserva:\n          <br/>• <strong>Los detalles del diseño, descripción, presupuestos y contactos NUNCA se muestran al público</strong> y son exclusivos para el diseñador.\n          <br/>• En la lista pública solo figura el código y, si lo autorizas, tu nombre protegido (ej. Carlos G.) o Anónimo.\n        </p>\n\n        <p class=\"text-slate-200 font-semibold\">4. Cláusula \"Do Not Sell\" (CCPA / CPRA - EE.UU.)</p>\n        <p>Declaramos expresamente que <strong>NO vendemos, alquilamos ni compartimos datos personales</strong> con terceros para fines publicitarios o comerciales.</p>\n\n        <p class=\"text-slate-200 font-semibold\">5. Derechos del Usuario (Art. 17 GDPR)</p>\n        <p>Puedes solicitar la <strong>eliminación total de tus datos</strong> en cualquier momento usando la herramienta automática en este sitio.</p>\n      </div>\n    ",
+    "termsHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Servicio de Diseño</p>\n        <p>Esta plataforma gestiona cotizaciones y reservas directas para proyectos gráficos e ilustraciones creativas.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Propiedad Intelectual y Derechos de Autor</p>\n        <p>Los derechos de autor sobre las obras corresponden al artista hasta el pago total de la comisión, momento en el cual se transfiere la licencia de uso acordada.</p>\n      </div>\n    ",
+    "cookieHtml": "\n      <div class=\"space-y-3\">\n        <p class=\"text-slate-200 font-semibold\">1. Sin Cookies de Rastreo Comercial</p>\n        <p>Este sitio no instala cookies de publicidad o perfilado de terceros.</p>\n\n        <p class=\"text-slate-200 font-semibold\">2. Almacenamiento Técnico</p>\n        <p>Solo se utiliza el almacenamiento local del navegador (localStorage) para recordar el idioma elegido (IT, EN, ES).</p>\n      </div>\n    ",
+    "realNamePrivateBadge": "Solo Administrador",
+    "nicknameLabel": "Nickname / Apodo Público",
+    "nicknamePlaceholder": "Ej. LoboCreativo99 o @usuario",
+    "nicknameHint": "Obligatorio: este es el ÚNICO nombre que aparecerá públicamente en la lista de reservas.",
+    "nicknamePublicBadge": "Visible en la Web",
+    "privacyConsentRequired": "Debes aceptar la Política de Privacidad antes de enviar.",
+    "showcaseNav": "Muestra de Diseños",
+    "showcaseBadge": "Vitrinas Exclusiva • Últimas Creaciones",
+    "showcaseTitle": "Últimas Creaciones y Diseños Destacados",
+    "showcaseSubtitle": "De logotipos esports a diseños para streamers e identidad de marca: descubre las últimas creaciones de JL Graphic.",
+    "showcaseCta": "Reserva un Diseño Similar",
+    "showcaseViewHd": "Ver en HD",
+    "showcaseOrderThis": "¡Quiero este Diseño!"
+  }
+};
+
+    var currentLang = localStorage.getItem("app_lang") || "it";
+    var allBookings = [];
+    var allShowcase = [];
+    var currentFilter = "all";
+    var searchQuery = "";
+    var currentSelectedCategory = "";
+
+    window.setLanguage = function(lang) {
+      if (!window.I18N || !window.I18N[lang]) return;
+      currentLang = lang;
+      localStorage.setItem("app_lang", lang);
+      var dict = window.I18N[lang];
+
+      // Aggiorna stile pulsanti lingua nell'header
+      document.querySelectorAll(".lang-btn").forEach(function(btn) {
+        if (btn.getAttribute("data-lang") === lang) {
+          btn.className = "lang-btn px-2 py-1 rounded text-xs font-bold flex items-center gap-1 transition bg-lime-500 text-black shadow-sm";
+        } else {
+          btn.className = "lang-btn px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 transition text-slate-400 hover:text-white";
+        }
+      });
+
+      // Traduci elementi generici data-i18n
+      document.querySelectorAll("[data-i18n]").forEach(function(el) {
+        var key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) {
+          el.textContent = dict[key];
+        }
+      });
+
+      // Traduci placeholder
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el) {
+        var key = el.getAttribute("data-i18n-placeholder");
+        if (dict[key] !== undefined) {
+          el.setAttribute("placeholder", dict[key]);
+        }
+      });
+
+      // Legenda semaforo
+      var lAsp = document.getElementById("legendTxtAspetto");
+      if (lAsp) lAsp.textContent = dict.statusAspetto;
+      var lOcc = document.getElementById("legendTxtOccupato");
+      if (lOcc) lOcc.textContent = dict.statusOccupato;
+      var lLib = document.getElementById("legendTxtLibero");
+      if (lLib) lLib.textContent = dict.statusLibero;
+
+      // Filtri tabella
+      var fAsp = document.getElementById("filterLabelAspetto");
+      if (fAsp) fAsp.textContent = dict.statusAspetto;
+      var fOcc = document.getElementById("filterLabelOccupato");
+      if (fOcc) fOcc.textContent = dict.statusOccupato;
+      var fLib = document.getElementById("filterLabelLibero");
+      if (fLib) fLib.textContent = dict.statusLibero;
+
+      // Traduzioni Testi Legali Form & Footer
+      var pLabel = document.getElementById("privacyConsentLabelText");
+      if (pLabel) {
+        if (lang === "en") {
+          pLabel.innerHTML = 'I declare that I have read and agree to the <a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Privacy Policy (EU GDPR & US CCPA)</a> and consent to the processing of my personal data. <span class="text-red-400 font-bold">*</span>';
+        } else if (lang === "es") {
+          pLabel.innerHTML = 'Declaro que he leído y acepto la <a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Política de Privacidad (GDPR UE y CCPA)</a> y consiento el tratamiento de mis datos personales. <span class="text-red-400 font-bold">*</span>';
+        } else {
+          pLabel.innerHTML = 'Dichiaro di aver letto l\'<a href="javascript:void(0)" onclick="openLegalModal(\'privacy\')" class="text-lime-400 hover:text-lime-300 underline font-semibold">Informativa sulla Privacy (GDPR & CCPA)</a> e acconsento al trattamento dei dati personali per l\'elaborazione del preventivo. <span class="text-red-400 font-bold">*</span>';
+        }
+      }
+
+      var aLabel = document.getElementById("anonymousQueueLabelText");
+      if (aLabel) {
+        if (lang === "en") {
+          aLabel.innerHTML = '🔒 <strong>Maximum Privacy</strong>: Keep even my nickname anonymous ("Reserved #BK-XXXX") in the public queue.';
+        } else if (lang === "es") {
+          aLabel.innerHTML = '🔒 <strong>Máxima Privacidad</strong>: Mantener también mi nickname anónimo ("Reservado #BK-XXXX") en la cola pública.';
+        } else {
+          aLabel.innerHTML = '🔒 <strong>Massima Riservatezza</strong>: Mantieni anche il mio nickname anonimo ("Riservato #BK-XXXX") nella coda pubblica dei lavori.';
+        }
+      }
+
+      // Footer links
+      var fPriv = document.getElementById("footerLinkPrivacy");
+      if (fPriv && dict.linkPrivacy) fPriv.textContent = dict.linkPrivacy;
+      var fTerms = document.getElementById("footerLinkTerms");
+      if (fTerms && dict.linkTerms) fTerms.textContent = dict.linkTerms;
+      var fCook = document.getElementById("footerLinkCookies");
+      if (fCook && dict.linkCookies) fCook.textContent = dict.linkCookies;
+      var fDel = document.getElementById("footerLinkDelete");
+      if (fDel && dict.linkDelete) fDel.innerHTML = '<i data-lucide="trash-2" class="w-3.5 h-3.5"></i> ' + dict.linkDelete;
+
+      // Banner Privacy
+      var bTitle = document.getElementById("bannerTitle");
+      if (bTitle && dict.bannerTitle) bTitle.textContent = dict.bannerTitle;
+      var bText = document.getElementById("bannerText");
+      if (bText && dict.bannerText) bText.textContent = dict.bannerText;
+      var bAccept = document.getElementById("btnAcceptBanner");
+      if (bAccept && dict.bannerBtnAccept) bAccept.textContent = dict.bannerBtnAccept;
+      var bRead = document.getElementById("btnReadBanner");
+      if (bRead && dict.bannerBtnRead) bRead.textContent = dict.bannerBtnRead;
+
+      // Modale Diritto all'Oblio
+      var oTitle = document.getElementById("txtOblioTitle");
+      if (oTitle && dict.oblioTitle) oTitle.textContent = dict.oblioTitle;
+      var oDesc = document.getElementById("txtOblioDesc");
+      if (oDesc && dict.oblioDesc) oDesc.textContent = dict.oblioDesc;
+      var oBtnSubmit = document.getElementById("btnConfirmDelete");
+      if (oBtnSubmit && dict.oblioBtnSubmit) oBtnSubmit.textContent = dict.oblioBtnSubmit;
+      var oBtnCancel = document.getElementById("btnCancelDelete");
+      if (oBtnCancel && dict.oblioBtnCancel) oBtnCancel.textContent = dict.oblioBtnCancel;
+
+      // Aggiorna modali legali se aperte
+      var modalP = document.getElementById("modalPrivacy");
+      if (modalP && !modalP.classList.contains("hidden")) {
+        var privCont = document.getElementById("legalPrivContent");
+        if (privCont) privCont.innerHTML = dict.privacyHtml || "";
+      }
+      var modalT = document.getElementById("modalTerms");
+      if (modalT && !modalT.classList.contains("hidden")) {
+        var termsCont = document.getElementById("legalTermsContent");
+        if (termsCont) termsCont.innerHTML = dict.termsHtml || "";
+      }
+      var modalC = document.getElementById("modalCookies");
+      if (modalC && !modalC.classList.contains("hidden")) {
+        var cookCont = document.getElementById("legalCookieContent");
+        if (cookCont) cookCont.innerHTML = dict.cookieHtml || "";
+      }
+
+      // Re-render tabella pubblica e showcase
+      renderBookingsTable();
+      renderShowcase();
+
+      if (window.lucide) lucide.createIcons();
+    };
+
+    // ==========================================
+    // LOGICA VETRINA SHOWCASE PUBBLICA
+    // ==========================================
+    function loadShowcase() {
+      fetch("/api/public/showcase")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          allShowcase = data;
+          renderShowcase();
+        })
+        .catch(function(err) {
+          console.error("Errore caricamento showcase:", err);
+        });
+    }
+
+    function renderShowcase() {
+      var container = document.getElementById("showcaseGrid");
+      if (!container) return;
+      var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
+
+      if (!allShowcase || allShowcase.length === 0) {
+        container.innerHTML = '<div class="col-span-full text-center py-8 text-slate-500 text-xs">Nessuna creazione disponibile al momento.</div>';
+        return;
+      }
+
+      container.innerHTML = allShowcase.map(function(item) {
+        var viewText = dict.showcaseViewHd || "Visualizza in HD";
+        return (
+          '<div class="showcase-card flex flex-col justify-between group cursor-pointer" onclick="openShowcaseLightbox(\'' + item.id + '\')">' +
+            '<div class="relative overflow-hidden aspect-[4/3] bg-black/60">' +
+              '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.title) + '" class="card-img w-full h-full object-cover">' +
+              '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-60 transition"></div>' +
+              '<div class="absolute top-3 left-3">' +
+                '<span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-black/80 text-lime-300 border border-lime-500/40 shadow-sm backdrop-blur-sm">' +
+                  escapeHtml(item.tag || "✨ CREAZIONE") +
+                '</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="p-4 flex-1 flex flex-col justify-between space-y-2">' +
+              '<div>' +
+                '<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">' + escapeHtml(item.category) + '</span>' +
+                '<h4 class="font-heading font-bold text-sm text-white group-hover:text-lime-300 transition line-clamp-1 mt-0.5">' + escapeHtml(item.title) + '</h4>' +
+                '<p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-relaxed">' + escapeHtml(item.description || "") + '</p>' +
+              '</div>' +
+              '<div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">' +
+                '<span class="text-[10px] font-semibold text-lime-400/90 flex items-center gap-1 group-hover:underline">' +
+                  '<i data-lucide="eye" class="w-3 h-3"></i> ' + viewText +
+                '</span>' +
+                '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500 group-hover:text-lime-400 transition"></i>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join("");
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.openShowcaseLightbox = function(id) {
+      var item = allShowcase.find(function(x) { return x.id === id; });
+      if (!item) return;
+
+      currentSelectedCategory = item.category || "";
+      document.getElementById("lightboxCategory").textContent = item.category;
+      document.getElementById("lightboxTitle").textContent = item.title;
+      document.getElementById("lightboxDesc").textContent = item.description || "";
+      document.getElementById("lightboxImg").src = item.imageUrl;
+
+      document.getElementById("modalShowcase").classList.remove("hidden");
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.closeShowcaseModal = function() {
+      var m = document.getElementById("modalShowcase");
+      if (m) m.classList.add("hidden");
+    };
+
+    window.selectShowcaseStyle = function() {
+      closeShowcaseModal();
+      var prenotaEl = document.getElementById("prenota-ora");
+      if (prenotaEl) prenotaEl.scrollIntoView({ behavior: "smooth" });
+
+      if (currentSelectedCategory) {
+        var workSelect = document.getElementById("workType");
+        if (workSelect) {
+          for (var i = 0; i < workSelect.options.length; i++) {
+            if (workSelect.options[i].value.toLowerCase().includes(currentSelectedCategory.toLowerCase()) || 
+                currentSelectedCategory.toLowerCase().includes(workSelect.options[i].value.toLowerCase())) {
+              workSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+    };
+
+    // ==========================================
+    // GESTIONE MODALI LEGALI & COOKIE BANNER
+    // ==========================================
+    window.openLegalModal = function(type) {
+      var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : (window.I18N ? window.I18N["it"] : {});
+      
+      if (type === "privacy") {
+        var contentEl = document.getElementById("legalPrivContent");
+        if (contentEl) contentEl.innerHTML = dict.privacyHtml || "";
+        var modal = document.getElementById("modalPrivacy");
+        if (modal) modal.classList.remove("hidden");
+      } else if (type === "terms") {
+        var contentEl = document.getElementById("legalTermsContent");
+        if (contentEl) contentEl.innerHTML = dict.termsHtml || "";
+        var modal = document.getElementById("modalTerms");
+        if (modal) modal.classList.remove("hidden");
+      } else if (type === "cookies") {
+        var contentEl = document.getElementById("legalCookieContent");
+        if (contentEl) contentEl.innerHTML = dict.cookieHtml || "";
+        var modal = document.getElementById("modalCookies");
+        if (modal) modal.classList.remove("hidden");
+      } else if (type === "delete") {
+        var modal = document.getElementById("modalDeleteData");
+        if (modal) {
+          modal.classList.remove("hidden");
+          var msg = document.getElementById("delMessageStatus");
+          if (msg) msg.classList.add("hidden");
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.closeLegalModal = function(modalId) {
+      var modal = document.getElementById(modalId);
+      if (modal) modal.classList.add("hidden");
+    };
+
+    window.acceptPrivacyBanner = function() {
+      localStorage.setItem("privacy_banner_accepted", "true");
+      var banner = document.getElementById("privacyCookieBanner");
+      if (banner) banner.classList.add("hidden");
+    };
+
+    function loadStudioInfo() {
+      fetch("/api/public/info")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.studioName) {
+            var bEl = document.getElementById("brandStudioName");
+            if (bEl && bEl.childNodes[0]) bEl.childNodes[0].textContent = data.studioName + " ";
+          }
+        })
+        .catch(function(e) { console.log(e); });
+    }
+
+    function loadPublicBookings() {
+      var tbody = document.getElementById("publicBookingsTableBody");
+      fetch("/api/public/bookings")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          allBookings = data;
+          renderBookingsTable();
+        })
+        .catch(function() {
+          if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-400">Impossibile caricare le prenotazioni al momento.</td></tr>';
+        });
+    }
+
+    function renderBookingsTable() {
+      var tbody = document.getElementById("publicBookingsTableBody");
+      if (!tbody) return;
+      var countBadge = document.getElementById("bookingsCountBadge");
+      var noBookings = document.getElementById("noBookingsMessage");
+      var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
+
+      var filtered = allBookings.filter(function(b) {
+        var matchesFilter = (currentFilter === "all") || (b.status === currentFilter);
+        var matchesSearch = !searchQuery || 
+          b.publicName.toLowerCase().includes(searchQuery) || 
+          b.id.toLowerCase().includes(searchQuery);
+        return matchesFilter && matchesSearch;
+      });
+
+      var totalLabel = dict.totalRequests || "Richieste Totali";
+      if (countBadge) countBadge.textContent = allBookings.length + " " + totalLabel;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = "";
+        if (noBookings) noBookings.classList.remove("hidden");
+        return;
+      }
+
+      if (noBookings) noBookings.classList.add("hidden");
+
+      tbody.innerHTML = filtered.map(function(item) {
+        var locale = currentLang === "en" ? "en-US" : (currentLang === "es" ? "es-ES" : "it-IT");
+        var dateFormatted = new Date(item.createdAt).toLocaleDateString(locale, {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        });
+
+        var statusLabel = item.status;
+        if (item.status === "Aspetto") statusLabel = dict.statusAspetto || "Aspetto";
+        else if (item.status === "Occupato") statusLabel = dict.statusOccupato || "Occupato";
+        else if (item.status === "Libero") statusLabel = dict.statusLibero || "Libero";
+
+        var statusBadge = "";
+        if (item.status === "Aspetto") {
+          statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-aspetto"><span class="w-2 h-2 rounded-full dot-aspetto animate-pulse-dot"></span> 🔴 ' + statusLabel.toUpperCase() + '</span>';
+        } else if (item.status === "Occupato") {
+          statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-occupato"><span class="w-2 h-2 rounded-full dot-occupato animate-pulse-dot"></span> 🟡 ' + statusLabel.toUpperCase() + '</span>';
+        } else if (item.status === "Libero") {
+          statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-libero"><span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 ' + statusLabel.toUpperCase() + '</span>';
+        }
+
+        var reservedText = dict.reservedBadge || "Riservato al grafico";
+
+        return (
+          '<tr class="hover:bg-white/[0.02] transition">' +
+            '<td class="py-3.5 px-4 font-mono text-xs text-lime-400 font-semibold">#' + item.id + '</td>' +
+            '<td class="py-3.5 px-4 font-medium text-white flex items-center gap-2">' +
+              '<div class="w-7 h-7 rounded-full bg-slate-900 border border-lime-500/30 flex items-center justify-center text-xs text-lime-300 font-bold shrink-0">' +
+                item.publicName.charAt(0).toUpperCase() +
+              '</div>' +
+              '<span class="text-lime-200 font-medium">@' + escapeHtml(item.publicName) + '</span>' +
+            '</td>' +
+            '<td class="py-3.5 px-4 text-xs text-slate-400">' + dateFormatted + '</td>' +
+            '<td class="py-3.5 px-4">' +
+              '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900/90 text-slate-400 border border-white/5">' +
+                '<i data-lucide="lock" class="w-3 h-3 text-amber-400/80"></i>' +
+                '<span>' + reservedText + '</span>' +
+              '</span>' +
+            '</td>' +
+            '<td class="py-3.5 px-4 text-center">' + statusBadge + '</td>' +
+          '</tr>'
+        );
+      }).join("");
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.lucide) lucide.createIcons();
+      window.setLanguage(currentLang);
+      loadStudioInfo();
+      loadShowcase();
+      loadPublicBookings();
+
+      // Controlla stato banner privacy
+      if (localStorage.getItem("privacy_banner_accepted") === "true") {
+        var banner = document.getElementById("privacyCookieBanner");
+        if (banner) banner.classList.add("hidden");
+      }
+
+      // Form Diritto all'Oblio (Cancellazione Dati GDPR Art. 17 & CCPA)
+      var formDelete = document.getElementById("formDeleteData");
+      if (formDelete) {
+        formDelete.addEventListener("submit", function(e) {
+          e.preventDefault();
+          var bId = document.getElementById("delBookingId").value;
+          var contact = document.getElementById("delContact").value;
+          var btn = document.getElementById("btnConfirmDelete");
+          var statusEl = document.getElementById("delMessageStatus");
+
+          if (btn) btn.disabled = true;
+          if (statusEl) {
+            statusEl.classList.remove("hidden", "bg-red-900/50", "text-red-200", "bg-green-900/50", "text-green-200");
+            statusEl.classList.add("bg-slate-800", "text-slate-300");
+            statusEl.textContent = "Verifica ed eliminazione in corso...";
+          }
+
+          fetch("/api/public/privacy/delete-my-data", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ bookingId: bId, contact: contact })
+          })
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            if (statusEl) {
+              statusEl.classList.remove("hidden", "bg-slate-800", "text-slate-300");
+              if (data.success) {
+                statusEl.classList.add("bg-green-900/50", "text-green-200", "border", "border-green-500/40");
+                statusEl.textContent = "✓ " + data.message;
+                formDelete.reset();
+                loadPublicBookings();
+              } else {
+                statusEl.classList.add("bg-red-900/50", "text-red-200", "border", "border-red-500/40");
+                statusEl.textContent = "✗ " + (data.error || "Errore durante l'eliminazione.");
+              }
+            }
+          })
+          .catch(function(err) {
+            if (statusEl) {
+              statusEl.classList.remove("hidden", "bg-slate-800", "text-slate-300");
+              statusEl.classList.add("bg-red-900/50", "text-red-200", "border", "border-red-500/40");
+              statusEl.textContent = "✗ Errore di rete: " + err.message;
+            }
+          })
+          .finally(function() {
+            if (btn) btn.disabled = false;
+          });
+        });
+      }
+
+      // Form prenotazione con validazione privacy, nome reale e nickname pubblico
+      var bookingForm = document.getElementById("bookingForm");
+      if (bookingForm) {
+        bookingForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+          var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
+          var privBox = document.getElementById("privacyConsent");
+          if (privBox && !privBox.checked) {
+            alert(dict.privacyConsentRequired || "È obbligatorio accettare l'Informativa sulla Privacy.");
+            return;
+          }
+
+          var clientNameVal = document.getElementById("clientName").value.trim();
+          var nicknameVal = document.getElementById("nickname").value.trim();
+
+          if (!clientNameVal || !nicknameVal) {
+            alert("Inserisci sia il tuo Nome e Cognome reale (per il grafico) sia il tuo Nickname pubblico.");
+            return;
+          }
+
+          var btnSubmit = document.getElementById("btnSubmit");
+          var btnText = document.getElementById("btnSubmitText");
+          var originalText = btnText ? btnText.textContent : "INVIA";
+          if (btnSubmit) btnSubmit.disabled = true;
+          if (btnText) btnText.textContent = dict.submitBtnLoading || "Invio...";
+
+          var payload = {
+            clientName: clientNameVal,
+            nickname: nicknameVal,
+            phone: document.getElementById("phone").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            workType: document.getElementById("workType").value,
+            description: document.getElementById("description").value.trim(),
+            budget: document.getElementById("budget").value.trim(),
+            deadline: document.getElementById("deadline").value,
+            privacyConsent: privBox ? privBox.checked : true,
+            anonymousQueue: document.getElementById("anonymousQueue") ? document.getElementById("anonymousQueue").checked : false
+          };
+
+          fetch("/api/public/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.error) throw new Error(data.error);
+            document.getElementById("bookingForm").reset();
+            document.getElementById("modalBookingId").textContent = "#" + data.booking.id;
+            document.getElementById("modalClientName").textContent = "@" + data.booking.publicName;
+            document.getElementById("modalStatusText").textContent = "🔴 " + (dict.statusAspetto || "ASPETTO").toUpperCase();
+
+            var btnWa = document.getElementById("btnWhatsAppDirect");
+            if (btnWa) {
+              if (data.whatsappUrl) {
+                btnWa.href = data.whatsappUrl;
+                btnWa.classList.remove("hidden");
+              } else {
+                btnWa.classList.add("hidden");
+              }
+            }
+
+            document.getElementById("successModal").classList.remove("hidden");
+            loadPublicBookings();
+          })
+          .catch(function(err) {
+            alert("Errore: " + err.message);
+          })
+          .finally(function() {
+            if (btnSubmit) btnSubmit.disabled = false;
+            if (btnText) btnText.textContent = originalText;
+          });
+        });
+      }
+
+      // Filtri stato
+      document.querySelectorAll(".filter-btn").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          document.querySelectorAll(".filter-btn").forEach(function(b) {
+            b.classList.remove("bg-lime-500", "text-black", "font-bold");
+            b.classList.add("text-slate-400");
+          });
+          btn.classList.add("bg-lime-500", "text-black", "font-bold");
+          btn.classList.remove("text-slate-400");
+          currentFilter = btn.getAttribute("data-filter");
+          renderBookingsTable();
+        });
+      });
+
+      // Ricerca
+      var searchInput = document.getElementById("searchInput");
+      if (searchInput) {
+        searchInput.addEventListener("input", function(e) {
+          searchQuery = e.target.value.toLowerCase().trim();
+          renderBookingsTable();
+        });
+      }
+
+      // Chiudi modal di successo
+      var btnCloseModal = document.getElementById("btnCloseModal");
+      if (btnCloseModal) {
+        btnCloseModal.addEventListener("click", function() {
+          document.getElementById("successModal").classList.add("hidden");
+        });
+      }
+    });
+
+    function escapeHtml(string) {
+      var entityMap = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+      return String(string).replace(/[&<>"']/g, function(s) { return entityMap[s]; });
+    }
+  </script>
 </body>
 </html>
