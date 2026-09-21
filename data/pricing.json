@@ -1,0 +1,134 @@
+[
+  {
+    "id": "pkg-1",
+    "badge": "🥉 Base / Singolo",
+    "title": "Starter Creator",
+    "price": "25€",
+    "priceSuffix": "da",
+    "description": "Ideale per chi necessita di una grafica singola, avatar per profili social o logo essenziale.",
+    "features": [
+      "1 Grafica o Logo HD",
+      "Formato PNG Trasparente",
+      "2 Revisioni Gratuite Incluse",
+      "Consegna in 48-72h"
+    ],
+    "workType": "FLYERS COMPLEANNO",
+    "btnText": "Scegli Starter",
+    "isFeatured": false,
+    "highlightBadge": "",
+    "translations": {
+      "en": {
+        "badge": "🥉 Base / Single",
+        "title": "Starter Creator",
+        "description": "Ideal for single graphics, social media profile avatars, or essential logos.",
+        "features": [
+          "1 HD Graphic or Logo",
+          "Transparent PNG Format",
+          "2 Free Revisions Included",
+          "Delivery in 48-72h"
+        ],
+        "btnText": "Choose Starter"
+      },
+      "es": {
+        "badge": "🥉 Base / Individual",
+        "title": "Starter Creator",
+        "description": "Ideal para un diseño individual, avatar para redes sociales o logotipo esencial.",
+        "features": [
+          "1 Diseño o Logo en HD",
+          "Formato PNG Transparente",
+          "2 Revisiones Gratuitas Incluidas",
+          "Entrega en 48-72h"
+        ],
+        "btnText": "Elegir Starter"
+      }
+    }
+  },
+  {
+    "id": "pkg-2",
+    "badge": "🥈 Video & Streamer",
+    "title": "Pro MVP TikTok",
+    "price": "45€",
+    "priceSuffix": "da",
+    "description": "Video MVP personalizzato in 9:16 per TikTok, Shorts e Ringraziamento Livello con effetti speciali.",
+    "features": [
+      "Video Verticale 9:16 HD TikTok",
+      "Sound Design & Transizioni Dinamiche",
+      "Effetti Luce Cyber Neon & Particelle",
+      "Consegna Prioritaria in 24-48h"
+    ],
+    "workType": "VIDEO PERSONALIZZATI MVP",
+    "btnText": "Ordina Video MVP",
+    "isFeatured": true,
+    "highlightBadge": "🔥 PIÙ RICHIESTO",
+    "translations": {
+      "en": {
+        "badge": "🥈 Video & Streamer",
+        "title": "Pro MVP TikTok",
+        "description": "Custom 9:16 MVP video for TikTok, Shorts, and Level-Up celebration with VFX.",
+        "features": [
+          "Vertical 9:16 HD TikTok Video",
+          "Sound Design & Dynamic Transitions",
+          "Cyber Neon Lighting & Particle Effects",
+          "Priority Delivery in 24-48h"
+        ],
+        "btnText": "Order MVP Video"
+      },
+      "es": {
+        "badge": "🥈 Vídeo y Streamer",
+        "title": "Pro MVP TikTok",
+        "description": "Vídeo MVP personalizado en 9:16 para TikTok, Shorts y Agradecimiento de Nivel con VFX.",
+        "features": [
+          "Vídeo Vertical 9:16 HD TikTok",
+          "Diseño de Sonido y Transiciones Dinámicas",
+          "Luces Cyber Neón y Efectos de Partículas",
+          "Entrega Prioritaria en 24-48h"
+        ],
+        "btnText": "Pedir Vídeo MVP"
+      }
+    }
+  },
+  {
+    "id": "pkg-3",
+    "badge": "🥇 Kit Completo",
+    "title": "Elite VIP Batalla",
+    "price": "80€",
+    "priceSuffix": "da",
+    "description": "Pacchetto completo per battaglie live e tornei: intro versus, alert animati e kit grafiche streaming.",
+    "features": [
+      "Pack Batalla Completo (Intro + Versus)",
+      "Formato WebM con Trasparenza per OBS",
+      "Revisioni Illimitate fino a Soddisfazione",
+      "Assistenza Dedicata WhatsApp 24/7"
+    ],
+    "workType": "PACK BATALLA",
+    "btnText": "Scegli Elite VIP",
+    "isFeatured": false,
+    "highlightBadge": "",
+    "translations": {
+      "en": {
+        "badge": "🥇 Full Kit",
+        "title": "Elite VIP Batalla",
+        "description": "Complete pack for live battles & tournaments: animated versus intro and stream overlays.",
+        "features": [
+          "Full Battle Pack (Intro + Versus)",
+          "WebM Format with Alpha Channel for OBS",
+          "Unlimited Revisions until Satisfied",
+          "Dedicated 24/7 WhatsApp Support"
+        ],
+        "btnText": "Choose Elite VIP"
+      },
+      "es": {
+        "badge": "🥇 Kit Completo",
+        "title": "Elite VIP Batalla",
+        "description": "Paquete completo para batallas en vivo y torneos: intro versus, alertas y overlays de stream.",
+        "features": [
+          "Pack Batalla Completo (Intro + Versus)",
+          "Formato WebM con Transparencia para OBS",
+          "Revisiones Ilimitadas hasta tu Plena Satisfacción",
+          "Soporte Dedicado por WhatsApp 24/7"
+        ],
+        "btnText": "Elegir Elite VIP"
+      }
+    }
+  }
+]

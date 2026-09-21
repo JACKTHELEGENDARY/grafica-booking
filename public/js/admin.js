@@ -754,6 +754,17 @@ function escapeHtml(string) {
 
       const isVideo = file.type.includes("video") || file.name.toLowerCase().endsWith(".webm") || file.name.toLowerCase().endsWith(".mp4");
       
+      // Se il titolo è vuoto, imposta automaticamente il nome del file ripulito dall'estensione
+      const shTitle = document.getElementById("shTitle");
+      if (shTitle && !shTitle.value.trim()) {
+        const cleanName = file.name
+          .replace(/\.[a-zA-Z0-9]+$/g, "") // rimuove estensione .webm, .mp4 ecc.
+          .replace(/[_-]+/g, " ") // converte _ e - in spazi
+          .replace(/\s+/g, " ")
+          .trim();
+        shTitle.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+      }
+
       if (shUploadProgress) {
         shUploadProgress.classList.remove("hidden", "text-red-400", "text-lime-300");
         shUploadProgress.classList.add("text-lime-400");
@@ -802,7 +813,49 @@ function escapeHtml(string) {
     });
   }
 
-  // Invio nuova creazione
+  // Pulsante anteprima traduzioni on-demand in Admin
+  const btnAutoTranslate = document.getElementById("btnAutoTranslateAdmin");
+  if (btnAutoTranslate) {
+    btnAutoTranslate.addEventListener("click", async () => {
+      const title = document.getElementById("shTitle").value.trim();
+      const desc = document.getElementById("shDescription").value.trim();
+      const tag = document.getElementById("shTag").value.trim();
+      if (!title) {
+        alert("Inserisci prima il Titolo della creazione per generare l'anteprima delle traduzioni!");
+        return;
+      }
+      btnAutoTranslate.disabled = true;
+      btnAutoTranslate.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Traduzione...`;
+      try {
+        const res = await fetch("/api/admin/translate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + adminToken
+          },
+          body: JSON.stringify({ title, description: desc, tag, sourceLang: "it" })
+        });
+        const data = await res.json();
+        if (data.translations) {
+          if (document.getElementById("shTitleEn")) document.getElementById("shTitleEn").value = data.translations.en.title || "";
+          if (document.getElementById("shDescEn")) document.getElementById("shDescEn").value = data.translations.en.description || "";
+          if (document.getElementById("shTitleEs")) document.getElementById("shTitleEs").value = data.translations.es.title || "";
+          if (document.getElementById("shDescEs")) document.getElementById("shDescEs").value = data.translations.es.description || "";
+          // Apri il details se chiuso
+          const det = btnAutoTranslate.closest(".p-3") ? btnAutoTranslate.closest(".p-3").querySelector("details") : null;
+          if (det) det.open = true;
+        }
+      } catch (e) {
+        alert("Errore generazione traduzione: " + e.message);
+      } finally {
+        btnAutoTranslate.disabled = false;
+        btnAutoTranslate.innerHTML = `<i data-lucide="sparkles" class="w-3 h-3 text-lime-400"></i> Genera Anteprima Ora`;
+        if (window.lucide) lucide.createIcons();
+      }
+    });
+  }
+
+  // Invio nuova creazione con traduzioni automatiche
   if (formAddShowcase) {
     formAddShowcase.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -812,6 +865,15 @@ function escapeHtml(string) {
       const mediaVal = document.getElementById("shImageUrl").value.trim();
       const isVideo = mediaVal.toLowerCase().endsWith(".webm") || mediaVal.toLowerCase().endsWith(".mp4") || mediaVal.startsWith("data:video/");
 
+      const titleEn = document.getElementById("shTitleEn") ? document.getElementById("shTitleEn").value.trim() : "";
+      const descEn = document.getElementById("shDescEn") ? document.getElementById("shDescEn").value.trim() : "";
+      const titleEs = document.getElementById("shTitleEs") ? document.getElementById("shTitleEs").value.trim() : "";
+      const descEs = document.getElementById("shDescEs") ? document.getElementById("shDescEs").value.trim() : "";
+
+      const customTranslations = {};
+      if (titleEn || descEn) customTranslations.en = { title: titleEn, description: descEn };
+      if (titleEs || descEs) customTranslations.es = { title: titleEs, description: descEs };
+
       const payload = {
         title: document.getElementById("shTitle").value.trim(),
         category: document.getElementById("shCategory").value,
@@ -819,7 +881,8 @@ function escapeHtml(string) {
         videoUrl: isVideo ? mediaVal : "",
         mediaType: isVideo ? "video" : "image",
         tag: document.getElementById("shTag").value.trim(),
-        description: document.getElementById("shDescription").value.trim()
+        description: document.getElementById("shDescription").value.trim(),
+        translations: Object.keys(customTranslations).length > 0 ? customTranslations : undefined
       };
 
       try {
@@ -834,8 +897,12 @@ function escapeHtml(string) {
         const data = await res.json();
         if (data.error) throw new Error(data.error);
 
-        alert("Creazione pubblicata con successo nella vetrina!");
+        alert("Creazione pubblicata con successo! Titolo e descrizione sono stati tradotti in tutte le lingue (Italiano, English, Español).");
         formAddShowcase.reset();
+        if (document.getElementById("shTitleEn")) document.getElementById("shTitleEn").value = "";
+        if (document.getElementById("shDescEn")) document.getElementById("shDescEn").value = "";
+        if (document.getElementById("shTitleEs")) document.getElementById("shTitleEs").value = "";
+        if (document.getElementById("shDescEs")) document.getElementById("shDescEs").value = "";
         if (shUploadProgress) shUploadProgress.classList.add("hidden");
         loadAdminShowcase();
       } catch (err) {

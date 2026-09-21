@@ -222,7 +222,7 @@
     <!-- SEZIONE PACCHETTI & TARIFFE CONSIGLIATE (PRICING) -->
     <!-- ============================================================= -->
     <section id="pacchetti" class="mb-20 scroll-mt-24">
-      <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="text-center max-w-2xl mx-auto mb-8">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-400 text-xs font-semibold uppercase tracking-wider mb-2">
           <i data-lucide="tag" class="w-3.5 h-3.5"></i>
           <span data-i18n="pricingBadge">Tariffe Trasparenti & Pacchetti</span>
@@ -233,121 +233,14 @@
         <p data-i18n="pricingSubtitle" class="text-slate-400 text-xs sm:text-sm mt-1">
           Dalle grafiche per avatar e social ai video MVP per TikTok e i battle pack completi per streamer.
         </p>
+        <!-- BARRA CONTROLLO ADMIN PREZZI SUL SITO (SOLO ADMIN) -->
+        <div id="pricingAdminBar" class="mt-3.5 flex items-center justify-center gap-2 flex-wrap text-xs"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- PACCHETTO 1: STARTER -->
-        <div class="glass-panel p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-lime-500/40 transition relative group">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">🥉 Base / Singolo</span>
-            <h4 data-i18n="pkg1Title" class="font-heading text-xl font-bold text-white mt-1">Starter Creator</h4>
-            <div class="my-4 flex items-baseline gap-1">
-              <span class="text-xs text-slate-400" data-i18n="priceFrom">da</span>
-              <span class="text-3xl font-black text-lime-400">25€</span>
-            </div>
-            <p data-i18n="pkg1Desc" class="text-xs text-slate-400 mb-5 leading-relaxed">
-              Ideale per chi necessita di una grafica singola, avatar per profili social o logo essenziale.
-            </p>
-            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg1Feat1">1 Grafica o Logo HD</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg1Feat2">Formato PNG Trasparente</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg1Feat3">2 Revisioni Gratuite Incluse</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg1Feat4">Consegna in 48-72h</span>
-              </li>
-            </ul>
-          </div>
-          <button type="button" onclick="selectPricingPackage('FLYERS COMPLEANNO')" class="mt-6 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-200 bg-slate-900/90 hover:bg-lime-500 hover:text-black border border-white/10 hover:border-lime-500 transition flex items-center justify-center gap-1.5">
-            <span data-i18n="btnSelectPkg">Scegli Starter</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <!-- PACCHETTO 2: PRO TIKTOK & MVP (BEST SELLER) -->
-        <div class="glass-panel p-6 sm:p-7 flex flex-col justify-between border-2 border-lime-400/80 shadow-2xl shadow-lime-500/10 relative group z-10 bg-slate-950/95">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-lime-500 text-black font-extrabold text-[10px] uppercase tracking-wider shadow-md">
-            🔥 PIÙ RICHIESTO
-          </div>
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-lime-400">🥈 Video & Streamer</span>
-            <h4 data-i18n="pkg2Title" class="font-heading text-xl font-bold text-white mt-1">Pro MVP TikTok</h4>
-            <div class="my-4 flex items-baseline gap-1">
-              <span class="text-xs text-slate-400" data-i18n="priceFrom">da</span>
-              <span class="text-3xl font-black text-lime-400">45€</span>
-            </div>
-            <p data-i18n="pkg2Desc" class="text-xs text-slate-300 mb-5 leading-relaxed">
-              Video MVP personalizzato in 9:16 per TikTok, Shorts e Ringraziamento Livello con effetti speciali.
-            </p>
-            <ul class="space-y-2.5 text-xs text-slate-200 border-t border-white/10 pt-4">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg2Feat1">Video Verticale 9:16 HD TikTok</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg2Feat2">Sound Design & Transizioni Dinamiche</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg2Feat3">Effetti Luce Cyber Neon & Particelle</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg2Feat4">Consegna Prioritaria in 24-48h</span>
-              </li>
-            </ul>
-          </div>
-          <button type="button" onclick="selectPricingPackage('VIDEO PERSONALIZZATI MVP')" class="mt-6 w-full btn-neon-green py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span data-i18n="btnSelectMvp">Ordina Video MVP</span>
-          </button>
-        </div>
-
-        <!-- PACCHETTO 3: ELITE VIP PACK -->
-        <div class="glass-panel p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-lime-500/40 transition relative group">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">🥇 Kit Completo</span>
-            <h4 data-i18n="pkg3Title" class="font-heading text-xl font-bold text-white mt-1">Elite VIP Batalla</h4>
-            <div class="my-4 flex items-baseline gap-1">
-              <span class="text-xs text-slate-400" data-i18n="priceFrom">da</span>
-              <span class="text-3xl font-black text-lime-400">80€</span>
-            </div>
-            <p data-i18n="pkg3Desc" class="text-xs text-slate-400 mb-5 leading-relaxed">
-              Pacchetto completo per battaglie live e tornei: intro versus, alert animati e kit grafiche streaming.
-            </p>
-            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg3Feat1">Pack Batalla Completo (Intro + Versus)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg3Feat2">Formato WebM con Trasparenza per OBS</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg3Feat3">Revisioni Illimitate fino a Soddisfazione</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
-                <span data-i18n="pkg3Feat4">Assistenza Dedicata WhatsApp 24/7</span>
-              </li>
-            </ul>
-          </div>
-          <button type="button" onclick="selectPricingPackage('PACK BATALLA')" class="mt-6 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-200 bg-slate-900/90 hover:bg-lime-500 hover:text-black border border-white/10 hover:border-lime-500 transition flex items-center justify-center gap-1.5">
-            <span data-i18n="btnSelectVip">Scegli Elite VIP</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
+      <!-- GRIGLIA PACCHETTI POPOLATA DINAMICAMENTE DA API / MODIFICABILE DA ADMIN -->
+      <div id="pricingGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="col-span-full text-center py-10 text-slate-500 text-xs">
+          Caricamento tariffe e pacchetti...
         </div>
       </div>
     </section>
@@ -846,6 +739,133 @@
           <span data-i18n="showcaseOrderThis">Voglio questa Grafica!</span>
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT PRICING (SOLO ADMIN) -->
+  <div id="modalEditPricing" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-lg w-full p-6 sm:p-7 relative border border-lime-500/40 animate-in fade-in zoom-in-95 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+        <h3 id="editPricingModalTitle" class="font-heading text-base font-bold text-white flex items-center gap-2">
+          <i data-lucide="tag" class="w-4 h-4 text-lime-400"></i> Modifica Pacchetto Tariffario
+        </h3>
+        <button type="button" onclick="closeEditPricingModal()" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="formEditPricing" onsubmit="savePricingPackage(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="editPkgId">
+        
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Prezzo Visibile *</label>
+            <input type="text" id="editPkgPrice" required placeholder="Es. 45€ o 120€" class="glass-input w-full px-3 py-2 rounded-lg text-sm font-bold text-lime-400 font-mono">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Dicitura Prezzo</label>
+            <input type="text" id="editPkgSuffix" placeholder="Es. da o a partire da" value="da" class="glass-input w-full px-3 py-2 rounded-lg text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Titolo Pacchetto *</label>
+            <input type="text" id="editPkgTitle" required placeholder="Es. Pro MVP TikTok" class="glass-input w-full px-3 py-2 rounded-lg text-xs">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Badge Superiore</label>
+            <input type="text" id="editPkgBadge" placeholder="Es. 🥈 Video & Streamer" class="glass-input w-full px-3 py-2 rounded-lg text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Badge In Evidenza (opzionale)</label>
+            <input type="text" id="editPkgHighlightBadge" placeholder="Es. 🔥 PIÙ RICHIESTO" class="glass-input w-full px-3 py-2 rounded-lg text-xs">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Testo Pulsante</label>
+            <input type="text" id="editPkgBtnText" placeholder="Es. Ordina Video MVP" value="Scegli Pacchetto" class="glass-input w-full px-3 py-2 rounded-lg text-xs">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Categoria Lavoro Collegata</label>
+          <select id="editPkgWorkType" class="glass-input w-full px-3 py-2 rounded-lg text-xs bg-slate-900 text-white">
+            <option value="VIDEO PERSONALIZZATI MVP">🏆 VIDEO PERSONALIZZATI MVP</option>
+            <option value="FLYERS COMPLEANNO">🎉 FLYERS COMPLEANNO</option>
+            <option value="VIDEO DI RINGRAZIAMENTO LIVELLO">⚡ VIDEO DI RINGRAZIAMENTO LIVELLO</option>
+            <option value="TRASFORMAZIONI">✨ TRASFORMAZIONI</option>
+            <option value="PACK BATALLA">⚔️ PACK BATALLA</option>
+            <option value="ALTRE ANIMAZIONI">🎬 ALTRE ANIMAZIONI</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Descrizione Pacchetto</label>
+          <textarea id="editPkgDesc" rows="2" placeholder="Breve sintesi per chi è indicato questo pacchetto..." class="glass-input w-full px-3 py-2 rounded-lg text-xs"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">
+            Caratteristiche e Vantaggi Inclusi (uno per riga)
+          </label>
+          <textarea id="editPkgFeatures" rows="4" placeholder="1 Grafica o Logo HD&#10;Formato PNG Trasparente&#10;2 Revisioni Gratuite Incluse&#10;Consegna in 48-72h" class="glass-input w-full px-3 py-2 rounded-lg text-xs font-mono"></textarea>
+          <span class="text-[10px] text-slate-500">Scrivi ogni punto elenco su una riga separata.</span>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <input type="checkbox" id="editPkgIsFeatured" class="rounded accent-lime-500 w-4 h-4 cursor-pointer">
+          <label for="editPkgIsFeatured" class="cursor-pointer text-slate-300 font-semibold select-none">
+            ⭐ Metti in risalto come Pacchetto Speciale (Bordo Neon in rilievo)
+          </label>
+        </div>
+
+        <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+          <button type="button" id="btnDeletePkg" onclick="deleteCurrentPricingPackage()" class="px-3 py-2 rounded-xl text-red-400 hover:bg-red-500/10 border border-red-500/30 text-xs font-bold transition">
+            Elimina Pacchetto
+          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeEditPricingModal()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+              Annulla
+            </button>
+            <button type="submit" id="btnSavePricing" class="btn-neon-green px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i> Salva Modifiche
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL LOGIN ADMIN RAPIDO DAL SITO -->
+  <div id="modalPricingAdminLogin" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-sm w-full p-6 relative border border-lime-500/30 animate-in fade-in zoom-in-95">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+        <h3 class="font-heading text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-lime-400"></i> Accesso Modifica Tariffe
+        </h3>
+        <button type="button" onclick="closePricingAdminLoginModal()" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-400 mb-4">
+        Inserisci il tuo PIN Amministratore per sbloccare la modifica diretta di prezzi e pacchetti sul sito.
+      </p>
+      <form id="formQuickAdminLogin" onsubmit="submitQuickAdminLogin(event)" class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">PIN Amministratore</label>
+          <input type="password" id="quickAdminPinInput" required placeholder="Inserisci PIN (es. admin123)" class="glass-input w-full px-3 py-2 rounded-lg text-sm tracking-widest text-center font-mono">
+        </div>
+        <div id="quickAdminLoginError" class="text-xs text-red-400 hidden"></div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closePricingAdminLoginModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs">Annulla</button>
+          <button type="submit" id="btnSubmitQuickLogin" class="btn-neon-green px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1">
+            <i data-lucide="unlock" class="w-3.5 h-3.5"></i> Sblocca Modifica
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1672,16 +1692,35 @@
         if (cookCont) cookCont.innerHTML = dict.cookieHtml || "";
       }
 
-      // Re-render tabella pubblica e showcase
+      // Re-render tabella pubblica, showcase e tariffe
       renderBookingsTable();
       renderShowcase();
+      renderPricing();
+
+      // Se il lightbox video/grafica è aperto, aggiorna al volo titolo e descrizione tradotti
+      if (currentLightboxId) {
+        var currentItem = allShowcase.find(function(x) { return x.id === currentLightboxId; });
+        if (currentItem) {
+          var modalEl = document.getElementById("modalShowcase");
+          if (modalEl && !modalEl.classList.contains("hidden")) {
+            var lCat = document.getElementById("lightboxCategory");
+            var lTitle = document.getElementById("lightboxTitle");
+            var lDesc = document.getElementById("lightboxDesc");
+            if (lCat) lCat.textContent = getTranslatedCategory(currentItem.category, dict, currentItem, lang);
+            if (lTitle) lTitle.textContent = getShowcaseField(currentItem, "title", lang);
+            if (lDesc) lDesc.textContent = getShowcaseField(currentItem, "description", lang);
+          }
+        }
+      }
 
       if (window.lucide) lucide.createIcons();
     };
 
     // ==========================================
-    // LOGICA VETRINA SHOWCASE PUBBLICA
+    // LOGICA VETRINA SHOWCASE PUBBLICA MULTILINGUA
     // ==========================================
+    var currentLightboxId = null;
+
     function loadShowcase() {
       fetch("/api/public/showcase")
         .then(function(res) { return res.json(); })
@@ -1694,16 +1733,30 @@
         });
     }
 
-    
-    function getTranslatedCategory(cat, dict) {
+    function getShowcaseField(item, field, lang) {
+      if (!item) return "";
+      lang = lang || currentLang || "it";
+      if (item.translations && item.translations[lang] && item.translations[lang][field]) {
+        return item.translations[lang][field];
+      }
+      return item[field] || "";
+    }
+
+    function getTranslatedCategory(cat, dict, item, lang) {
       if (!cat) return "";
+      lang = lang || currentLang || "it";
+      dict = dict || ((window.I18N && window.I18N[lang]) ? window.I18N[lang] : {});
       var clean = cat.trim();
-      if (clean === "VIDEO PERSONALIZZATI MVP") return dict.workTypeMvp || clean;
-      if (clean === "FLYERS COMPLEANNO") return dict.workTypeFlyers || clean;
-      if (clean === "VIDEO DI RINGRAZIAMENTO LIVELLO") return dict.workTypeRingraziamento || clean;
-      if (clean === "TRASFORMAZIONI") return dict.workTypeTrasformazioni || clean;
-      if (clean === "PACK BATALLA") return dict.workTypeBatalla || clean;
-      if (clean === "ALTRE ANIMAZIONI") return dict.workTypeAltreAnimazioni || clean;
+      var upper = clean.toUpperCase();
+      if (upper.includes("MVP")) return dict.workTypeMvp || clean;
+      if (upper.includes("COMPLEANNO") || upper.includes("FLYER")) return dict.workTypeFlyers || clean;
+      if (upper.includes("LIVELLO") || upper.includes("RINGRAZIAMENTO")) return dict.workTypeRingraziamento || clean;
+      if (upper.includes("TRASFORMAZION") || upper.includes("TRANSFORMATION")) return dict.workTypeTrasformazioni || clean;
+      if (upper.includes("BATALLA") || upper.includes("BATTLE")) return dict.workTypeBatalla || clean;
+      if (upper.includes("ANIMAZION") || upper.includes("ANIMATION")) return dict.workTypeAltreAnimazioni || clean;
+      if (item && item.translations && item.translations[lang] && item.translations[lang].category) {
+        return item.translations[lang].category;
+      }
       return clean;
     }
 
@@ -1725,20 +1778,32 @@
       }
 
       container.innerHTML = allShowcase.map(function(item) {
-        var viewText = dict.showcaseViewHd || "Visualizza in HD";
         var isVid = isMediaVideo(item);
         var mediaSrc = item.videoUrl || item.imageUrl;
 
+        // Campi tradotti dinamicamente in base alla lingua selezionata (IT, EN, ES)
+        var itemTitle = getShowcaseField(item, "title", currentLang);
+        var itemDesc = getShowcaseField(item, "description", currentLang);
+        var itemCat = getTranslatedCategory(item.category, dict, item, currentLang);
+        var defaultTag = isVid 
+          ? (currentLang === "en" ? "🎬 VIDEO" : (currentLang === "es" ? "🎬 VÍDEO" : "🎬 VIDEO"))
+          : (currentLang === "en" ? "✨ FEATURED" : (currentLang === "es" ? "✨ DESTACADO" : "✨ IN EVIDENZA"));
+        var rawTag = getShowcaseField(item, "tag", currentLang) || defaultTag;
+        var cleanTag = rawTag.replace(/\.?webm/gi, "").trim();
+
+        var viewText = isVid
+          ? (dict.showcaseViewVideo || (currentLang === "en" ? "Watch Video" : (currentLang === "es" ? "Ver Vídeo" : "Guarda Video")))
+          : (dict.showcaseViewHd || (currentLang === "en" ? "View in HD" : (currentLang === "es" ? "Ver en HD" : "Visualizza in HD")));
+
         var mediaContent = isVid
           ? '<video src="' + escapeHtml(mediaSrc) + '" autoplay loop muted playsinline preload="metadata" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture draggable="false" oncontextmenu="return false;" class="card-img w-full h-full object-cover pointer-events-none select-none"></video>'
-          : '<img src="' + escapeHtml(mediaSrc) + '" alt="' + escapeHtml(item.title) + '" draggable="false" oncontextmenu="return false;" class="card-img w-full h-full object-cover select-none">';
+          : '<img src="' + escapeHtml(mediaSrc) + '" alt="' + escapeHtml(itemTitle) + '" draggable="false" oncontextmenu="return false;" class="card-img w-full h-full object-cover select-none">';
 
         var playIcon = isVid
           ? '<div class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-black/75 border border-lime-500/50 flex items-center justify-center text-lime-400 group-hover:scale-110 group-hover:bg-lime-500 group-hover:text-black transition shadow-lg shadow-black/60"><i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i></div>'
           : '';
 
-        var cleanTag = (item.tag || (isVid ? "🎬 VIDEO" : "✨ CREAZIONE")).replace(/\.?webm/gi, "").trim();
-        var aspectClass = isVid ? "aspect-[9/16] aspect-9-16" : "aspect-[9/16] aspect-9-16";
+        var aspectClass = "aspect-[9/16] aspect-9-16";
 
         return (
           '<div class="showcase-card flex flex-col justify-between group cursor-pointer" onclick="openShowcaseLightbox(\'' + item.id + '\')">' +
@@ -1754,13 +1819,13 @@
             '</div>' +
             '<div class="p-4 flex-1 flex flex-col justify-between space-y-2">' +
               '<div>' +
-                '<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">' + escapeHtml(getTranslatedCategory(item.category, dict)) + '</span>' +
-                '<h4 class="font-heading font-bold text-sm text-white group-hover:text-lime-300 transition line-clamp-1 mt-0.5">' + escapeHtml(item.title) + '</h4>' +
-                '<p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-relaxed">' + escapeHtml(item.description || "") + '</p>' +
+                '<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">' + escapeHtml(itemCat) + '</span>' +
+                '<h4 class="font-heading font-bold text-sm text-white group-hover:text-lime-300 transition line-clamp-1 mt-0.5">' + escapeHtml(itemTitle) + '</h4>' +
+                '<p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-relaxed">' + escapeHtml(itemDesc) + '</p>' +
               '</div>' +
               '<div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">' +
                 '<span class="text-[10px] font-semibold text-lime-400/90 flex items-center gap-1 group-hover:underline">' +
-                  '<i data-lucide="' + (isVid ? 'play-circle' : 'eye') + '" class="w-3 h-3"></i> ' + (isVid ? (dict.showcaseViewVideo || "Guarda Video") : viewText) +
+                  '<i data-lucide="' + (isVid ? 'play-circle' : 'eye') + '" class="w-3 h-3"></i> ' + viewText +
                 '</span>' +
                 '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500 group-hover:text-lime-400 transition"></i>' +
               '</div>' +
@@ -1776,11 +1841,14 @@
       var item = allShowcase.find(function(x) { return x.id === id; });
       if (!item) return;
 
+      currentLightboxId = id;
       currentSelectedCategory = item.category || "";
       var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
-      document.getElementById("lightboxCategory").textContent = getTranslatedCategory(item.category, dict);
-      document.getElementById("lightboxTitle").textContent = item.title;
-      document.getElementById("lightboxDesc").textContent = item.description || "";
+
+      // Testi tradotti per il lightbox
+      document.getElementById("lightboxCategory").textContent = getTranslatedCategory(item.category, dict, item, currentLang);
+      document.getElementById("lightboxTitle").textContent = getShowcaseField(item, "title", currentLang);
+      document.getElementById("lightboxDesc").textContent = getShowcaseField(item, "description", currentLang);
       
       var isVid = isMediaVideo(item);
       var mediaSrc = item.videoUrl || item.imageUrl;
@@ -1821,6 +1889,7 @@
     };
 
     window.closeShowcaseModal = function() {
+      currentLightboxId = null;
       var vidEl = document.getElementById("lightboxVideo");
       if (vidEl) {
         vidEl.pause();
@@ -1847,6 +1916,364 @@
           }
         }
       }
+    };
+
+    // ==========================================
+    // LOGICA PACCHETTI TARIFFE (PRICING) & MODIFICA ADMIN SUL SITO
+    // ==========================================
+    var allPricing = [];
+    var currentEditingPkgId = null;
+
+    function loadPricing() {
+      fetch("/api/public/pricing")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (Array.isArray(data) && data.length > 0) {
+            allPricing = data;
+          }
+          renderPricing();
+        })
+        .catch(function(err) {
+          console.error("Errore caricamento tariffe:", err);
+          renderPricing();
+        });
+    }
+
+    function getPricingField(pkg, field, lang) {
+      if (!pkg) return "";
+      lang = lang || currentLang || "it";
+      if (pkg.translations && pkg.translations[lang] && pkg.translations[lang][field] !== undefined) {
+        return pkg.translations[lang][field];
+      }
+      return pkg[field] !== undefined ? pkg[field] : "";
+    }
+
+    function renderPricing() {
+      var grid = document.getElementById("pricingGrid");
+      var toolbar = document.getElementById("pricingAdminBar");
+      if (!grid) return;
+
+      var token = localStorage.getItem("admin_token") || sessionStorage.getItem("admin_token");
+      var isAdmin = !!token;
+
+      // Aggiorna barra di controllo Admin sul sito
+      if (toolbar) {
+        if (isAdmin) {
+          toolbar.innerHTML = 
+            '<div class="inline-flex items-center gap-2 bg-slate-900/95 border border-lime-500/50 rounded-full px-3.5 py-1.5 text-xs shadow-xl shadow-lime-500/5 animate-in fade-in">' +
+              '<span class="text-lime-400 font-bold flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-lime-400"></i> Modalità Admin Attiva</span>' +
+              '<span class="text-slate-600">•</span>' +
+              '<button type="button" onclick="openAddPricingModal()" class="text-xs font-bold text-slate-200 hover:text-lime-300 flex items-center gap-1 transition px-2 py-0.5 rounded hover:bg-white/5"><i data-lucide="plus-circle" class="w-3.5 h-3.5 text-lime-400"></i> Aggiungi Pacchetto</button>' +
+              '<span class="text-slate-600">•</span>' +
+              '<button type="button" onclick="adminSiteLogout()" class="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1 transition px-2 py-0.5 rounded hover:bg-red-950/40"><i data-lucide="log-out" class="w-3 h-3"></i> Esci Admin</button>' +
+            '</div>';
+        } else {
+          toolbar.innerHTML = 
+            '<button type="button" onclick="openPricingAdminLoginModal()" class="inline-flex items-center gap-1.5 text-[11px] text-slate-400 hover:text-lime-400 transition bg-slate-900/80 hover:bg-slate-900 px-3.5 py-1.5 rounded-full border border-white/10 hover:border-lime-500/40 shadow-sm">' +
+              '<i data-lucide="lock" class="w-3 h-3 text-lime-400/80"></i> Modifica Prezzi (Solo Admin)' +
+            '</button>';
+        }
+      }
+
+      var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
+
+      if (!allPricing || allPricing.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-slate-500 text-xs">Nessun pacchetto disponibile.</div>';
+        return;
+      }
+
+      grid.innerHTML = allPricing.map(function(pkg) {
+        var isFeatured = !!pkg.isFeatured;
+        var pTitle = getPricingField(pkg, "title", currentLang) || pkg.title;
+        var pDesc = getPricingField(pkg, "description", currentLang) || pkg.description;
+        var pBadge = getPricingField(pkg, "badge", currentLang) || pkg.badge;
+        var pBtnText = getPricingField(pkg, "btnText", currentLang) || (isFeatured ? (dict.btnSelectMvp || "Ordina Video MVP") : (dict.btnSelectPkg || "Scegli Pacchetto"));
+        var rawFeatures = getPricingField(pkg, "features", currentLang) || pkg.features || [];
+        var features = Array.isArray(rawFeatures) ? rawFeatures : [rawFeatures];
+        var priceFrom = dict.priceFrom || (currentLang === "en" ? "from" : (currentLang === "es" ? "desde" : "da"));
+
+        var adminEditBtn = isAdmin
+          ? '<button type="button" onclick="openEditPricingModal(\'' + pkg.id + '\')" class="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-lg bg-lime-500 hover:bg-lime-400 text-black font-extrabold text-[11px] transition flex items-center gap-1 shadow-lg shadow-black/60 hover:scale-105 active:scale-95 cursor-pointer" title="Modifica questo pacchetto">' +
+              '<i data-lucide="pencil" class="w-3 h-3"></i> Modifica' +
+            '</button>'
+          : '';
+
+        var highlightHtml = (isFeatured && pkg.highlightBadge)
+          ? '<div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-lime-500 text-black font-extrabold text-[10px] uppercase tracking-wider shadow-md z-10">' +
+              escapeHtml(pkg.highlightBadge) +
+            '</div>'
+          : '';
+
+        var containerClass = isFeatured
+          ? 'glass-panel p-6 sm:p-7 flex flex-col justify-between border-2 border-lime-400/80 shadow-2xl shadow-lime-500/10 relative group z-10 bg-slate-950/95'
+          : 'glass-panel p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-lime-500/40 transition relative group';
+
+        var btnClass = isFeatured
+          ? 'mt-6 w-full btn-neon-green py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg'
+          : 'mt-6 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-200 bg-slate-900/90 hover:bg-lime-500 hover:text-black border border-white/10 hover:border-lime-500 transition flex items-center justify-center gap-1.5';
+
+        var featuresHtml = features.map(function(feat) {
+          return '<li class="flex items-center gap-2">' +
+            '<i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>' +
+            '<span>' + escapeHtml(feat) + '</span>' +
+          '</li>';
+        }).join("");
+
+        return (
+          '<div class="' + containerClass + '">' +
+            highlightHtml +
+            adminEditBtn +
+            '<div>' +
+              '<span class="text-xs font-bold uppercase tracking-wider ' + (isFeatured ? 'text-lime-400' : 'text-slate-400') + '">' + escapeHtml(pBadge) + '</span>' +
+              '<h4 class="font-heading text-xl font-bold text-white mt-1">' + escapeHtml(pTitle) + '</h4>' +
+              '<div class="my-4 flex items-baseline gap-1.5">' +
+                '<span class="text-xs text-slate-400">' + escapeHtml(pkg.priceSuffix || priceFrom) + '</span>' +
+                '<span class="text-3xl font-black text-lime-400">' + escapeHtml(pkg.price) + '</span>' +
+              '</div>' +
+              '<p class="text-xs text-slate-400 mb-5 leading-relaxed">' + escapeHtml(pDesc) + '</p>' +
+              '<ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">' +
+                featuresHtml +
+              '</ul>' +
+            '</div>' +
+            '<button type="button" onclick="selectPricingPackage(\'' + escapeHtml(pkg.workType || '') + '\')" class="' + btnClass + '">' +
+              '<span>' + escapeHtml(pBtnText) + '</span>' +
+              '<i data-lucide="' + (isFeatured ? 'sparkles' : 'arrow-right') + '" class="w-3.5 h-3.5"></i>' +
+            '</button>' +
+          '</div>'
+        );
+      }).join("");
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // GESTIONE MODIFICA PACCHETTI DAL SITO
+    window.openEditPricingModal = function(pkgId) {
+      var pkg = allPricing.find(function(p) { return p.id === pkgId; });
+      if (!pkg) return;
+      currentEditingPkgId = pkgId;
+
+      document.getElementById("editPricingModalTitle").innerHTML = '<i data-lucide="tag" class="w-4 h-4 text-lime-400"></i> Modifica Pacchetto: ' + escapeHtml(pkg.title);
+      document.getElementById("editPkgId").value = pkg.id;
+      document.getElementById("editPkgPrice").value = pkg.price || "";
+      document.getElementById("editPkgSuffix").value = pkg.priceSuffix || "da";
+      document.getElementById("editPkgTitle").value = pkg.title || "";
+      document.getElementById("editPkgBadge").value = pkg.badge || "";
+      document.getElementById("editPkgHighlightBadge").value = pkg.highlightBadge || "";
+      document.getElementById("editPkgBtnText").value = pkg.btnText || "Scegli Pacchetto";
+      document.getElementById("editPkgWorkType").value = pkg.workType || "VIDEO PERSONALIZZATI MVP";
+      document.getElementById("editPkgDesc").value = pkg.description || "";
+      document.getElementById("editPkgFeatures").value = Array.isArray(pkg.features) ? pkg.features.join("\n") : (pkg.features || "");
+      document.getElementById("editPkgIsFeatured").checked = !!pkg.isFeatured;
+
+      var btnDel = document.getElementById("btnDeletePkg");
+      if (btnDel) {
+        btnDel.classList.toggle("hidden", allPricing.length <= 1);
+      }
+
+      document.getElementById("modalEditPricing").classList.remove("hidden");
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.openAddPricingModal = function() {
+      currentEditingPkgId = null;
+      document.getElementById("editPricingModalTitle").innerHTML = '<i data-lucide="plus-circle" class="w-4 h-4 text-lime-400"></i> Aggiungi Nuovo Pacchetto';
+      document.getElementById("editPkgId").value = "";
+      document.getElementById("editPkgPrice").value = "";
+      document.getElementById("editPkgSuffix").value = "da";
+      document.getElementById("editPkgTitle").value = "";
+      document.getElementById("editPkgBadge").value = "";
+      document.getElementById("editPkgHighlightBadge").value = "";
+      document.getElementById("editPkgBtnText").value = "Scegli Pacchetto";
+      document.getElementById("editPkgWorkType").value = "VIDEO PERSONALIZZATI MVP";
+      document.getElementById("editPkgDesc").value = "";
+      document.getElementById("editPkgFeatures").value = "";
+      document.getElementById("editPkgIsFeatured").checked = false;
+
+      var btnDel = document.getElementById("btnDeletePkg");
+      if (btnDel) btnDel.classList.add("hidden");
+
+      document.getElementById("modalEditPricing").classList.remove("hidden");
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.closeEditPricingModal = function() {
+      currentEditingPkgId = null;
+      document.getElementById("modalEditPricing").classList.add("hidden");
+    };
+
+    window.deleteCurrentPricingPackage = function() {
+      if (!currentEditingPkgId) return;
+      if (!confirm("Sei sicuro di voler rimuovere questo pacchetto tariffario?")) return;
+
+      var token = localStorage.getItem("admin_token") || sessionStorage.getItem("admin_token");
+      if (!token) {
+        alert("Sessione admin scaduta. Effettua nuovamente il login.");
+        return;
+      }
+
+      var newPackages = allPricing.filter(function(p) { return p.id !== currentEditingPkgId; });
+
+      fetch("/api/admin/pricing", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(newPackages)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) throw new Error(data.error);
+        allPricing = data.packages || newPackages;
+        closeEditPricingModal();
+        renderPricing();
+      })
+      .catch(function(err) {
+        alert("Errore eliminazione pacchetto: " + err.message);
+      });
+    };
+
+    window.savePricingPackage = function(e) {
+      e.preventDefault();
+      var token = localStorage.getItem("admin_token") || sessionStorage.getItem("admin_token");
+      if (!token) {
+        alert("Sessione admin scaduta. Effettua nuovamente il login con il PIN.");
+        return;
+      }
+
+      var pkgId = document.getElementById("editPkgId").value.trim();
+      var price = document.getElementById("editPkgPrice").value.trim();
+      var priceSuffix = document.getElementById("editPkgSuffix").value.trim() || "da";
+      var title = document.getElementById("editPkgTitle").value.trim();
+      var badge = document.getElementById("editPkgBadge").value.trim();
+      var highlightBadge = document.getElementById("editPkgHighlightBadge").value.trim();
+      var btnText = document.getElementById("editPkgBtnText").value.trim() || "Scegli Pacchetto";
+      var workType = document.getElementById("editPkgWorkType").value;
+      var description = document.getElementById("editPkgDesc").value.trim();
+      var rawFeatures = document.getElementById("editPkgFeatures").value;
+      var features = rawFeatures.split("\n").map(function(f) { return f.trim(); }).filter(Boolean);
+      var isFeatured = document.getElementById("editPkgIsFeatured").checked;
+
+      var btnSave = document.getElementById("btnSavePricing");
+      var originalHtml = btnSave ? btnSave.innerHTML : "Salva Modifiche";
+      if (btnSave) {
+        btnSave.disabled = true;
+        btnSave.innerHTML = '<span class="animate-spin inline-block mr-1">⏳</span> Salvataggio...';
+      }
+
+      var packagesCopy = JSON.parse(JSON.stringify(allPricing));
+      if (pkgId) {
+        // Modifica pacchetto esistente
+        var index = packagesCopy.findIndex(function(p) { return p.id === pkgId; });
+        if (index !== -1) {
+          packagesCopy[index] = Object.assign({}, packagesCopy[index], {
+            price: price,
+            priceSuffix: priceSuffix,
+            title: title,
+            badge: badge,
+            highlightBadge: highlightBadge,
+            btnText: btnText,
+            workType: workType,
+            description: description,
+            features: features,
+            isFeatured: isFeatured
+          });
+        }
+      } else {
+        // Nuovo pacchetto
+        var newId = "pkg-" + Date.now();
+        packagesCopy.push({
+          id: newId,
+          price: price,
+          priceSuffix: priceSuffix,
+          title: title,
+          badge: badge,
+          highlightBadge: highlightBadge,
+          btnText: btnText,
+          workType: workType,
+          description: description,
+          features: features,
+          isFeatured: isFeatured
+        });
+      }
+
+      fetch("/api/admin/pricing", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(packagesCopy)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) throw new Error(data.error);
+        allPricing = data.packages || packagesCopy;
+        closeEditPricingModal();
+        renderPricing();
+      })
+      .catch(function(err) {
+        alert("Errore salvataggio pacchetto: " + err.message);
+      })
+      .finally(function() {
+        if (btnSave) {
+          btnSave.disabled = false;
+          btnSave.innerHTML = originalHtml;
+        }
+      });
+    };
+
+    // LOGIN RAPIDO ADMIN SUL SITO
+    window.openPricingAdminLoginModal = function() {
+      var errEl = document.getElementById("quickAdminLoginError");
+      if (errEl) errEl.classList.add("hidden");
+      var inp = document.getElementById("quickAdminPinInput");
+      if (inp) inp.value = "";
+      document.getElementById("modalPricingAdminLogin").classList.remove("hidden");
+      if (inp) inp.focus();
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.closePricingAdminLoginModal = function() {
+      document.getElementById("modalPricingAdminLogin").classList.add("hidden");
+    };
+
+    window.submitQuickAdminLogin = function(e) {
+      e.preventDefault();
+      var pin = document.getElementById("quickAdminPinInput").value.trim();
+      var errEl = document.getElementById("quickAdminLoginError");
+      var btn = document.getElementById("btnSubmitQuickLogin");
+
+      if (btn) btn.disabled = true;
+      if (errEl) errEl.classList.add("hidden");
+
+      fetch("/api/admin/quick-auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin: pin })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) throw new Error(data.error);
+        localStorage.setItem("admin_token", data.token);
+        closePricingAdminLoginModal();
+        renderPricing();
+      })
+      .catch(function(err) {
+        if (errEl) {
+          errEl.textContent = err.message || "PIN non corretto.";
+          errEl.classList.remove("hidden");
+        }
+      })
+      .finally(function() {
+        if (btn) btn.disabled = false;
+      });
+    };
+
+    window.adminSiteLogout = function() {
+      localStorage.removeItem("admin_token");
+      sessionStorage.removeItem("admin_token");
+      renderPricing();
     };
 
     window.selectPricingPackage = function(categoryName) {
@@ -2046,6 +2473,7 @@
       window.setLanguage(currentLang);
       loadStudioInfo();
       loadShowcase();
+      loadPricing();
       loadPublicBookings();
 
       // Controlla stato banner privacy

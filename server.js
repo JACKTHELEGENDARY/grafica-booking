@@ -41,6 +41,10 @@ const SHOWCASE_FILE = fs.existsSync(path.join(__dirname, "data", "showcase.json"
   ? path.join(__dirname, "data", "showcase.json")
   : (fs.existsSync(path.join(__dirname, "showcase.json")) ? path.join(__dirname, "showcase.json") : path.join(__dirname, "data", "showcase.json"));
 
+const PRICING_FILE = fs.existsSync(path.join(__dirname, "data", "pricing.json"))
+  ? path.join(__dirname, "data", "pricing.json")
+  : (fs.existsSync(path.join(__dirname, "pricing.json")) ? path.join(__dirname, "pricing.json") : path.join(__dirname, "data", "pricing.json"));
+
 // Helper: Leggi/Scrivi JSON
 function readJson(filePath, defaultValue) {
   try {
@@ -65,6 +69,58 @@ function writeJson(filePath, data) {
     console.error(`Errore scrittura ${filePath}:`, err);
     return false;
   }
+}
+
+// Helper traduzione automatica multilingua per showcase (IT, EN, ES)
+async function translateText(text, targetLang, sourceLang = "it") {
+  if (!text || !text.trim()) return "";
+  if (targetLang === sourceLang) return text;
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
+    if (!res.ok) throw new Error("Status " + res.status);
+    const data = await res.json();
+    if (data && Array.isArray(data[0])) {
+      const translated = data[0].filter(item => item && item[0]).map(item => item[0]).join("");
+      return translated || text;
+    }
+    return text;
+  } catch (err) {
+    console.warn(`[Translate] Avviso traduzione verso ${targetLang}:`, err.message);
+    return text;
+  }
+}
+
+async function generateShowcaseTranslations(title, description, tag, existingTranslations = {}) {
+  const t = {
+    it: {
+      title: title || "",
+      description: description || "",
+      tag: tag || ""
+    },
+    en: {
+      title: (existingTranslations.en && existingTranslations.en.title) || "",
+      description: (existingTranslations.en && existingTranslations.en.description) || "",
+      tag: (existingTranslations.en && existingTranslations.en.tag) || ""
+    },
+    es: {
+      title: (existingTranslations.es && existingTranslations.es.title) || "",
+      description: (existingTranslations.es && existingTranslations.es.description) || "",
+      tag: (existingTranslations.es && existingTranslations.es.tag) || ""
+    }
+  };
+
+  // Se mancano traduzioni in Inglese, traducile da Italiano
+  if (!t.en.title && title) t.en.title = await translateText(title, "en", "it");
+  if (!t.en.description && description) t.en.description = await translateText(description, "en", "it");
+  if (!t.en.tag && tag) t.en.tag = await translateText(tag, "en", "it");
+
+  // Se mancano traduzioni in Spagnolo, traducile da Italiano
+  if (!t.es.title && title) t.es.title = await translateText(title, "es", "it");
+  if (!t.es.description && description) t.es.description = await translateText(description, "es", "it");
+  if (!t.es.tag && tag) t.es.tag = await translateText(tag, "es", "it");
+
+  return t;
 }
 
 // Config iniziale
@@ -303,6 +359,12 @@ app.get("/api/public/showcase", (req, res) => {
   res.json(showcase);
 });
 
+// TARIFFE & PACCHETTI PUBBLICI
+app.get("/api/public/pricing", (req, res) => {
+  const pricing = readJson(PRICING_FILE, []);
+  res.json(pricing);
+});
+
 // LISTA PUBBLICA: Mostra SOLO la lista delle persone (tramite Nickname pubblico) e lo stato (Rosso/Giallo/Verde)
 // OCCULTA TOTALMENTE il nome reale, tipo del lavoro, dettagli, email, budget, etc.
 app.get("/api/public/bookings", (req, res) => {
@@ -474,6 +536,16 @@ function authMiddleware(req, res, next) {
   }
   return res.status(401).json({ error: "Accesso non autorizzato. PIN errato." });
 }
+
+// Autenticazione rapida PIN per modifiche dirette dal sito
+app.post("/api/admin/quick-auth", (req, res) => {
+  const { pin } = req.body;
+  const config = getConfig();
+  if (pin && String(pin).trim() === String(config.adminPin).trim()) {
+    return res.json({ success: true, token: config.adminPin, message: "PIN corretto! Modalità admin attivata." });
+  }
+  return res.status(401).json({ error: "PIN non corretto. Riprova." });
+});
 
 // Login Admin con Autenticazione a Due Fattori (2FA) via Telefono
 app.post("/api/admin/login", (req, res) => {
@@ -851,9 +923,46 @@ app.post("/api/admin/upload-media", authMiddleware, (req, res) => {
   }
 });
 
-// Aggiungi creazione nella vetrina pubblica (supporta Video WebM / MP4 / Immagini)
-app.post("/api/admin/showcase", authMiddleware, (req, res) => {
-  const { title, category, description, imageUrl, videoUrl, mediaType, tag } = req.body;
+// Endpoint traduzione on-demand (per anteprime admin)
+app.post("/api/admin/translate", authMiddleware, async (req, res) => {
+  try {
+    const { title, description, tag, sourceLang = "it" } = req.body;
+    const [titleEn, titleEs, descEn, descEs, tagEn, tagEs] = await Promise.all([
+      translateText(title || "", "en", sourceLang),
+      translateText(title || "", "es", sourceLang),
+      translateText(description || "", "en", sourceLang),
+      translateText(description || "", "es", sourceLang),
+      translateText(tag || "", "en", sourceLang),
+      translateText(tag || "", "es", sourceLang)
+    ]);
+    res.json({
+      success: true,
+      translations: {
+        it: { title: title || "", description: description || "", tag: tag || "" },
+        en: { title: titleEn || title || "", description: descEn || description || "", tag: tagEn || tag || "" },
+        es: { title: titleEs || title || "", description: descEs || description || "", tag: tagEs || tag || "" }
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Errore durante la traduzione: " + err.message });
+  }
+});
+
+// Endpoint traduzione pubblica veloce per fallback dinamico
+app.post("/api/public/translate", async (req, res) => {
+  try {
+    const { text, targetLang = "en", sourceLang = "it" } = req.body;
+    if (!text) return res.json({ translated: "" });
+    const translated = await translateText(text, targetLang, sourceLang);
+    res.json({ success: true, translated });
+  } catch (err) {
+    res.json({ success: false, translated: req.body.text || "" });
+  }
+});
+
+// Aggiungi creazione nella vetrina pubblica (supporta Video WebM / MP4 / Immagini + Traduzioni automatiche)
+app.post("/api/admin/showcase", authMiddleware, async (req, res) => {
+  const { title, category, description, imageUrl, videoUrl, mediaType, tag, translations } = req.body;
   const media = (imageUrl || videoUrl || "").trim();
   if (!title || !media) {
     return res.status(400).json({ error: "Titolo e File (Video WebM o Immagine) sono obbligatori per pubblicare la creazione." });
@@ -861,6 +970,15 @@ app.post("/api/admin/showcase", authMiddleware, (req, res) => {
 
   const detectedType = detectMediaType(media, mediaType);
   const showcase = readJson(SHOWCASE_FILE, []);
+
+  // Genera traduzioni automatiche per Titolo, Descrizione e Tag in EN e ES se non fornite
+  const autoTranslations = await generateShowcaseTranslations(
+    title.trim(),
+    (description || "").trim(),
+    (tag || (detectedType === "video" ? "🎬 VIDEO" : "✨ NUOVO")).trim(),
+    translations || {}
+  );
+
   const newItem = {
     id: "CW-" + Math.floor(100 + Math.random() * 900),
     title: title.trim(),
@@ -870,18 +988,19 @@ app.post("/api/admin/showcase", authMiddleware, (req, res) => {
     videoUrl: detectedType === "video" ? media : (videoUrl || "").trim(),
     mediaType: detectedType,
     tag: (tag || (detectedType === "video" ? "🎬 VIDEO" : "✨ NUOVO")).trim(),
+    translations: autoTranslations,
     createdAt: new Date().toISOString()
   };
 
   showcase.unshift(newItem);
   writeJson(SHOWCASE_FILE, showcase);
-  res.status(201).json({ success: true, item: newItem, message: "Creazione pubblicata con successo nella vetrina!" });
+  res.status(201).json({ success: true, item: newItem, message: "Creazione pubblicata con successo nella vetrina con traduzioni multilingua!" });
 });
 
 // Modifica creazione esistente
-app.put("/api/admin/showcase/:id", authMiddleware, (req, res) => {
+app.put("/api/admin/showcase/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
-  const { title, category, description, imageUrl, videoUrl, mediaType, tag } = req.body;
+  const { title, category, description, imageUrl, videoUrl, mediaType, tag, translations } = req.body;
 
   const showcase = readJson(SHOWCASE_FILE, []);
   const index = showcase.findIndex(item => item.id === id);
@@ -902,8 +1021,17 @@ app.put("/api/admin/showcase/:id", authMiddleware, (req, res) => {
   }
   if (tag !== undefined) showcase[index].tag = tag.trim();
 
+  // Aggiorna traduzioni automatiche
+  const autoTranslations = await generateShowcaseTranslations(
+    showcase[index].title,
+    showcase[index].description,
+    showcase[index].tag,
+    translations || showcase[index].translations || {}
+  );
+  showcase[index].translations = autoTranslations;
+
   writeJson(SHOWCASE_FILE, showcase);
-  res.json({ success: true, item: showcase[index], message: "Creazione aggiornata!" });
+  res.json({ success: true, item: showcase[index], message: "Creazione aggiornata con traduzioni multilingua!" });
 });
 
 // Riordina creazioni nella vetrina pubblica (Sposta Su/Giù o lista ordinata)
@@ -974,6 +1102,88 @@ app.delete("/api/admin/showcase/:id", authMiddleware, (req, res) => {
   }
 
   res.json({ success: true, message: "Creazione rimossa dalla vetrina con successo." });
+});
+
+// Modifica o salvataggio completo tariffe e pacchetti (Solo Admin)
+app.put("/api/admin/pricing", authMiddleware, async (req, res) => {
+  try {
+    const rawPackages = Array.isArray(req.body) ? req.body : req.body.packages;
+    if (!Array.isArray(rawPackages)) {
+      return res.status(400).json({ error: "Formato pacchetti non valido." });
+    }
+
+    const updated = [];
+    for (let i = 0; i < rawPackages.length; i++) {
+      const p = rawPackages[i];
+      const id = p.id || ("pkg-" + (i + 1));
+      const title = (p.title || "").trim() || "Pacchetto Grafico";
+      const price = (p.price || "").trim() || "25€";
+      const priceSuffix = (p.priceSuffix || "da").trim();
+      const badge = (p.badge || "").trim();
+      const highlightBadge = (p.highlightBadge || "").trim();
+      const isFeatured = !!p.isFeatured;
+      const description = (p.description || "").trim();
+      const workType = (p.workType || "VIDEO PERSONALIZZATI MVP").trim();
+      const btnText = (p.btnText || "Scegli Pacchetto").trim();
+      const features = Array.isArray(p.features) ? p.features.map(f => String(f).trim()).filter(Boolean) : [];
+
+      // Genera o mantiene traduzioni automatiche in EN e ES
+      const existingTrans = p.translations || {};
+      const tEn = existingTrans.en || {};
+      const tEs = existingTrans.es || {};
+
+      const titleEn = tEn.title || await translateText(title, "en", "it");
+      const titleEs = tEs.title || await translateText(title, "es", "it");
+      const descEn = tEn.description || (description ? await translateText(description, "en", "it") : "");
+      const descEs = tEs.description || (description ? await translateText(description, "es", "it") : "");
+      const badgeEn = tEn.badge || (badge ? await translateText(badge, "en", "it") : "");
+      const badgeEs = tEs.badge || (badge ? await translateText(badge, "es", "it") : "");
+      const btnTextEn = tEn.btnText || (btnText ? await translateText(btnText, "en", "it") : "");
+      const btnTextEs = tEs.btnText || (btnText ? await translateText(btnText, "es", "it") : "");
+
+      let featuresEn = tEn.features;
+      if (!Array.isArray(featuresEn) || featuresEn.length !== features.length) {
+        featuresEn = [];
+        for (const feat of features) {
+          featuresEn.push(await translateText(feat, "en", "it"));
+        }
+      }
+
+      let featuresEs = tEs.features;
+      if (!Array.isArray(featuresEs) || featuresEs.length !== features.length) {
+        featuresEs = [];
+        for (const feat of features) {
+          featuresEs.push(await translateText(feat, "es", "it"));
+        }
+      }
+
+      updated.push({
+        id,
+        badge,
+        highlightBadge,
+        isFeatured,
+        title,
+        price,
+        priceSuffix,
+        description,
+        features,
+        workType,
+        btnText,
+        translations: {
+          it: { badge, title, description, features, btnText },
+          en: { badge: badgeEn, title: titleEn, description: descEn, features: featuresEn, btnText: btnTextEn },
+          es: { badge: badgeEs, title: titleEs, description: descEs, features: featuresEs, btnText: btnTextEs }
+        }
+      });
+    }
+
+    writeJson(PRICING_FILE, updated);
+    console.log(`[PRICING] Aggiornati ${updated.length} pacchetti con successo.`);
+    res.json({ success: true, packages: updated, message: "Tariffe e pacchetti salvati con successo!" });
+  } catch (err) {
+    console.error("Errore aggiornamento pricing:", err);
+    res.status(500).json({ error: "Errore durante il salvataggio dei prezzi: " + err.message });
+  }
 });
 
 // Avvio Server
