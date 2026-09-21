@@ -323,9 +323,18 @@ async function loadAdminData() {
 
 function updateStats() {
   const total = adminBookings.length;
-  const aspetto = adminBookings.filter(b => b.status === "Aspetto").length;
-  const occupato = adminBookings.filter(b => b.status === "Occupato").length;
-  const libero = adminBookings.filter(b => b.status === "Libero").length;
+  const aspetto = adminBookings.filter(b => {
+    const s = (b.status || "").toLowerCase();
+    return s === "in attesa" || s === "aspetto";
+  }).length;
+  const occupato = adminBookings.filter(b => {
+    const s = (b.status || "").toLowerCase();
+    return s === "in lavorazione" || s === "occupato";
+  }).length;
+  const libero = adminBookings.filter(b => {
+    const s = (b.status || "").toLowerCase();
+    return s === "terminato" || s === "libero";
+  }).length;
 
   document.getElementById("statTotal").textContent = total;
   document.getElementById("statAspetto").textContent = aspetto;
@@ -338,7 +347,20 @@ function renderAdminList() {
   const noBookings = document.getElementById("adminNoBookings");
 
   let filtered = adminBookings.filter(b => {
-    const matchesFilter = (adminFilter === "all") || (b.status === adminFilter);
+    const bStatus = (b.status || "").toLowerCase();
+    let matchesFilter = (adminFilter === "all");
+    if (!matchesFilter) {
+      const fLower = adminFilter.toLowerCase();
+      if (fLower === "in attesa" || fLower === "aspetto") {
+        matchesFilter = (bStatus === "in attesa" || bStatus === "aspetto");
+      } else if (fLower === "in lavorazione" || fLower === "occupato") {
+        matchesFilter = (bStatus === "in lavorazione" || bStatus === "occupato");
+      } else if (fLower === "terminato" || fLower === "libero") {
+        matchesFilter = (bStatus === "terminato" || bStatus === "libero");
+      } else {
+        matchesFilter = (bStatus === fLower);
+      }
+    }
     const searchTarget = `${b.id} ${b.clientName} ${b.nickname || ''} ${b.workType} ${b.email} ${b.phone} ${b.description}`.toLowerCase();
     const matchesSearch = !adminSearch || searchTarget.includes(adminSearch);
     return matchesFilter && matchesSearch;
@@ -366,12 +388,13 @@ function renderAdminList() {
 
     // Badge stato
     let badgeHtml = "";
-    if (b.status === "Aspetto") {
-      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-aspetto flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-aspetto animate-pulse-dot"></span> 🔴 ASPETTO</span>`;
-    } else if (b.status === "Occupato") {
-      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-occupato flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-occupato animate-pulse-dot"></span> 🟡 OCCUPATO</span>`;
-    } else if (b.status === "Libero") {
-      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-libero flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 LIBERO</span>`;
+    const sLower = (b.status || "").toLowerCase();
+    if (sLower === "in lavorazione" || sLower === "occupato") {
+      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-occupato flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-occupato animate-pulse-dot"></span> 🟡 IN LAVORAZIONE</span>`;
+    } else if (sLower === "terminato" || sLower === "libero") {
+      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-libero flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 TERMINATO</span>`;
+    } else {
+      badgeHtml = `<span class="px-3 py-1 rounded-full text-xs font-bold badge-aspetto flex items-center gap-1.5"><span class="w-2 h-2 rounded-full dot-aspetto animate-pulse-dot"></span> 🔴 IN ATTESA</span>`;
     }
 
     return `
@@ -493,19 +516,19 @@ function renderAdminList() {
           <div class="flex items-center gap-2">
             <span class="text-xs font-semibold text-slate-400">Imposta Stato:</span>
             
-            <button onclick="updateStatus('${b.id}', 'Aspetto')" 
-              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${b.status === 'Aspetto' ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
-              <span class="w-2 h-2 rounded-full dot-aspetto"></span> 🔴 Aspetto
+            <button onclick="updateStatus('${b.id}', 'In Attesa')" 
+              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${(b.status === 'In Attesa' || b.status === 'Aspetto') ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+              <span class="w-2 h-2 rounded-full dot-aspetto"></span> 🔴 In Attesa
             </button>
 
-            <button onclick="updateStatus('${b.id}', 'Occupato')" 
-              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${b.status === 'Occupato' ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
-              <span class="w-2 h-2 rounded-full dot-occupato"></span> 🟡 Occupato
+            <button onclick="updateStatus('${b.id}', 'In Lavorazione')" 
+              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${(b.status === 'In Lavorazione' || b.status === 'Occupato') ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+              <span class="w-2 h-2 rounded-full dot-occupato"></span> 🟡 In Lavorazione
             </button>
 
-            <button onclick="updateStatus('${b.id}', 'Libero')" 
-              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${b.status === 'Libero' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
-              <span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 Libero
+            <button onclick="updateStatus('${b.id}', 'Terminato')" 
+              class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${(b.status === 'Terminato' || b.status === 'Libero') ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+              <span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 Terminato
             </button>
           </div>
 

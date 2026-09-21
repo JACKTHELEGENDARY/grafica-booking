@@ -143,15 +143,15 @@
       <div class="mt-8 grid grid-cols-3 gap-3 max-w-xl mx-auto">
         <div class="p-3 rounded-xl bg-slate-900/80 border border-red-500/30 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-aspetto animate-pulse-dot"></span>
-          <span class="text-slate-300"><span data-i18n="legendRed">Rosso:</span> <strong id="legendTxtAspetto" class="text-red-400">Aspetto</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendRed">Rosso:</span> <strong id="legendTxtAspetto" class="text-red-400">IN ATTESA</strong></span>
         </div>
         <div class="p-3 rounded-xl bg-slate-900/80 border border-amber-500/30 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-occupato animate-pulse-dot"></span>
-          <span class="text-slate-300"><span data-i18n="legendYellow">Giallo:</span> <strong id="legendTxtOccupato" class="text-amber-400">Occupato</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendYellow">Giallo:</span> <strong id="legendTxtOccupato" class="text-amber-400">IN LAVORAZIONE</strong></span>
         </div>
         <div class="p-3 rounded-xl bg-slate-900/80 border border-lime-500/40 flex items-center justify-center gap-2 text-xs font-medium">
           <span class="w-3 h-3 rounded-full dot-libero animate-pulse-dot"></span>
-          <span class="text-slate-300"><span data-i18n="legendGreen">Verde:</span> <strong id="legendTxtLibero" class="text-lime-400">Libero</strong></span>
+          <span class="text-slate-300"><span data-i18n="legendGreen">Verde:</span> <strong id="legendTxtLibero" class="text-lime-400">TERMINATO</strong></span>
         </div>
       </div>
     </div>
@@ -496,15 +496,15 @@
           <ul class="space-y-3 text-xs text-slate-300">
             <li class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full dot-aspetto shrink-0"></span>
-              <span id="featDescAspetto" data-i18n="feature3Aspetto">🔴 Aspetto: La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.</span>
+              <span id="featDescAspetto" data-i18n="feature3Aspetto">🔴 IN ATTESA: La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.</span>
             </li>
             <li class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full dot-occupato shrink-0"></span>
-              <span id="featDescOccupato" data-i18n="feature3Occupato">🟡 Occupato: Il grafico ha preso in carico la commissione e sta lavorando alle bozze.</span>
+              <span id="featDescOccupato" data-i18n="feature3Occupato">🟡 IN LAVORAZIONE: Il grafico ha preso in carico la commissione e sta lavorando alle bozze.</span>
             </li>
             <li class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full dot-libero shrink-0"></span>
-              <span id="featDescLibero" data-i18n="feature3Libero">🟢 Libero: Lavoro completato, file consegnati e slot liberato per nuove commissioni!</span>
+              <span id="featDescLibero" data-i18n="feature3Libero">🟢 TERMINATO: Lavoro completato, file consegnati e slot liberato per nuove commissioni!</span>
             </li>
           </ul>
         </div>
@@ -537,9 +537,9 @@
         <div class="flex flex-wrap items-center gap-3">
           <div class="flex items-center bg-slate-900/90 border border-white/10 rounded-xl p-1">
             <button class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-lime-500 text-black shadow-sm" data-filter="all" data-i18n="filterAll">Tutti</button>
-            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Aspetto" id="filterLabelAspetto">🔴 Aspetto</button>
-            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Occupato" id="filterLabelOccupato">🟡 Occupato</button>
-            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Libero" id="filterLabelLibero">🟢 Libero</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="In Attesa" id="filterLabelAspetto">🔴 In Attesa</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="In Lavorazione" id="filterLabelOccupato">🟡 In Lavorazione</button>
+            <button class="filter-btn px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white transition" data-filter="Terminato" id="filterLabelLibero">🟢 Terminato</button>
           </div>
 
           <div class="relative">
@@ -690,7 +690,7 @@
         </div>
         <div class="flex justify-between">
           <span data-i18n="modalStatusLabel" class="text-slate-400">Stato iniziale:</span>
-          <span id="modalStatusText" class="font-semibold text-red-400">🔴 ASPETTO</span>
+          <span id="modalStatusText" class="font-semibold text-red-400">🔴 IN ATTESA</span>
         </div>
         <p data-i18n="modalExplanation" class="text-[11px] text-slate-500 pt-2 border-t border-white/10">
           I dettagli sensibili del tuo progetto non sono visibili pubblicamente nella lista per proteggere la tua privacy.
@@ -1081,9 +1081,9 @@
     "legendRed": "Rosso:",
     "legendYellow": "Giallo:",
     "legendGreen": "Verde:",
-    "statusAspetto": "Aspetto",
-    "statusOccupato": "Occupato",
-    "statusLibero": "Libero",
+    "statusAspetto": "IN ATTESA",
+    "statusOccupato": "IN LAVORAZIONE",
+    "statusLibero": "TERMINATO",
     "formTitle": "Richiedi la tua Prenotazione",
     "formSubtitle": "I dettagli specifici del lavoro rimarranno 100% privati.",
     "stepBadge": "Step 1 di 1",
@@ -1125,9 +1125,9 @@
     "feature2Title": "Privacy 100% Blindata",
     "feature2Desc": "I visitatori del sito possono vedere solamente il tuo nickname pubblico e lo stato del lavoro. Il tuo vero nome, la descrizione, i prezzi e i tuoi contatti sono rigorosamente visibili solo al grafico!",
     "feature3Title": "Come funzionano i 3 stati",
-    "feature3Aspetto": "🔴 Aspetto: La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.",
-    "feature3Occupato": "🟡 Occupato: Il grafico ha preso in carico la commissione e sta lavorando alle bozze.",
-    "feature3Libero": "🟢 Libero: Lavoro completato, file consegnati e slot liberato per nuove commissioni!",
+    "feature3Aspetto": "🔴 IN ATTESA: La tua richiesta è stata registrata ed è in attesa di revisione da parte del grafico.",
+    "feature3Occupato": "🟡 IN LAVORAZIONE: Il grafico ha preso in carico la commissione e sta lavorando alle bozze.",
+    "feature3Libero": "🟢 TERMINATO: Lavoro completato, file consegnati e slot liberato per nuove commissioni!",
     "tableTitle": "Lista Prenotazioni & Stato Lavori",
     "tableConcealNotice": "Il tipo di lavoro e i dati sensibili sono occultati per garantire riservatezza.",
     "searchPlaceholder": "Cerca persona...",
@@ -1149,7 +1149,7 @@
     "modalBtnWa": "NOTIFICA IL GRAFICO SU WHATSAPP",
     "modalBtnClose": "Chiudi e Torna alla Coda",
     "footerCopyright": "© 2026 Studio Grafico • Piattaforma Gestione Commissioni",
-    "footerStatus": "Stato: 🔴 Aspetto | 🟡 Occupato | 🟢 Libero",
+    "footerStatus": "Stato: 🔴 IN ATTESA | 🟡 IN LAVORAZIONE | 🟢 TERMINATO",
     "footerAdmin": "Accesso Amministratore",
     "privacyConsentText": "Dichiaro di aver letto e compreso l'Informativa sulla Privacy (GDPR UE 2016/679 & CCPA) e acconsento al trattamento dei miei dati personali.",
     "anonymousQueueLabel": "🔒 Massima Riservatezza: Mantieni anche il mio nickname anonimo (\"Riservato #BK-XXXX\") nella coda pubblica dei lavori.",
@@ -1225,7 +1225,7 @@
     "faqQ1": "In che formati ricevo i video e le grafiche completate?",
     "faqA1": "I video per TikTok, YouTube Shorts e Reels vengono consegnati in formato MP4 Full HD a 60fps con aspect ratio verticale 9:16. Le animazioni e overlay per OBS Studio o streaming vengono fornite in WebM con canale alfa trasparente. Le grafiche fisse vengono fornite in PNG HD senza compressione.",
     "faqQ2": "Quali sono le tempistiche medie di consegna?",
-    "faqA2": "I tempi standard variano da 24 a 72 ore in base alla complessità del lavoro e allo stato della coda visibile in tempo reale (Rosso = Coda piena, Giallo = In lavorazione, Verde = Slot liberi immediati).",
+    "faqA2": "I tempi standard variano da 24 a 72 ore in base alla complessità del lavoro e allo stato della coda visibile in tempo reale (Rosso = IN ATTESA, Giallo = IN LAVORAZIONE, Verde = TERMINATO).",
     "faqQ3": "Posso richiedere modifiche e revisioni alla bozza?",
     "faqA3": "Certamente! Prima della consegna finale inviamo sempre un'anteprima privata via WhatsApp per consentirti di verificare testi, colori ed effetti. Le revisioni sono incluse nel prezzo per garantirti piena soddisfazione.",
     "faqQ4": "Quali metodi di pagamento sono accettati?",
@@ -1248,8 +1248,8 @@
     "legendYellow": "Yellow:",
     "legendGreen": "Green:",
     "statusAspetto": "Waiting",
-    "statusOccupato": "Busy",
-    "statusLibero": "Free",
+    "statusOccupato": "In Progress",
+    "statusLibero": "Completed",
     "formTitle": "Submit Your Booking",
     "formSubtitle": "Specific project details will remain 100% private.",
     "stepBadge": "Step 1 of 1",
@@ -1292,8 +1292,8 @@
     "feature2Desc": "Site visitors can only see your public nickname and job status. Your real name, project brief, budget, and contacts are strictly private to the designer!",
     "feature3Title": "How the 3 status colors work",
     "feature3Aspetto": "🔴 Waiting: Your request has been registered and is waiting for artist review.",
-    "feature3Occupato": "🟡 Busy: The artist has accepted your commission and is actively designing.",
-    "feature3Libero": "🟢 Free: Project completed, deliverables sent, and slot freed for new work!",
+    "feature3Occupato": "🟡 In Progress: The artist has accepted your commission and is actively designing.",
+    "feature3Libero": "🟢 Completed: Project completed, deliverables sent, and slot freed for new work!",
     "tableTitle": "Public Queue & Project Status",
     "tableConcealNotice": "Service type and private details are concealed for privacy.",
     "searchPlaceholder": "Search client...",
@@ -1315,7 +1315,7 @@
     "modalBtnWa": "SEND DETAILS ON WHATSAPP",
     "modalBtnClose": "Close & View Queue",
     "footerCopyright": "© 2026 Graphic Studio • Client Management Platform",
-    "footerStatus": "Status: 🔴 Waiting | 🟡 Busy | 🟢 Free",
+    "footerStatus": "Status: 🔴 Waiting | 🟡 In Progress | 🟢 Completed",
     "footerAdmin": "Admin Login",
     "privacyConsentText": "I declare that I have read and agree to the Privacy Policy (EU GDPR 2016/679 & US CCPA) and consent to the processing of my personal data.",
     "anonymousQueueLabel": "🔒 Maximum Privacy: Keep even my nickname anonymous (\"Reserved #BK-XXXX\") in the public queue.",
@@ -1391,7 +1391,7 @@
     "faqQ1": "What file formats do I receive?",
     "faqA1": "Videos for TikTok, YouTube Shorts, and Reels are delivered in vertical 9:16 Full HD MP4 at 60fps. Stream animations and overlays are provided in transparent WebM for OBS Studio. Static graphics are sent in ultra-high resolution PNG.",
     "faqQ2": "What are the average delivery times?",
-    "faqA2": "Standard times range from 24 to 72 hours depending on project complexity and the live queue status (Red = Full Queue, Yellow = In Progress, Green = Open Immediate Slots).",
+    "faqA2": "Standard times range from 24 to 72 hours depending on project complexity and the live queue status (Red = Waiting, Yellow = In Progress, Green = Completed).",
     "faqQ3": "Can I request revisions to the draft?",
     "faqA3": "Yes, absolutely! Before final delivery, we always send a private preview on WhatsApp for you to review texts, colors, and effects. Revisions are included in the price.",
     "faqQ4": "What payment methods are accepted?",
@@ -1414,8 +1414,8 @@
     "legendYellow": "Amarillo:",
     "legendGreen": "Verde:",
     "statusAspetto": "En Espera",
-    "statusOccupato": "Ocupado",
-    "statusLibero": "Libre",
+    "statusOccupato": "En Proceso",
+    "statusLibero": "Terminado",
     "formTitle": "Solicita tu Reserva",
     "formSubtitle": "Los detalles específicos del trabajo se mantendrán 100% privados.",
     "stepBadge": "Paso 1 de 1",
@@ -1458,8 +1458,8 @@
     "feature2Desc": "Los visitantes de la web solo pueden ver tu apodo público y el estado del trabajo. Tu nombre real, descripción, presupuesto y contactos son estrictamente privados.",
     "feature3Title": "Cómo funcionan los 3 estados",
     "feature3Aspetto": "🔴 En Espera: Tu solicitud fue registrada y está pendiente de revisión por el diseñador.",
-    "feature3Occupato": "🟡 Ocupado: El diseñador ha aceptado tu comisión y está trabajando activamente.",
-    "feature3Libero": "🟢 Libre: Trabajo completado, archivos entregados y cupo liberado para nuevos pedidos.",
+    "feature3Occupato": "🟡 En Proceso: El diseñador ha aceptado tu comisión y está trabajando activamente.",
+    "feature3Libero": "🟢 Terminado: Trabajo completado, archivos entregados y cupo liberado para nuevos pedidos.",
     "tableTitle": "Lista de Reservas y Estado de Trabajos",
     "tableConcealNotice": "El tipo de trabajo y datos sensibles están ocultos por confidencialidad.",
     "searchPlaceholder": "Buscar persona...",
@@ -1481,7 +1481,7 @@
     "modalBtnWa": "NOTIFICAR AL DISEÑADOR POR WHATSAPP",
     "modalBtnClose": "Cerrar y Ver Cola",
     "footerCopyright": "© 2026 Estudio Gráfico • Plataforma de Gestión de Comisiones",
-    "footerStatus": "Estado: 🔴 En Espera | 🟡 Ocupado | 🟢 Libre",
+    "footerStatus": "Estado: 🔴 En Espera | 🟡 En Proceso | 🟢 Terminado",
     "footerAdmin": "Acceso Administrador",
     "privacyConsentText": "Declaro que he leído y acepto la Política de Privacidad (GDPR UE 2016/679 y CCPA) y consiento el tratamiento de mis datos personales.",
     "anonymousQueueLabel": "🔒 Máxima Privacidad: Mantener también mi nickname anónimo (\"Reservado #BK-XXXX\") en la cola pública.",
@@ -1557,7 +1557,7 @@
     "faqQ1": "¿En qué formatos recibo los vídeos y diseños terminados?",
     "faqA1": "Los vídeos para TikTok, YouTube Shorts y Reels se entregan en formato MP4 Full HD vertical 9:16 a 60fps. Las animaciones y overlays para OBS Studio se entregan en WebM con transparencia. Los gráficos fijos se entregan en PNG de ultra alta resolución.",
     "faqQ2": "¿Cuáles son los tiempos promedio de entrega?",
-    "faqA2": "Los tiempos habituales son de 24 a 72 horas según la complejidad del proyecto y el estado de la cola en vivo (Rojo = Cola llena, Amarillo = En proceso, Verde = Cupos libres inmediatos).",
+    "faqA2": "Los tiempos habituales son de 24 a 72 horas según la complejidad del proyecto y el estado de la cola en vivo (Rojo = En espera, Amarillo = En proceso, Verde = Terminado).",
     "faqQ3": "¿Puedo solicitar revisiones y cambios al boceto?",
     "faqA3": "¡Por supuesto! Antes de la entrega final enviamos siempre una vista previa privada por WhatsApp para revisar textos, colores y efectos. Las revisiones están incluidas en el precio.",
     "faqQ4": "¿Qué métodos de pago son aceptados?",
@@ -1616,11 +1616,11 @@
 
       // Filtri tabella
       var fAsp = document.getElementById("filterLabelAspetto");
-      if (fAsp) fAsp.textContent = dict.statusAspetto;
+      if (fAsp) fAsp.textContent = "🔴 " + dict.statusAspetto;
       var fOcc = document.getElementById("filterLabelOccupato");
-      if (fOcc) fOcc.textContent = dict.statusOccupato;
+      if (fOcc) fOcc.textContent = "🟡 " + dict.statusOccupato;
       var fLib = document.getElementById("filterLabelLibero");
-      if (fLib) fLib.textContent = dict.statusLibero;
+      if (fLib) fLib.textContent = "🟢 " + dict.statusLibero;
 
       // Traduzioni Testi Legali Form & Footer
       var pLabel = document.getElementById("privacyConsentLabelText");
@@ -2402,7 +2402,20 @@
       var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
 
       var filtered = allBookings.filter(function(b) {
-        var matchesFilter = (currentFilter === "all") || (b.status === currentFilter);
+        var bStatus = (b.status || "").toLowerCase();
+        var matchesFilter = (currentFilter === "all");
+        if (!matchesFilter) {
+          var fLower = currentFilter.toLowerCase();
+          if (fLower === "in attesa" || fLower === "aspetto") {
+            matchesFilter = (bStatus === "in attesa" || bStatus === "aspetto");
+          } else if (fLower === "in lavorazione" || fLower === "occupato") {
+            matchesFilter = (bStatus === "in lavorazione" || bStatus === "occupato");
+          } else if (fLower === "terminato" || fLower === "libero") {
+            matchesFilter = (bStatus === "terminato" || bStatus === "libero");
+          } else {
+            matchesFilter = (bStatus === fLower);
+          }
+        }
         var matchesSearch = !searchQuery || 
           b.publicName.toLowerCase().includes(searchQuery) || 
           b.id.toLowerCase().includes(searchQuery);
@@ -2428,18 +2441,22 @@
           year: "numeric"
         });
 
-        var statusLabel = item.status;
-        if (item.status === "Aspetto") statusLabel = dict.statusAspetto || "Aspetto";
-        else if (item.status === "Occupato") statusLabel = dict.statusOccupato || "Occupato";
-        else if (item.status === "Libero") statusLabel = dict.statusLibero || "Libero";
+        var sLower = (item.status || "").toLowerCase();
+        var isAttesa = sLower === "in attesa" || sLower === "aspetto";
+        var isLavorazione = sLower === "in lavorazione" || sLower === "occupato";
+        var isTerminato = sLower === "terminato" || sLower === "libero";
+
+        var statusLabel = dict.statusAspetto || "IN ATTESA";
+        if (isLavorazione) statusLabel = dict.statusOccupato || "IN LAVORAZIONE";
+        else if (isTerminato) statusLabel = dict.statusLibero || "TERMINATO";
 
         var statusBadge = "";
-        if (item.status === "Aspetto") {
-          statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-aspetto"><span class="w-2 h-2 rounded-full dot-aspetto animate-pulse-dot"></span> 🔴 ' + statusLabel.toUpperCase() + '</span>';
-        } else if (item.status === "Occupato") {
+        if (isLavorazione) {
           statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-occupato"><span class="w-2 h-2 rounded-full dot-occupato animate-pulse-dot"></span> 🟡 ' + statusLabel.toUpperCase() + '</span>';
-        } else if (item.status === "Libero") {
+        } else if (isTerminato) {
           statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-libero"><span class="w-2 h-2 rounded-full dot-libero"></span> 🟢 ' + statusLabel.toUpperCase() + '</span>';
+        } else {
+          statusBadge = '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold badge-aspetto"><span class="w-2 h-2 rounded-full dot-aspetto animate-pulse-dot"></span> 🔴 ' + statusLabel.toUpperCase() + '</span>';
         }
 
         var reservedText = dict.reservedBadge || "Riservato al grafico";
@@ -2584,7 +2601,7 @@
             clearClientAttachment();
             document.getElementById("modalBookingId").textContent = "#" + data.booking.id;
             document.getElementById("modalClientName").textContent = "@" + data.booking.publicName;
-            document.getElementById("modalStatusText").textContent = "🔴 " + (dict.statusAspetto || "ASPETTO").toUpperCase();
+            document.getElementById("modalStatusText").textContent = "🔴 " + (dict.statusAspetto || "IN ATTESA").toUpperCase();
 
             var btnWa = document.getElementById("btnWhatsAppDirect");
             if (btnWa) {

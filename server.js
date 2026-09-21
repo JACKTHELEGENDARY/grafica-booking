@@ -259,7 +259,7 @@ async function sendEmailNotification(booking, config) {
 
             <div style="text-align: center; margin-top: 24px;">
               <span style="display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; background: #ef4444; color: white;">
-                🔴 STATO INIZIALE: ASPETTO
+                🔴 STATO INIZIALE: IN ATTESA
               </span>
             </div>
           </div>
@@ -293,7 +293,7 @@ async function sendCallMeBotNotification(booking, config) {
       `📞 *Tel:* ${booking.phone}\n` +
       `💰 *Budget:* ${booking.budget || "N/D"}\n` +
       `📝 *Descrizione:* ${booking.description.substring(0, 150)}...\n\n` +
-      `🔴 *Stato:* ASPETTO`
+      `🔴 *Stato:* IN ATTESA`
     );
     const url = `https://api.callmebot.com/whatsapp.php?phone=${config.callMeBot.phone}&text=${text}&apikey=${config.callMeBot.apiKey}`;
     const response = await fetch(url);
@@ -322,7 +322,7 @@ function generateWhatsAppUrl(booking, targetPhone) {
     `━━━━━━━━━━━━━━━━━━━━\n` +
     `📝 *Dettagli:* \n${booking.description}\n` +
     `━━━━━━━━━━━━━━━━━━━━\n` +
-    `🔴 *Stato sul sito:* ASPETTO`;
+    `🔴 *Stato sul sito:* IN ATTESA`;
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
@@ -336,11 +336,29 @@ app.get("/api/public/info", (req, res) => {
   const config = getConfig();
   const bookings = readJson(BOOKINGS_FILE, []);
   
+  const inAttesaCount = bookings.filter(b => {
+    const s = (b.status || "").toLowerCase();
+    return s === "in attesa" || s === "aspetto";
+  }).length;
+
+  const inLavorazioneCount = bookings.filter(b => {
+    const s = (b.status || "").toLowerCase();
+    return s === "in lavorazione" || s === "occupato";
+  }).length;
+
+  const terminatoCount = bookings.filter(b => {
+    const s = (b.status || "").toLowerCase();
+    return s === "terminato" || s === "libero";
+  }).length;
+
   const stats = {
     total: bookings.length,
-    aspetto: bookings.filter(b => b.status === "Aspetto").length,
-    occupato: bookings.filter(b => b.status === "Occupato").length,
-    libero: bookings.filter(b => b.status === "Libero").length
+    inAttesa: inAttesaCount,
+    inLavorazione: inLavorazioneCount,
+    terminato: terminatoCount,
+    aspetto: inAttesaCount,
+    occupato: inLavorazioneCount,
+    libero: terminatoCount
   };
 
   res.json({
@@ -374,7 +392,7 @@ app.get("/api/public/bookings", (req, res) => {
   const publicList = bookings.map(b => ({
     id: b.id,
     publicName: b.publicName || b.nickname || "Utente",
-    status: b.status || "Aspetto", // "Aspetto" (🔴), "Occupato" (🟡), "Libero" (🟢)
+    status: b.status || "In Attesa", // "In Attesa" (🔴), "In Lavorazione" (🟡), "Terminato" (🟢)
     createdAt: b.createdAt
   })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
@@ -451,7 +469,7 @@ app.post("/api/public/bookings", async (req, res) => {
       privacyConsent: true,
       privacyConsentDate: new Date().toISOString(),
       anonymousQueue: !!anonymousQueue,
-      status: "Aspetto", // Default iniziale: ROSSO ASPETTO
+      status: "In Attesa", // Default iniziale: ROSSO IN ATTESA
       createdAt: new Date().toISOString(),
       notes: ""
     };
@@ -715,14 +733,14 @@ app.get("/api/admin/bookings", authMiddleware, (req, res) => {
   res.json(bookings);
 });
 
-// Cambio rapido stato (Aspetto 🔴 / Occupato 🟡 / Libero 🟢)
+// Cambio rapido stato (In Attesa 🔴 / In Lavorazione 🟡 / Terminato 🟢)
 app.patch("/api/admin/bookings/:id/status", authMiddleware, (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  const validStatuses = ["Aspetto", "Occupato", "Libero"];
+  const validStatuses = ["In Attesa", "In Lavorazione", "Terminato", "Aspetto", "Occupato", "Libero"];
   if (!validStatuses.includes(status)) {
-    return res.status(400).json({ error: "Stato non valido. Consentiti: Aspetto, Occupato, Libero" });
+    return res.status(400).json({ error: "Stato non valido. Consentiti: In Attesa, In Lavorazione, Terminato" });
   }
 
   const bookings = readJson(BOOKINGS_FILE, []);
@@ -844,7 +862,7 @@ app.post("/api/admin/test-notification", authMiddleware, async (req, res) => {
     description: "Questa è una notifica di test inviata dal pannello di controllo.",
     budget: "100€",
     deadline: "Immediata",
-    status: "Aspetto"
+    status: "In Attesa"
   };
 
   if (type === "email") {
