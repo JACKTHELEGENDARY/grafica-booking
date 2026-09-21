@@ -1,0 +1,151 @@
+
+  <!-- MODAL INFORMATIVA PRIVACY (GDPR & CCPA) -->
+  <div id="modalPrivacy" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-3xl w-full p-6 sm:p-8 my-8 border border-purple-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="legalPrivTitle" class="font-heading font-bold text-lg text-white">Informativa sulla Privacy & Protezione dei Dati</h3>
+            <p class="text-[11px] text-slate-400">Conforme a Regolamento UE 2016/679 (GDPR), D.Lgs. 196/2003 e CCPA / CPRA (USA)</p>
+          </div>
+        </div>
+        <button onclick="closeLegalModal('modalPrivacy')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="legalPrivContent" class="overflow-y-auto pr-2 space-y-4 text-xs leading-relaxed text-slate-300">
+        <!-- Inserito dinamicamente in base alla lingua -->
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeLegalModal('modalPrivacy')" class="px-5 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition">
+          Ho Letto e Compreso
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TERMINI DI SERVIZIO -->
+  <div id="modalTerms" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-3xl w-full p-6 sm:p-8 my-8 border border-cyan-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="legalTermsTitle" class="font-heading font-bold text-lg text-white">Termini e Condizioni di Servizio</h3>
+            <p class="text-[11px] text-slate-400">Condizioni generali per commissioni grafiche e prestazioni creative</p>
+          </div>
+        </div>
+        <button onclick="closeLegalModal('modalTerms')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="legalTermsContent" class="overflow-y-auto pr-2 space-y-4 text-xs leading-relaxed text-slate-300">
+        <!-- Inserito dinamicamente in base alla lingua -->
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeLegalModal('modalTerms')" class="px-5 py-2 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition">
+          Ho Letto e Accetto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL COOKIE & DATI TECNICI -->
+  <div id="modalCookies" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-2xl w-full p-6 sm:p-8 my-8 border border-amber-500/40 relative max-h-[85vh] flex flex-col text-slate-200">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-amber-600/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+            <i data-lucide="cookie" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="legalCookieTitle" class="font-heading font-bold text-lg text-white">Informativa Cookie & Memoria Locale</h3>
+            <p class="text-[11px] text-slate-400">Direttiva 2002/58/CE (ePrivacy) e Linee Guida Garante Privacy</p>
+          </div>
+        </div>
+        <button onclick="closeLegalModal('modalCookies')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="legalCookieContent" class="overflow-y-auto pr-2 space-y-4 text-xs leading-relaxed text-slate-300">
+        <!-- Inserito dinamicamente in base alla lingua -->
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeLegalModal('modalCookies')" class="px-5 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white transition">
+          Chiudi Informativa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DIRITTO ALL'OBLIO / CANCELLAZIONE DATI (GDPR ART. 17 & CCPA) -->
+  <div id="modalDeleteData" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel max-w-md w-full p-6 sm:p-8 relative border border-red-500/40 animate-in fade-in zoom-in-95">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+        <div class="flex items-center gap-2 text-red-400 font-bold text-sm">
+          <i data-lucide="user-x" class="w-4 h-4"></i>
+          <span id="txtOblioTitle">Esercizio Diritto all'Oblio (Art. 17 GDPR)</span>
+        </div>
+        <button onclick="closeLegalModal('modalDeleteData')" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <p id="txtOblioDesc" class="text-xs text-slate-300 mb-4 leading-relaxed">
+        Ai sensi del GDPR UE e delle leggi USA, puoi richiedere la cancellazione totale e definitiva di tutti i dati inseriti durante la prenotazione.
+      </p>
+
+      <form id="formDeleteData" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Codice Prenotazione (es. BK-1234) *</label>
+          <input type="text" id="delBookingId" required placeholder="BK-XXXX" class="glass-input w-full px-3 py-2 rounded-lg font-mono">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Email o Telefono associati alla richiesta *</label>
+          <input type="text" id="delContact" required placeholder="Inserisci il contatto usato per la prenotazione" class="glass-input w-full px-3 py-2 rounded-lg">
+        </div>
+        <div id="delMessageStatus" class="hidden p-2.5 rounded-lg text-xs font-semibold"></div>
+        <div class="pt-2 flex gap-2">
+          <button type="submit" id="btnConfirmDelete" class="flex-1 py-2.5 px-3 rounded-lg font-bold bg-red-600 hover:bg-red-500 text-white transition">
+            Elimina Definitivamente i Miei Dati
+          </button>
+          <button type="button" onclick="closeLegalModal('modalDeleteData')" class="py-2.5 px-3 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">
+            Annulla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BANNER PRIVACY & COOKIE A COMPARSA (GARANTE COMPLIANT) -->
+  <div id="privacyCookieBanner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-40 glass-panel p-4 border border-purple-500/30 shadow-2xl animate-in slide-in-from-bottom duration-300">
+    <div class="flex items-start gap-3">
+      <div class="p-2 rounded-lg bg-purple-600/20 text-purple-400 shrink-0">
+        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      </div>
+      <div class="flex-1 text-xs">
+        <p class="font-bold text-white mb-1" id="bannerTitle">Trasparenza & Rispetto della Privacy</p>
+        <p class="text-slate-400 text-[11px] leading-relaxed mb-3" id="bannerText">
+          Questo sito è rigorosamente conforme al <strong>GDPR (UE 2016/679)</strong> e alle normative USA (<strong>CCPA/CPRA</strong>). Non utilizziamo cookie di profilazione o tracciamento pubblicitario. I tuoi dati non vengono mai ceduti o venduti.
+        </p>
+        <div class="flex items-center gap-2">
+          <button onclick="acceptPrivacyBanner()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition shadow-sm">
+            Ho Capito & Accetto
+          </button>
+          <button onclick="openLegalModal('privacy')" class="text-[11px] text-purple-300 hover:text-white underline">
+            Leggi Informativa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

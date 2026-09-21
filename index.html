@@ -14,6 +14,21 @@
 </head>
 <body class="bg-[#05080c] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-lime-500 selection:text-black">
 
+  <!-- ============================================================= -->
+  <!-- BANNER LATERALI A TEMA (DESKTOP & SCHERMI WIDE) -->
+  <!-- ============================================================= -->
+  <aside aria-hidden="true" class="hidden xl:block fixed top-0 left-0 bottom-0 w-32 2xl:w-64 pointer-events-none z-0 overflow-hidden select-none">
+    <img src="images/side_banner_left.jpg" alt="" class="w-full h-full object-cover object-left opacity-85 filter brightness-105 contrast-110">
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#05080c]"></div>
+    <div class="absolute top-0 right-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-lime-500/35 to-transparent"></div>
+  </aside>
+  <aside aria-hidden="true" class="hidden xl:block fixed top-0 right-0 bottom-0 w-32 2xl:w-64 pointer-events-none z-0 overflow-hidden select-none">
+    <img src="images/side_banner_right.jpg" alt="" class="w-full h-full object-cover object-right opacity-85 filter brightness-105 contrast-110">
+    <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#05080c]"></div>
+    <div class="absolute top-0 left-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-lime-500/35 to-transparent"></div>
+  </aside>
+
+
   <!-- NAVBAR -->
   <header class="border-b border-lime-500/20 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 shadow-lg shadow-black/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -69,7 +84,7 @@
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-1">
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-1">
 
     <!-- HERO SECTION AD ALTO IMPATTO CON LOGO JL -->
     <div class="text-center max-w-3xl mx-auto mb-16">
@@ -527,7 +542,7 @@
   </div>
 
   <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) -->
-  <footer class="border-t border-lime-500/20 bg-slate-950/80 py-8 mt-16 text-center text-xs text-slate-500">
+  <footer class="relative z-10 border-t border-lime-500/20 bg-slate-950/80 py-8 mt-16 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
       <p data-i18n="footerCopyright">© 2026 JL Graphic Studio • Piattaforma Gestione Commissioni</p>
       

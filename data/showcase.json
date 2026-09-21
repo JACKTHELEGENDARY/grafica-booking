@@ -1,0 +1,38 @@
+[
+  {
+    "id": "CW-101",
+    "title": "Logo Esports 'JL' Neon Edition",
+    "category": "Logo & Brand Identity",
+    "description": "Concept iconico in 3D metallico con sfaccettature aggressive, riflessi cromo ed esplosioni di luce toxic green per il brand JL.",
+    "imageUrl": "images/logo.jpg",
+    "tag": "⭐ TOP CREAZIONE",
+    "createdAt": "2026-09-18T10:00:00.000Z"
+  },
+  {
+    "id": "CW-102",
+    "title": "Twitch & YouTube Gaming Pack",
+    "category": "Banner Twitch / YouTube / Header",
+    "description": "Header personalizzato, webcam overlay dinamico e pannelli coordinati con particelle verde acido e contrasti scuri.",
+    "imageUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+    "tag": "🎮 STREAMER PACK",
+    "createdAt": "2026-09-19T14:30:00.000Z"
+  },
+  {
+    "id": "CW-103",
+    "title": "Cyberpunk Samurai Vector Art",
+    "category": "Illustrazione Personalizzata",
+    "description": "Artwork digitale dettagliata per merchandise e stampa su felpe con luci al neon, sfumature affilate e linee aggressive.",
+    "imageUrl": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
+    "tag": "🔥 MERCH READY",
+    "createdAt": "2026-09-20T16:00:00.000Z"
+  },
+  {
+    "id": "CW-104",
+    "title": "Social Carousel & Event Launch",
+    "category": "Grafiche Social / Post / Stories",
+    "description": "Kit grafico Instagram e TikTok ad altissimo impatto visivo per lancio di tornei esport e nuovi drop esclusivi.",
+    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "tag": "📱 VIRAL SOCIAL",
+    "createdAt": "2026-09-21T09:15:00.000Z"
+  }
+]
