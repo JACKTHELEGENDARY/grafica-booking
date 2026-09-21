@@ -119,7 +119,8 @@ async function sendEmailNotification(booking, config) {
           <div style="padding: 24px;">
             <div style="background: #1e293b; border-radius: 8px; padding: 16px; margin-bottom: 20px; border-left: 4px solid #a855f7;">
               <h3 style="margin: 0 0 10px 0; color: #cbd5e1; font-size: 14px; text-transform: uppercase;">Dati Cliente</h3>
-              <p style="margin: 4px 0;"><strong>Nome:</strong> ${booking.clientName}</p>
+              <p style="margin: 4px 0;"><strong>Nome Reale (Privato):</strong> ${booking.clientName}</p>
+              <p style="margin: 4px 0;"><strong>Nickname Pubblico:</strong> ${booking.nickname || booking.publicName}</p>
               <p style="margin: 4px 0;"><strong>Email:</strong> <a href="mailto:${booking.email}" style="color: #38bdf8;">${booking.email}</a></p>
               <p style="margin: 4px 0;"><strong>Telefono/WhatsApp:</strong> <a href="https://wa.me/${booking.phone.replace(/[^0-9]/g, "")}" style="color: #4ade80;">${booking.phone}</a></p>
             </div>
@@ -165,7 +166,8 @@ async function sendCallMeBotNotification(booking, config) {
   try {
     const text = encodeURIComponent(
       `🎨 *NUOVA PRENOTAZIONE GRAFICA #${booking.id}*\n\n` +
-      `👤 *Cliente:* ${booking.clientName}\n` +
+      `👤 *Nome Reale:* ${booking.clientName}\n` +
+      `🏷️ *Nickname Pubblico:* ${booking.nickname || booking.publicName}\n` +
       `📁 *Lavoro:* ${booking.workType}\n` +
       `📞 *Tel:* ${booking.phone}\n` +
       `💰 *Budget:* ${booking.budget || "N/D"}\n` +
@@ -188,8 +190,9 @@ function generateWhatsAppUrl(booking, targetPhone) {
     `🎨 *RICHIESTA PRENOTAZIONE LAVORO GRAFICO*\n` +
     `━━━━━━━━━━━━━━━━━━━━\n` +
     `📌 *ID Richiesta:* #${booking.id}\n` +
-    `👤 *Cliente:* ${booking.clientName}\n` +
-    `📧 *Email:* ${booking.email}\n` +
+    `👤 *Nome Reale (Privato):* ${booking.clientName}\n` +
+    `🏷️ *Nickname Pubblico:* ${booking.nickname || booking.publicName}\n` +
+    `📧 *Email:* ${booking.email || "Non indicata"}\n` +
     `📱 *Tel/WA:* ${booking.phone}\n` +
     `🎯 *Tipo Lavoro:* ${booking.workType}\n` +
     `💶 *Budget:* ${booking.budget || "Da concordare"}\n` +
@@ -229,14 +232,15 @@ app.get("/api/public/info", (req, res) => {
 });
 
 // LISTA PUBBLICA: Mostra SOLO la lista delle persone e lo stato (Rosso/Giallo/Verde)
-// OCCULTA TOTALMENTE il tipo del lavoro, dettagli, email, budget, etc.
+// LISTA PUBBLICA: Mostra SOLO la lista delle persone (tramite Nickname pubblico) e lo stato (Rosso/Giallo/Verde)
+// OCCULTA TOTALMENTE il nome reale, tipo del lavoro, dettagli, email, budget, etc.
 app.get("/api/public/bookings", (req, res) => {
   const bookings = readJson(BOOKINGS_FILE, []);
   
-  // SANITIZZAZIONE RIGOROSA PER LA PRIVACY
+  // SANITIZZAZIONE RIGOROSA PER LA PRIVACY: IL NOME REALE NON VIENE MAI INVIATO AL PUBBLICO
   const publicList = bookings.map(b => ({
     id: b.id,
-    publicName: b.publicName || maskName(b.clientName),
+    publicName: b.publicName || b.nickname || "Utente",
     status: b.status || "Aspetto", // "Aspetto" (🔴), "Occupato" (🟡), "Libero" (🟢)
     createdAt: b.createdAt
   })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -247,11 +251,17 @@ app.get("/api/public/bookings", (req, res) => {
 // Invio nuova prenotazione da parte del cliente
 app.post("/api/public/bookings", async (req, res) => {
   try {
-    const { clientName, email, phone, workType, description, deadline, budget } = req.body;
+    const { clientName, nickname, email, phone, workType, description, deadline, budget, privacyConsent, anonymousQueue } = req.body;
 
-    if (!clientName || !phone || !workType || !description) {
+    if (!privacyConsent) {
       return res.status(400).json({ 
-        error: "Compila tutti i campi obbligatori (Nome, Telefono, Tipo lavoro, Descrizione)." 
+        error: "È obbligatorio accettare l'Informativa sulla Privacy (GDPR & CCPA) per poter procedere." 
+      });
+    }
+
+    if (!clientName || !nickname || !phone || !workType || !description) {
+      return res.status(400).json({ 
+        error: "Compila tutti i campi obbligatori (Nome e Cognome reale, Nickname pubblico, Telefono, Tipo lavoro, Descrizione)." 
       });
     }
 
@@ -259,16 +269,23 @@ app.post("/api/public/bookings", async (req, res) => {
     const bookings = readJson(BOOKINGS_FILE, []);
 
     const bookingId = "BK-" + Math.floor(1000 + Math.random() * 9000);
+    const cleanNick = nickname.trim();
+    const publicDisplayName = anonymousQueue ? `Riservato #${bookingId}` : cleanNick;
+
     const newBooking = {
       id: bookingId,
-      clientName: clientName.trim(),
-      publicName: maskName(clientName),
+      clientName: clientName.trim(), // Nome Reale (RISERVATO, visibile SOLO all'amministratore)
+      nickname: cleanNick,           // Nickname Pubblico (obbligatorio, visibile nel sito)
+      publicName: publicDisplayName, // Nome visibile pubblicamente nella coda
       email: (email || "").trim(),
       phone: phone.trim(),
       workType: workType.trim(),
       description: description.trim(),
       deadline: deadline || "",
       budget: budget || "",
+      privacyConsent: true,
+      privacyConsentDate: new Date().toISOString(),
+      anonymousQueue: !!anonymousQueue,
       status: "Aspetto", // Default iniziale: ROSSO ASPETTO
       createdAt: new Date().toISOString(),
       notes: ""
@@ -299,6 +316,39 @@ app.post("/api/public/bookings", async (req, res) => {
     console.error("Errore salvataggio prenotazione:", err);
     res.status(500).json({ error: "Si è verificato un errore durante la prenotazione." });
   }
+});
+
+// Diritto all'oblio (GDPR Art. 17 & CCPA Deletion)
+app.post("/api/public/privacy/delete-my-data", (req, res) => {
+  const { bookingId, contact } = req.body;
+  if (!bookingId || !contact) {
+    return res.status(400).json({ error: "Inserisci il Codice Prenotazione e l'Email o Telefono inseriti al momento della richiesta." });
+  }
+
+  const cleanId = bookingId.trim().toUpperCase().replace(/^#/, "");
+  const cleanContact = contact.trim().toLowerCase().replace(/[^a-z0-9@.]/g, "");
+
+  let bookings = readJson(BOOKINGS_FILE, []);
+  const initialLength = bookings.length;
+
+  bookings = bookings.filter(b => {
+    const bId = (b.id || "").toUpperCase().replace(/^#/, "");
+    const bEmail = (b.email || "").toLowerCase().replace(/[^a-z0-9@.]/g, "");
+    const bPhone = (b.phone || "").replace(/[^0-9]/g, "");
+    
+    if (bId === cleanId) {
+      if (bEmail && (bEmail === cleanContact || bEmail.includes(cleanContact))) return false; // Elimina
+      if (bPhone && (bPhone.includes(cleanContact) || cleanContact.includes(bPhone))) return false; // Elimina
+    }
+    return true;
+  });
+
+  if (bookings.length === initialLength) {
+    return res.status(404).json({ error: "Nessuna richiesta trovata corrispondente a questo Codice e Contatto." });
+  }
+
+  writeJson(BOOKINGS_FILE, bookings);
+  return res.json({ success: true, message: "I tuoi dati sono stati rimossi definitivamente dall'archivio in conformità al GDPR (Art. 17) e CCPA." });
 });
 
 // ==========================================
