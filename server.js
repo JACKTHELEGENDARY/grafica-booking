@@ -481,6 +481,52 @@ app.post("/api/admin/verify-2fa", (req, res) => {
 });
 
 // Reinvia Codice 2FA
+
+// Aggiorna numero di telefono per il 2FA direttamente dalla schermata di login
+app.post("/api/admin/update-2fa-phone", (req, res) => {
+  const { pin, newPhone } = req.body;
+  const config = getConfig();
+
+  if (!pin || pin !== config.adminPin) {
+    return res.status(401).json({ error: "PIN non valido." });
+  }
+
+  if (!newPhone || newPhone.trim().length < 6) {
+    return res.status(400).json({ error: "Inserisci un numero di telefono valido." });
+  }
+
+  const cleanPhone = newPhone.replace(/[^0-9]/g, '');
+  const currentConfig = readJson(CONFIG_FILE, {});
+  currentConfig.whatsappNumber = cleanPhone;
+  currentConfig.twoFactor = {
+    ...(currentConfig.twoFactor || {}),
+    enabled: true,
+    phone: cleanPhone
+  };
+  writeJson(CONFIG_FILE, currentConfig);
+
+  // Genera nuovo codice per il nuovo numero
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  active2FACodes.set("admin", {
+    code,
+    expiresAt: Date.now() + 10 * 60 * 1000,
+    phone: cleanPhone,
+    attempts: 0
+  });
+
+  console.log(`[2FA] Numero aggiornato a ${cleanPhone}. Nuovo codice: ${code}`);
+
+  const waDirectUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`[JL GRAPHIC STUDIO] Il tuo codice di verifica 2FA è: *${code}* (valido 10 minuti).`)}`;
+
+  return res.json({
+    success: true,
+    phoneMasked: maskPhone(cleanPhone.startsWith('+') ? cleanPhone : '+' + cleanPhone),
+    waDirectUrl,
+    codePreview: code,
+    message: "Numero di cellulare aggiornato con successo!"
+  });
+});
+
 app.post("/api/admin/resend-2fa", (req, res) => {
   const { pin } = req.body;
   const config = getConfig();

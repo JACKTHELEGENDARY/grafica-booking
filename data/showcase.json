@@ -1,38 +1,56 @@
 [
   {
-    "id": "CW-101",
-    "title": "Logo Esports 'JL' Neon Edition",
-    "category": "Logo & Brand Identity",
-    "description": "Concept iconico in 3D metallico con sfaccettature aggressive, riflessi cromo ed esplosioni di luce toxic green per il brand JL.",
+    "id": "CR-MVP-01",
+    "title": "Video Personalizzato MVP • Top Player Edition",
+    "category": "VIDEO PERSONALIZZATI MVP",
+    "description": "Montaggio video dinamico e personalizzato per celebrare il miglior giocatore (MVP) con effetti speciali, particelle neon, transizioni e sound design.",
+    "imageUrl": "images/side_banner_left.jpg",
+    "tag": "🏆 TOP MVP",
+    "createdAt": "2026-09-21T09:39:19.285Z"
+  },
+  {
+    "id": "CR-FLY-02",
+    "title": "Flyer Compleanno Esclusivo • Cyber Neon Glow",
+    "category": "FLYERS COMPLEANNO",
+    "description": "Locandina e flyer digitale personalizzato per feste di compleanno ed eventi privati con tipografia 3D, effetti luce e layout ad alta definizione.",
+    "imageUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+    "tag": "🎉 COMPLEANNO VIP",
+    "createdAt": "2026-09-21T09:39:19.286Z"
+  },
+  {
+    "id": "CR-LVL-03",
+    "title": "Video Ringraziamento • Level Up Celebration",
+    "category": "VIDEO DI RINGRAZIAMENTO LIVELLO",
+    "description": "Clip animata celebrativa per ringraziare la community, donatori o follower per il raggiungimento di nuovi livelli e traguardi.",
+    "imageUrl": "images/side_banner_right.jpg",
+    "tag": "⚡ LEVEL UP",
+    "createdAt": "2026-09-21T09:39:19.286Z"
+  },
+  {
+    "id": "CR-TRF-04",
+    "title": "Trasformazione Visiva • Before & After Cyber FX",
+    "category": "TRASFORMAZIONI",
+    "description": "Effetti di trasformazione digitale avanzata, morphing ed elaborazioni fotorealistiche ad alta risoluzione con contrasti vibranti.",
     "imageUrl": "images/logo.jpg",
-    "tag": "⭐ TOP CREAZIONE",
-    "createdAt": "2026-09-18T10:00:00.000Z"
+    "tag": "✨ TRASFORMAZIONE",
+    "createdAt": "2026-09-21T09:39:19.286Z"
   },
   {
-    "id": "CW-102",
-    "title": "Twitch & YouTube Gaming Pack",
-    "category": "Banner Twitch / YouTube / Header",
-    "description": "Header personalizzato, webcam overlay dinamico e pannelli coordinati con particelle verde acido e contrasti scuri.",
+    "id": "CR-BAT-05",
+    "title": "Pack Batalla Completo • Versus & Arena Kit",
+    "category": "PACK BATALLA",
+    "description": "Pacchetto grafico completo per battaglie live e sfide: intro animate versus, banner overlay, alert dinamici e grafiche vittoria/sconfitta.",
     "imageUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
-    "tag": "🎮 STREAMER PACK",
-    "createdAt": "2026-09-19T14:30:00.000Z"
+    "tag": "⚔️ PACK BATALLA",
+    "createdAt": "2026-09-21T09:39:19.286Z"
   },
   {
-    "id": "CW-103",
-    "title": "Cyberpunk Samurai Vector Art",
-    "category": "Illustrazione Personalizzata",
-    "description": "Artwork digitale dettagliata per merchandise e stampa su felpe con luci al neon, sfumature affilate e linee aggressive.",
-    "imageUrl": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
-    "tag": "🔥 MERCH READY",
-    "createdAt": "2026-09-20T16:00:00.000Z"
-  },
-  {
-    "id": "CW-104",
-    "title": "Social Carousel & Event Launch",
-    "category": "Grafiche Social / Post / Stories",
-    "description": "Kit grafico Instagram e TikTok ad altissimo impatto visivo per lancio di tornei esport e nuovi drop esclusivi.",
-    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-    "tag": "📱 VIRAL SOCIAL",
-    "createdAt": "2026-09-21T09:15:00.000Z"
+    "id": "CR-ANM-06",
+    "title": "Motion Graphics & Animazioni Personalizzate",
+    "category": "ALTRE ANIMAZIONI",
+    "description": "Animazioni grafiche 2D e 3D su misura, bumper video, loghi in movimento ed effetti visivi esclusivi su richiesta del cliente.",
+    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    "tag": "🎬 ANIMAZIONI",
+    "createdAt": "2026-09-21T09:39:19.286Z"
   }
 ]

@@ -1,3 +1,4 @@
+let currentOtpPreview = "";
 let pendingPin = "";
 // Logica Amministratore / Grafico
 let adminToken = localStorage.getItem("admin_pin") || "";
@@ -164,6 +165,69 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+  // Inserisci & Accedi automatico con il codice di sessione
+  const btnAutoFillCode = document.getElementById("btnAutoFillCode");
+  const displaySessionCode = document.getElementById("displaySessionCode");
+
+  function autoFillAndSubmit() {
+    if (!currentOtpPreview) return;
+    const input = document.getElementById("otpCodeInput");
+    if (input) {
+      input.value = currentOtpPreview;
+      const form = document.getElementById("form2FA");
+      if (form) form.dispatchEvent(new Event("submit"));
+    }
+  }
+
+  if (btnAutoFillCode) btnAutoFillCode.addEventListener("click", autoFillAndSubmit);
+  if (displaySessionCode) displaySessionCode.addEventListener("click", autoFillAndSubmit);
+
+  // Toggle box cambio numero
+  const btnToggleChangePhone = document.getElementById("btnToggleChangePhone");
+  const changePhoneBox = document.getElementById("changePhoneBox");
+  if (btnToggleChangePhone && changePhoneBox) {
+    btnToggleChangePhone.addEventListener("click", () => {
+      changePhoneBox.classList.toggle("hidden");
+    });
+  }
+
+  // Salva nuovo numero di telefono al volo
+  const btnSaveNewPhone = document.getElementById("btnSaveNewPhone");
+  if (btnSaveNewPhone) {
+    btnSaveNewPhone.addEventListener("click", async () => {
+      const newPhone = document.getElementById("inputNewPhone").value.trim();
+      if (!newPhone) return alert("Inserisci un numero di cellulare valido.");
+
+      btnSaveNewPhone.disabled = true;
+      btnSaveNewPhone.textContent = "Salvataggio...";
+
+      try {
+        const res = await fetch("/api/admin/update-2fa-phone", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pin: pendingPin, newPhone })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          alert("Numero salvato con successo! Il codice è stato inviato al tuo cellulare.");
+          currentOtpPreview = data.codePreview || "";
+          document.getElementById("twoFactorPhoneDisplay").textContent = data.phoneMasked || newPhone;
+          if (displaySessionCode) displaySessionCode.textContent = currentOtpPreview;
+          if (data.waDirectUrl) document.getElementById("btnWaDirectOtp").href = data.waDirectUrl;
+          changePhoneBox.classList.add("hidden");
+        } else {
+          alert("Errore: " + (data.error || "Riprova"));
+        }
+      } catch (e) {
+        alert("Errore di connessione.");
+      } finally {
+        btnSaveNewPhone.disabled = false;
+        btnSaveNewPhone.textContent = "Salva & Invia";
+      }
+    });
+  }
+
 function showLogin() {
   document.getElementById("stepPin")?.classList.remove("hidden");
   document.getElementById("step2FA")?.classList.add("hidden");
@@ -195,6 +259,9 @@ async function tryLogin(pin, isAuto = false) {
       if (data.requires2FA) {
         // Mostra schermata 2FA
         pendingPin = pin;
+        currentOtpPreview = data.codePreview || "";
+        const codeDisplay = document.getElementById("displaySessionCode");
+        if (codeDisplay) codeDisplay.textContent = currentOtpPreview;
         document.getElementById("stepPin").classList.add("hidden");
         document.getElementById("step2FA").classList.remove("hidden");
         
