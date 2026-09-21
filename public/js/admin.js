@@ -418,6 +418,26 @@ function renderAdminList() {
               </div>
             </div>
 
+            ${b.attachmentUrl ? `
+            <div>
+              <span class="text-[11px] font-semibold text-lime-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="paperclip" class="w-3.5 h-3.5"></i> Allegato / Reference Fornito dal Cliente:
+              </span>
+              <div class="mt-1.5 p-2.5 rounded-xl bg-black/60 border border-lime-500/30 flex items-center gap-3">
+                <a href="${escapeHtml(b.attachmentUrl)}" target="_blank" class="block w-14 h-14 rounded-lg overflow-hidden border border-white/20 bg-slate-900 shrink-0 group relative" title="Clicca per aprire l'allegato originale">
+                  <img src="${escapeHtml(b.attachmentUrl)}" alt="Reference" class="w-full h-full object-cover group-hover:scale-110 transition">
+                </a>
+                <div class="min-w-0 flex-1 text-xs">
+                  <a href="${escapeHtml(b.attachmentUrl)}" target="_blank" class="text-lime-300 hover:underline font-bold flex items-center gap-1">
+                    <span>Visualizza File Originale</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </a>
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Reference inviata direttamente con la prenotazione</span>
+                </div>
+              </div>
+            </div>
+            ` : ''}
+
             <!-- Note Interne Grafico -->
             <div>
               <div class="flex items-center justify-between mb-1">
@@ -724,14 +744,59 @@ function escapeHtml(string) {
     });
   }
 
-  // Upload file immagine locale in base64
+  // Upload file multimediale (WebM Video o Immagini) via API dedicata
+  const shUploadProgress = document.getElementById("shUploadProgress");
+
   if (shFileInput) {
-    shFileInput.addEventListener("change", function(e) {
+    shFileInput.addEventListener("change", async function(e) {
       const file = e.target.files[0];
       if (!file) return;
+
+      const isVideo = file.type.includes("video") || file.name.toLowerCase().endsWith(".webm") || file.name.toLowerCase().endsWith(".mp4");
+      
+      if (shUploadProgress) {
+        shUploadProgress.classList.remove("hidden", "text-red-400", "text-lime-300");
+        shUploadProgress.classList.add("text-lime-400");
+        shUploadProgress.textContent = `Caricamento ${isVideo ? "video WebM" : "file"} (${Math.round(file.size / 1024)} KB)... attendi`;
+      }
+
       const reader = new FileReader();
-      reader.onload = function(event) {
-        if (shImageUrl) shImageUrl.value = event.target.result;
+      reader.onload = async function(event) {
+        const base64Data = event.target.result;
+        try {
+          const res = await fetch("/api/admin/upload-media", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + adminToken
+            },
+            body: JSON.stringify({
+              filename: file.name,
+              base64Data: base64Data
+            })
+          });
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+
+          if (shImageUrl) shImageUrl.value = data.url;
+          if (shUploadProgress) {
+            shUploadProgress.classList.remove("text-lime-400", "text-red-400");
+            shUploadProgress.classList.add("text-lime-300");
+            shUploadProgress.textContent = `✓ ${isVideo ? "Video" : "File"} caricato con successo!`;
+          }
+
+          // Se è un video e il tag è vuoto, suggerisci tag video
+          const shTag = document.getElementById("shTag");
+          if (shTag && !shTag.value.trim()) {
+            shTag.value = isVideo ? "🎬 VIDEO" : "✨ NUOVO";
+          }
+        } catch (err) {
+          if (shUploadProgress) {
+            shUploadProgress.classList.remove("text-lime-400", "text-lime-300");
+            shUploadProgress.classList.add("text-red-400");
+            shUploadProgress.textContent = `✗ Errore caricamento: ${err.message}`;
+          }
+        }
       };
       reader.readAsDataURL(file);
     });
@@ -744,10 +809,15 @@ function escapeHtml(string) {
       const btn = document.getElementById("btnSubmitShowcase");
       if (btn) btn.disabled = true;
 
+      const mediaVal = document.getElementById("shImageUrl").value.trim();
+      const isVideo = mediaVal.toLowerCase().endsWith(".webm") || mediaVal.toLowerCase().endsWith(".mp4") || mediaVal.startsWith("data:video/");
+
       const payload = {
         title: document.getElementById("shTitle").value.trim(),
         category: document.getElementById("shCategory").value,
-        imageUrl: document.getElementById("shImageUrl").value.trim(),
+        imageUrl: mediaVal,
+        videoUrl: isVideo ? mediaVal : "",
+        mediaType: isVideo ? "video" : "image",
         tag: document.getElementById("shTag").value.trim(),
         description: document.getElementById("shDescription").value.trim()
       };
@@ -766,6 +836,7 @@ function escapeHtml(string) {
 
         alert("Creazione pubblicata con successo nella vetrina!");
         formAddShowcase.reset();
+        if (shUploadProgress) shUploadProgress.classList.add("hidden");
         loadAdminShowcase();
       } catch (err) {
         alert("Errore pubblicazione: " + err.message);
@@ -774,6 +845,15 @@ function escapeHtml(string) {
       }
     });
   }
+
+  function isMediaVideoAdmin(item) {
+    if (!item) return false;
+    if (item.mediaType === "video") return true;
+    const src = (item.videoUrl || item.imageUrl || "").trim().toLowerCase();
+    return src.endsWith(".webm") || src.endsWith(".mp4") || src.endsWith(".ogg") || src.startsWith("data:video/");
+  }
+
+  let draggedShowcaseId = null;
 
   async function loadAdminShowcase() {
     const listEl = document.getElementById("adminShowcaseList");
@@ -788,22 +868,49 @@ function escapeHtml(string) {
         return;
       }
 
-      listEl.innerHTML = items.map(item => {
+      listEl.innerHTML = items.map((item, index) => {
+        const isVid = isMediaVideoAdmin(item);
+        const mediaSrc = item.videoUrl || item.imageUrl;
+        const thumbHtml = isVid
+          ? `<video src="${escapeHtml(mediaSrc)}" autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none"></video>`
+          : `<img src="${escapeHtml(mediaSrc)}" alt="" class="w-full h-full object-cover">`;
+
+        const isFirst = index === 0;
+        const isLast = index === items.length - 1;
+
         return (
-          '<div class="flex items-center justify-between p-3 rounded-xl bg-slate-950/70 border border-white/10 hover:border-lime-500/30 transition gap-3">' +
-            '<div class="flex items-center gap-3 min-w-0">' +
-              '<div class="w-12 h-12 rounded-lg overflow-hidden bg-black shrink-0 border border-white/10">' +
-                '<img src="' + escapeHtml(item.imageUrl) + '" alt="" class="w-full h-full object-cover">' +
+          '<div class="showcase-admin-card flex items-center justify-between p-3 rounded-xl bg-slate-950/80 border border-white/10 hover:border-lime-500/40 transition gap-2 sm:gap-3" ' +
+               'draggable="true" ondragstart="handleShowcaseDragStart(event, \'' + item.id + '\')" ondragend="handleShowcaseDragEnd(event)" ondragover="handleShowcaseDragOver(event)" ondragleave="handleShowcaseDragLeave(event)" ondrop="handleShowcaseDrop(event, \'' + item.id + '\')">' +
+            '<div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">' +
+              '<div class="cursor-grab text-slate-500 hover:text-lime-400 select-none p-1 shrink-0" title="Trascina per cambiare posizione">' +
+                '<i data-lucide="grip-vertical" class="w-4 h-4"></i>' +
               '</div>' +
-              '<div class="min-w-0">' +
+              '<span class="w-6 h-6 rounded-full bg-black/80 text-lime-400 text-[11px] font-extrabold flex items-center justify-center shrink-0 border border-lime-500/30 shadow-sm">' +
+                '#' + (index + 1) +
+              '</span>' +
+              '<div class="' + (isVid ? 'w-10 h-16 aspect-[9/16] aspect-9-16' : 'w-14 h-14') + ' rounded-lg overflow-hidden bg-black shrink-0 border border-white/10 relative shadow-inner">' +
+                thumbHtml +
+              '</div>' +
+              '<div class="min-w-0 flex-1">' +
                 '<h5 class="text-xs font-bold text-white truncate">' + escapeHtml(item.title) + '</h5>' +
-                '<span class="text-[10px] text-lime-400 font-semibold">' + escapeHtml(item.category) + '</span>' +
-                (item.tag ? ' <span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded">' + escapeHtml(item.tag) + '</span>' : '') +
+                '<div class="flex items-center gap-1.5 flex-wrap mt-0.5">' +
+                  '<span class="text-[10px] text-lime-400 font-semibold">' + escapeHtml(item.category) + '</span>' +
+                  (isVid ? '<span class="text-[9px] bg-lime-500/20 text-lime-300 border border-lime-500/30 px-1.5 py-0.2 rounded font-bold">🎬 VIDEO</span>' : '') +
+                  (item.tag ? ' <span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded">' + escapeHtml((item.tag || '').replace(/\.?webm/gi, '').trim()) + '</span>' : '') +
+                '</div>' +
               '</div>' +
             '</div>' +
-            '<button onclick="deleteShowcaseItem(\'' + item.id + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-red-300 bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 transition shrink-0">' +
-              'Elimina' +
-            '</button>' +
+            '<div class="flex items-center gap-1.5 shrink-0">' +
+              '<button type="button" onclick="moveShowcaseItem(\'' + item.id + '\', \'up\')" ' + (isFirst ? 'disabled' : '') + ' class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ' + (isFirst ? 'opacity-20 cursor-not-allowed text-slate-600 bg-slate-900 border border-white/5' : 'bg-slate-800 hover:bg-lime-500 hover:text-black text-slate-200 border border-white/10') + ' transition" title="Sposta SU">' +
+                '<i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>' +
+              '</button>' +
+              '<button type="button" onclick="moveShowcaseItem(\'' + item.id + '\', \'down\')" ' + (isLast ? 'disabled' : '') + ' class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ' + (isLast ? 'opacity-20 cursor-not-allowed text-slate-600 bg-slate-900 border border-white/5' : 'bg-slate-800 hover:bg-lime-500 hover:text-black text-slate-200 border border-white/10') + ' transition" title="Sposta GIÙ">' +
+                '<i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>' +
+              '</button>' +
+              '<button type="button" onclick="deleteShowcaseItem(\'' + item.id + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-red-300 bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 transition shrink-0 ml-1" title="Rimuovi dalla vetrina">' +
+                'Elimina' +
+              '</button>' +
+            '</div>' +
           '</div>'
         );
       }).join("");
@@ -813,6 +920,89 @@ function escapeHtml(string) {
       listEl.innerHTML = '<div class="text-red-400 text-xs">Errore caricamento creazioni: ' + e.message + '</div>';
     }
   }
+
+  window.moveShowcaseItem = async function(id, direction) {
+    try {
+      const res = await fetch("/api/admin/showcase/reorder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + adminToken
+        },
+        body: JSON.stringify({ id, direction })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      loadAdminShowcase();
+    } catch (e) {
+      alert("Errore spostamento: " + e.message);
+    }
+  };
+
+  window.handleShowcaseDragStart = function(e, id) {
+    draggedShowcaseId = id;
+    e.dataTransfer.effectAllowed = "move";
+    e.currentTarget.classList.add("opacity-40");
+  };
+
+  window.handleShowcaseDragEnd = function(e) {
+    draggedShowcaseId = null;
+    e.currentTarget.classList.remove("opacity-40");
+    document.querySelectorAll(".showcase-admin-card").forEach(el => el.classList.remove("border-lime-400", "bg-lime-950/30"));
+  };
+
+  window.handleShowcaseDragOver = function(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    const card = e.currentTarget;
+    if (card) {
+      card.classList.add("border-lime-400", "bg-lime-950/30");
+    }
+  };
+
+  window.handleShowcaseDragLeave = function(e) {
+    const card = e.currentTarget;
+    if (card) {
+      card.classList.remove("border-lime-400", "bg-lime-950/30");
+    }
+  };
+
+  window.handleShowcaseDrop = async function(e, targetId) {
+    e.preventDefault();
+    const card = e.currentTarget;
+    if (card) {
+      card.classList.remove("border-lime-400", "bg-lime-950/30");
+    }
+    if (!draggedShowcaseId || draggedShowcaseId === targetId) return;
+
+    try {
+      const res = await fetch("/api/public/showcase");
+      const items = await res.json();
+      const ids = items.map(x => x.id);
+
+      const fromIndex = ids.indexOf(draggedShowcaseId);
+      const toIndex = ids.indexOf(targetId);
+
+      if (fromIndex !== -1 && toIndex !== -1) {
+        ids.splice(fromIndex, 1);
+        ids.splice(toIndex, 0, draggedShowcaseId);
+
+        const updateRes = await fetch("/api/admin/showcase/reorder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + adminToken
+          },
+          body: JSON.stringify({ orderedIds: ids })
+        });
+        const data = await updateRes.json();
+        if (data.error) throw new Error(data.error);
+        loadAdminShowcase();
+      }
+    } catch (err) {
+      alert("Errore riordinamento: " + err.message);
+    }
+  };
 
   window.deleteShowcaseItem = async function(id) {
     if (!confirm("Sei sicuro di voler rimuovere questa creazione dalla vetrina?")) return;

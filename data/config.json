@@ -2,7 +2,7 @@
   "studioName": "JL Graphic Studio",
   "designerName": "Graphic Designer",
   "adminPin": "admin123",
-  "whatsappNumber": "393400000000",
+  "whatsappNumber": "393463016406",
   "emailRecipient": "grafico@esempio.com",
   "smtp": {
     "enabled": false,
@@ -16,5 +16,9 @@
     "enabled": false,
     "apiKey": "",
     "phone": ""
+  },
+  "twoFactor": {
+    "enabled": true,
+    "phone": "393463016406"
   }
 }

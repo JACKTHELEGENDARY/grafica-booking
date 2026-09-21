@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JL Graphic Studio • Esports, Gaming & Brand Identity</title>
+  <title>JL Graphic Studio • JL CREIAMO LA TUA IDEA</title>
   <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <meta name="description" content="Design Visivo d'Élite & Animazioni Epiche per TikTok, YouTube e Twitch. Video MVP, Level Up, Flyers e Pack Batalla. Prenota il tuo progetto online!">
+  <meta name="keywords" content="grafica tiktok, video mvp, pack batalla, streamer overlays, flyer compleanno, animazioni webm, esports logo">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JL Graphic Studio • JL CREIAMO LA TUA IDEA">
+  <meta property="og:description" content="Design Visivo d'Élite & Animazioni Epiche per TikTok, YouTube e Twitch. Video MVP, Level Up, Flyers e Pack Batalla.">
+  <meta property="og:image" content="images/logo.jpg">
+  <meta property="og:locale" content="it_IT">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JL Graphic Studio • JL CREIAMO LA TUA IDEA">
+  <meta name="twitter:description" content="Design Visivo d'Élite & Animazioni Epiche per TikTok, YouTube e Twitch.">
+  <meta name="twitter:image" content="images/logo.jpg">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -39,13 +55,13 @@
           <img src="images/logo.jpg" alt="JL Graphic Studio Logo" class="w-full h-full object-cover rounded-[10px]">
         </a>
         <div>
-          <h1 id="brandStudioName" class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2">
-            <span>JL Graphic Studio</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-lime-500/20 text-lime-300 font-bold border border-lime-500/40 uppercase tracking-widest shadow-sm">
-              ESPORTS
+          <h1 id="brandStudioName" class="font-heading font-extrabold text-sm sm:text-base lg:text-lg tracking-tight text-white flex flex-wrap items-center gap-1.5">
+            <span id="brandNamePrefix">JL Graphic Studio,</span>
+            <span data-i18n="brandHeaderSlogan" class="neon-text bg-gradient-to-r from-lime-300 via-emerald-400 to-green-300 bg-clip-text text-transparent font-black uppercase tracking-wide">
+              JL CREIAMO LA TUA IDEA
             </span>
           </h1>
-          <p id="brandDesignerName" data-i18n="brandSubtitle" class="text-xs text-slate-400">Esports, Gaming & Brand Identity ad Alto Impatto</p>
+          <p id="brandDesignerName" data-i18n="brandSubtitle" class="text-xs text-slate-400">Design Visivo d'Élite & Animazioni Epiche per TikTok, YouTube e Twitch</p>
         </div>
       </div>
 
@@ -67,12 +83,22 @@
 
         <a href="#vetrina" class="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-lime-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-lime-500/30 transition">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-lime-400"></i>
-          <span data-i18n="showcaseNav">Vetrina Creazioni</span>
+          <span data-i18n="showcaseNav">Vetrina</span>
+        </a>
+
+        <a href="#pacchetti" class="hidden lg:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-lime-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-lime-500/30 transition">
+          <i data-lucide="tag" class="w-3.5 h-3.5 text-lime-400"></i>
+          <span data-i18n="pricingNav">Pacchetti</span>
         </a>
 
         <a href="#tabella-lavori" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 transition">
           <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-emerald-400"></i>
-          <span data-i18n="viewQueue">Vedi Coda Lavori</span>
+          <span data-i18n="viewQueue">Coda</span>
+        </a>
+
+        <a href="#faq" class="hidden xl:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 transition">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>FAQ</span>
         </a>
 
         <a href="admin.html" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-lime-300 bg-lime-950/40 hover:bg-lime-900/50 border border-lime-500/40 hover:border-lime-400 transition shadow-sm">
@@ -131,6 +157,28 @@
     </div>
 
     <!-- ============================================================= -->
+    <!-- STRISCIA STATISTICHE & METRICHE D'IMPATTO -->
+    <!-- ============================================================= -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-16">
+      <div class="glass-panel p-4 text-center border border-lime-500/25 hover:border-lime-400 transition shadow-lg">
+        <span class="font-heading text-2xl sm:text-3xl font-black text-lime-400">150+</span>
+        <p data-i18n="statWorks" class="text-[10px] sm:text-[11px] text-slate-300 uppercase tracking-wider font-semibold mt-1">Creazioni & Video Consegnati</p>
+      </div>
+      <div class="glass-panel p-4 text-center border border-lime-500/25 hover:border-lime-400 transition shadow-lg">
+        <span class="font-heading text-2xl sm:text-3xl font-black text-emerald-400">99%</span>
+        <p data-i18n="statSatisfaction" class="text-[10px] sm:text-[11px] text-slate-300 uppercase tracking-wider font-semibold mt-1">Creator & Clienti Soddisfatti</p>
+      </div>
+      <div class="glass-panel p-4 text-center border border-lime-500/25 hover:border-lime-400 transition shadow-lg">
+        <span class="font-heading text-2xl sm:text-3xl font-black text-lime-300">24/48h</span>
+        <p data-i18n="statDelivery" class="text-[10px] sm:text-[11px] text-slate-300 uppercase tracking-wider font-semibold mt-1">Tempi Medi di Consegna</p>
+      </div>
+      <div class="glass-panel p-4 text-center border border-lime-500/25 hover:border-lime-400 transition shadow-lg">
+        <span class="font-heading text-2xl sm:text-3xl font-black text-cyan-400">100%</span>
+        <p data-i18n="statPrivacy" class="text-[10px] sm:text-[11px] text-slate-300 uppercase tracking-wider font-semibold mt-1">Privacy & Dati Protetti</p>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
     <!-- SEZIONE SHOWCASE / ULTIME CREAZIONI & VETRINA PUBBLICITARIA -->
     <!-- ============================================================= -->
     <section id="vetrina" class="mb-20 scroll-mt-24">
@@ -166,6 +214,140 @@
           <div class="col-span-full text-center py-10 text-slate-500 text-xs">
             Caricamento creazioni in corso...
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- SEZIONE PACCHETTI & TARIFFE CONSIGLIATE (PRICING) -->
+    <!-- ============================================================= -->
+    <section id="pacchetti" class="mb-20 scroll-mt-24">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-400 text-xs font-semibold uppercase tracking-wider mb-2">
+          <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+          <span data-i18n="pricingBadge">Tariffe Trasparenti & Pacchetti</span>
+        </div>
+        <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <span data-i18n="pricingTitle">Scegli il Pacchetto Ideale per Te</span>
+        </h3>
+        <p data-i18n="pricingSubtitle" class="text-slate-400 text-xs sm:text-sm mt-1">
+          Dalle grafiche per avatar e social ai video MVP per TikTok e i battle pack completi per streamer.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- PACCHETTO 1: STARTER -->
+        <div class="glass-panel p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-lime-500/40 transition relative group">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">🥉 Base / Singolo</span>
+            <h4 data-i18n="pkg1Title" class="font-heading text-xl font-bold text-white mt-1">Starter Creator</h4>
+            <div class="my-4 flex items-baseline gap-1">
+              <span class="text-xs text-slate-400" data-i18n="priceFrom">da</span>
+              <span class="text-3xl font-black text-lime-400">25€</span>
+            </div>
+            <p data-i18n="pkg1Desc" class="text-xs text-slate-400 mb-5 leading-relaxed">
+              Ideale per chi necessita di una grafica singola, avatar per profili social o logo essenziale.
+            </p>
+            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg1Feat1">1 Grafica o Logo HD</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg1Feat2">Formato PNG Trasparente</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg1Feat3">2 Revisioni Gratuite Incluse</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg1Feat4">Consegna in 48-72h</span>
+              </li>
+            </ul>
+          </div>
+          <button type="button" onclick="selectPricingPackage('FLYERS COMPLEANNO')" class="mt-6 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-200 bg-slate-900/90 hover:bg-lime-500 hover:text-black border border-white/10 hover:border-lime-500 transition flex items-center justify-center gap-1.5">
+            <span data-i18n="btnSelectPkg">Scegli Starter</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- PACCHETTO 2: PRO TIKTOK & MVP (BEST SELLER) -->
+        <div class="glass-panel p-6 sm:p-7 flex flex-col justify-between border-2 border-lime-400/80 shadow-2xl shadow-lime-500/10 relative group z-10 bg-slate-950/95">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-lime-500 text-black font-extrabold text-[10px] uppercase tracking-wider shadow-md">
+            🔥 PIÙ RICHIESTO
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-lime-400">🥈 Video & Streamer</span>
+            <h4 data-i18n="pkg2Title" class="font-heading text-xl font-bold text-white mt-1">Pro MVP TikTok</h4>
+            <div class="my-4 flex items-baseline gap-1">
+              <span class="text-xs text-slate-400" data-i18n="priceFrom">da</span>
+              <span class="text-3xl font-black text-lime-400">45€</span>
+            </div>
+            <p data-i18n="pkg2Desc" class="text-xs text-slate-300 mb-5 leading-relaxed">
+              Video MVP personalizzato in 9:16 per TikTok, Shorts e Ringraziamento Livello con effetti speciali.
+            </p>
+            <ul class="space-y-2.5 text-xs text-slate-200 border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg2Feat1">Video Verticale 9:16 HD TikTok</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg2Feat2">Sound Design & Transizioni Dinamiche</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg2Feat3">Effetti Luce Cyber Neon & Particelle</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg2Feat4">Consegna Prioritaria in 24-48h</span>
+              </li>
+            </ul>
+          </div>
+          <button type="button" onclick="selectPricingPackage('VIDEO PERSONALIZZATI MVP')" class="mt-6 w-full btn-neon-green py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span data-i18n="btnSelectMvp">Ordina Video MVP</span>
+          </button>
+        </div>
+
+        <!-- PACCHETTO 3: ELITE VIP PACK -->
+        <div class="glass-panel p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-lime-500/40 transition relative group">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">🥇 Kit Completo</span>
+            <h4 data-i18n="pkg3Title" class="font-heading text-xl font-bold text-white mt-1">Elite VIP Batalla</h4>
+            <div class="my-4 flex items-baseline gap-1">
+              <span class="text-xs text-slate-400" data-i18n="priceFrom">da</span>
+              <span class="text-3xl font-black text-lime-400">80€</span>
+            </div>
+            <p data-i18n="pkg3Desc" class="text-xs text-slate-400 mb-5 leading-relaxed">
+              Pacchetto completo per battaglie live e tornei: intro versus, alert animati e kit grafiche streaming.
+            </p>
+            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg3Feat1">Pack Batalla Completo (Intro + Versus)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg3Feat2">Formato WebM con Trasparenza per OBS</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg3Feat3">Revisioni Illimitate fino a Soddisfazione</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+                <span data-i18n="pkg3Feat4">Assistenza Dedicata WhatsApp 24/7</span>
+              </li>
+            </ul>
+          </div>
+          <button type="button" onclick="selectPricingPackage('PACK BATALLA')" class="mt-6 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-200 bg-slate-900/90 hover:bg-lime-500 hover:text-black border border-white/10 hover:border-lime-500 transition flex items-center justify-center gap-1.5">
+            <span data-i18n="btnSelectVip">Scegli Elite VIP</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -297,6 +479,36 @@
             </label>
             <textarea id="description" rows="3" required data-i18n-placeholder="descPlaceholder" placeholder="Spiega cosa desideri realizzare: colori preferiti, testi, riferimenti di stile, formati necessari..." 
               class="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm placeholder-slate-500"></textarea>
+          </div>
+
+          <!-- ALLEGATO REFERENCE / FOTO / LOGO (OPZIONALE) -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/10 hover:border-lime-500/30 transition space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="paperclip" class="w-3.5 h-3.5 text-lime-400"></i>
+                <span data-i18n="attachmentLabel">Allega Reference / Logo / Foto</span>
+              </label>
+              <span class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold" data-i18n="optionalBadge">Opzionale</span>
+            </div>
+            <p data-i18n="attachmentHint" class="text-[11px] text-slate-400">
+              Hai un logo, una foto o un'immagine di riferimento da mostrarmi? Caricala qui (PNG, JPG, max 10MB).
+            </p>
+            <div class="flex items-center gap-3">
+              <input type="file" id="clientAttachmentFile" accept="image/png,image/jpeg,image/webp,image/*" class="text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-lime-500/20 file:text-lime-300 hover:file:bg-lime-500 hover:file:text-black cursor-pointer transition">
+              <button type="button" id="btnClearAttachment" onclick="clearClientAttachment()" class="text-xs text-red-400 hover:underline hidden" data-i18n="btnRemoveAttachment">Rimuovi</button>
+            </div>
+            <!-- Anteprima Immagine Caricata -->
+            <div id="attachmentPreviewBox" class="hidden items-center gap-3 pt-2 border-t border-white/5">
+              <div class="w-12 h-12 rounded-lg overflow-hidden border border-lime-500/30 bg-black shrink-0">
+                <img id="attachmentPreviewImg" src="" alt="Anteprima Reference" class="w-full h-full object-cover">
+              </div>
+              <div class="min-w-0 flex-1 text-xs">
+                <p id="attachmentPreviewName" class="text-slate-200 font-semibold truncate"></p>
+                <span class="text-[10px] text-lime-400 flex items-center gap-1">
+                  <i data-lucide="check" class="w-3 h-3"></i> <span data-i18n="attachmentReady">File pronto per l'invio</span>
+                </span>
+              </div>
+            </div>
           </div>
 
           <!-- Budget e Tempistiche -->
@@ -474,6 +686,96 @@
       </div>
     </section>
 
+    <!-- ============================================================= -->
+    <!-- SEZIONE FAQ (DOMANDE FREQUENTI) -->
+    <!-- ============================================================= -->
+    <section id="faq" class="mt-20 scroll-mt-24">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-400 text-xs font-semibold uppercase tracking-wider mb-2">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+          <span data-i18n="faqBadge">Supporto & Chiarimenti</span>
+        </div>
+        <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <span data-i18n="faqTitle">Domande Frequenti (FAQ)</span>
+        </h3>
+        <p data-i18n="faqSubtitle" class="text-slate-400 text-xs sm:text-sm mt-1">
+          Tutto quello che c'è da sapere su formati, tempi di consegna, revisioni e modalità di pagamento.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto space-y-3">
+        <!-- FAQ 1 -->
+        <div class="glass-panel border border-white/10 rounded-xl overflow-hidden transition">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-white hover:text-lime-300 transition">
+            <span data-i18n="faqQ1" class="flex items-center gap-2">
+              <i data-lucide="film" class="w-4 h-4 text-lime-400 shrink-0"></i>
+              In che formati ricevo i video e le grafiche completate?
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 faq-icon"></i>
+          </button>
+          <div class="faq-answer hidden px-4 pb-4 text-xs text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+            <span data-i18n="faqA1">I video per TikTok, YouTube Shorts e Reels vengono consegnati in formato MP4 Full HD a 60fps con aspect ratio verticale 9:16. Le animazioni e overlay per OBS Studio o streaming vengono fornite in WebM con canale alfa trasparente. Le grafiche fisse vengono fornite in PNG HD senza compressione.</span>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="glass-panel border border-white/10 rounded-xl overflow-hidden transition">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-white hover:text-lime-300 transition">
+            <span data-i18n="faqQ2" class="flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4 text-lime-400 shrink-0"></i>
+              Quali sono le tempistiche medie di consegna?
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 faq-icon"></i>
+          </button>
+          <div class="faq-answer hidden px-4 pb-4 text-xs text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+            <span data-i18n="faqA2">I tempi standard variano da 24 a 72 ore in base alla complessità del lavoro e allo stato della coda visibile in tempo reale (Rosso = Coda piena, Giallo = In lavorazione, Verde = Slot liberi immediati).</span>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="glass-panel border border-white/10 rounded-xl overflow-hidden transition">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-white hover:text-lime-300 transition">
+            <span data-i18n="faqQ3" class="flex items-center gap-2">
+              <i data-lucide="refresh-cw" class="w-4 h-4 text-lime-400 shrink-0"></i>
+              Posso richiedere modifiche e revisioni alla bozza?
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 faq-icon"></i>
+          </button>
+          <div class="faq-answer hidden px-4 pb-4 text-xs text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+            <span data-i18n="faqA3">Certamente! Prima della consegna finale inviamo sempre un'anteprima privata via WhatsApp per consentirti di verificare testi, colori ed effetti. Le revisioni sono incluse nel prezzo per garantirti piena soddisfazione.</span>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="glass-panel border border-white/10 rounded-xl overflow-hidden transition">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-white hover:text-lime-300 transition">
+            <span data-i18n="faqQ4" class="flex items-center gap-2">
+              <i data-lucide="credit-card" class="w-4 h-4 text-lime-400 shrink-0"></i>
+              Quali metodi di pagamento sono accettati?
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 faq-icon"></i>
+          </button>
+          <div class="faq-answer hidden px-4 pb-4 text-xs text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+            <span data-i18n="faqA4">Supportiamo i metodi più sicuri e veloci tra cui PayPal, Bonifico Istantaneo, Postepay e Revolut. I dettagli per il saldo o eventuale acconto vengono concordati direttamente su WhatsApp al momento della presa in carico.</span>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="glass-panel border border-white/10 rounded-xl overflow-hidden transition">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-white hover:text-lime-300 transition">
+            <span data-i18n="faqQ5" class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-lime-400 shrink-0"></i>
+              I miei dati e i prezzi sono protetti e riservati?
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 faq-icon"></i>
+          </button>
+          <div class="faq-answer hidden px-4 pb-4 text-xs text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+            <span data-i18n="faqA5">Assolutamente sì! Il sito è pienamente conforme a GDPR (UE) e CCPA (USA). Il tuo vero nome, contatti, descrizioni e importi sono protetti e visibili unicamente al grafico. Nella lista pubblica appare solamente il tuo nickname con lo stato del lavoro.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- MODAL SUCCESSO PRENOTAZIONE -->
@@ -517,7 +819,7 @@
 
   <!-- MODAL LIGHTBOX SHOWCASE HD -->
   <div id="modalShowcase" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-panel max-w-3xl w-full p-4 sm:p-6 border border-lime-500/40 relative max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95">
+    <div id="lightboxDialog" class="glass-panel max-w-3xl w-full p-4 sm:p-6 border border-lime-500/40 relative max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 transition-all duration-300">
       <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
         <div>
           <span id="lightboxCategory" class="text-[10px] font-bold uppercase tracking-wider text-lime-400 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/30"></span>
@@ -527,8 +829,15 @@
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-      <div class="relative overflow-hidden rounded-xl max-h-[58vh] flex items-center justify-center bg-black/70 border border-white/10">
-        <img id="lightboxImg" src="" alt="Creation Preview" class="max-h-[56vh] w-auto object-contain rounded-lg shadow-2xl">
+      <div class="relative overflow-hidden rounded-xl max-h-[70vh] flex items-center justify-center bg-black/95 border border-white/10 p-1 group select-none">
+        <img id="lightboxImg" src="" alt="Creation Preview" class="max-h-[66vh] w-auto object-contain rounded-lg shadow-2xl select-none pointer-events-auto" draggable="false" oncontextmenu="return false;">
+        <video id="lightboxVideo" src="" controls controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture class="max-h-[68vh] aspect-[9/16] aspect-9-16 w-auto max-w-full object-contain rounded-lg shadow-2xl hidden select-none pointer-events-auto mx-auto" oncontextmenu="return false;" draggable="false"></video>
+        <!-- Filigrana di Protezione Copyright & Scudo di Protezione -->
+        <div class="media-watermark"></div>
+        <div class="watermark-badge flex items-center gap-1.5 select-none pointer-events-none">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-lime-400"></i>
+          <span>JL Graphic Studio • Protetto da Copyright</span>
+        </div>
       </div>
       <div class="pt-4 mt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
         <p id="lightboxDesc" class="text-xs text-slate-300 leading-relaxed"></p>
@@ -540,10 +849,30 @@
     </div>
   </div>
 
-  <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) -->
+  <!-- FOOTER CON LINK LEGALI (GDPR, CCPA, COOKIE, DIRITTO ALL'OBLIO) & SOCIAL -->
   <footer class="relative z-10 border-t border-lime-500/20 bg-slate-950/80 py-8 mt-16 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p data-i18n="footerCopyright">© 2026 JL Graphic Studio • Piattaforma Gestione Commissioni</p>
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-left">
+        <p data-i18n="footerCopyright" class="font-medium text-slate-400">© 2026 JL Graphic Studio • Piattaforma Gestione Commissioni</p>
+        <p class="text-[11px] text-slate-500 mt-0.5">Design Visivo & Animazioni per Creator, Streamer e TikTok</p>
+      </div>
+
+      <!-- CANALI SOCIAL UFFICIALI -->
+      <div class="flex items-center gap-2.5 text-slate-400">
+        <span class="text-[11px] uppercase tracking-wider text-slate-500 font-bold hidden sm:inline">Social:</span>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/10 hover:border-lime-400 text-slate-300 hover:text-lime-400 flex items-center justify-center transition shadow-sm" title="TikTok">
+          <i data-lucide="video" class="w-4 h-4"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/10 hover:border-lime-400 text-slate-300 hover:text-lime-400 flex items-center justify-center transition shadow-sm" title="YouTube">
+          <i data-lucide="youtube" class="w-4 h-4"></i>
+        </a>
+        <a href="https://twitch.tv" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/10 hover:border-lime-400 text-slate-300 hover:text-lime-400 flex items-center justify-center transition shadow-sm" title="Twitch">
+          <i data-lucide="tv" class="w-4 h-4"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/10 hover:border-lime-400 text-slate-300 hover:text-lime-400 flex items-center justify-center transition shadow-sm" title="Instagram">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+        </a>
+      </div>
       
       <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
         <a href="javascript:void(0)" onclick="openLegalModal('privacy')" id="footerLinkPrivacy" class="text-slate-400 hover:text-white transition underline font-medium">Informativa Privacy (GDPR & CCPA)</a>
@@ -720,7 +1049,9 @@
     window.I18N = {
   "it": {
     "langName": "Italiano",
-    "brandSubtitle": "Esports, Gaming & Brand Identity ad Alto Impatto",
+    "brandHeaderSlogan": "JL CREIAMO LA TUA IDEA",
+    "brandHeaderFull": "JL Graphic Studio, JL CREIAMO LA TUA IDEA",
+    "brandSubtitle": "Design Visivo d'Élite & Animazioni Epiche per TikTok, YouTube e Twitch",
     "viewQueue": "Vedi Coda Lavori",
     "adminArea": "Area Grafico",
     "openBadge": "Prenotazioni Aperte • Notifica Immediata Email & WhatsApp",
@@ -748,6 +1079,12 @@
     "workTypeLabel": "Tipo di Lavoro Grafico",
     "workTypePrivateBadge": "Nascosto al pubblico (Visibile solo al grafico)",
     "workTypeSelect": "Seleziona la tipologia di lavoro...",
+    "workTypeMvp": "🏆 VIDEO PERSONALIZZATI MVP",
+    "workTypeFlyers": "🎉 FLYERS COMPLEANNO",
+    "workTypeRingraziamento": "⚡ VIDEO DI RINGRAZIAMENTO LIVELLO",
+    "workTypeTrasformazioni": "✨ TRASFORMAZIONI",
+    "workTypeBatalla": "⚔️ PACK BATALLA",
+    "workTypeAltreAnimazioni": "🎬 ALTRE ANIMAZIONI",
     "workTypeLogo": "🎨 Logo & Brand Identity Completa",
     "workTypeSocial": "📱 Grafiche Social (Post, Stories, Carousel)",
     "workTypeBanner": "🎮 Banner Twitch / YouTube / Header Social",
@@ -825,11 +1162,62 @@
     "showcaseSubtitle": "Dai loghi esports alle grafiche per streamer e merchandise: scopri gli ultimi progetti d'impatto firmati JL Graphic.",
     "showcaseCta": "Prenota una Grafica Simile",
     "showcaseViewHd": "Visualizza in HD",
-    "showcaseOrderThis": "Voglio questa Grafica!"
+    "showcaseViewVideo": "Guarda Video",
+    "showcaseOrderThis": "Voglio questa Grafica!",
+    "pricingNav": "Pacchetti",
+    "statWorks": "Creazioni & Video Consegnati",
+    "statSatisfaction": "Creator & Clienti Soddisfatti",
+    "statDelivery": "Tempi Medi di Consegna",
+    "statPrivacy": "Privacy & Dati Protetti",
+    "pricingBadge": "Tariffe Trasparenti & Pacchetti",
+    "pricingTitle": "Scegli il Pacchetto Ideale per Te",
+    "pricingSubtitle": "Dalle grafiche per avatar e social ai video MVP per TikTok e i battle pack completi per streamer.",
+    "priceFrom": "da",
+    "pkg1Title": "Starter Creator",
+    "pkg1Desc": "Ideale per chi necessita di una grafica singola, avatar per profili social o logo essenziale.",
+    "pkg1Feat1": "1 Grafica o Logo HD",
+    "pkg1Feat2": "Formato PNG Trasparente",
+    "pkg1Feat3": "2 Revisioni Gratuite Incluse",
+    "pkg1Feat4": "Consegna in 48-72h",
+    "btnSelectPkg": "Scegli Starter",
+    "pkg2Title": "Pro MVP TikTok",
+    "pkg2Desc": "Video MVP personalizzato in 9:16 per TikTok, Shorts e Ringraziamento Livello con effetti speciali.",
+    "pkg2Feat1": "Video Verticale 9:16 HD TikTok",
+    "pkg2Feat2": "Sound Design & Transizioni Dinamiche",
+    "pkg2Feat3": "Effetti Luce Cyber Neon & Particelle",
+    "pkg2Feat4": "Consegna Prioritaria in 24-48h",
+    "btnSelectMvp": "Ordina Video MVP",
+    "pkg3Title": "Elite VIP Batalla",
+    "pkg3Desc": "Pacchetto completo per battaglie live e tornei: intro versus, alert animati e kit grafiche streaming.",
+    "pkg3Feat1": "Pack Batalla Completo (Intro + Versus)",
+    "pkg3Feat2": "Formato WebM con Trasparenza per OBS",
+    "pkg3Feat3": "Revisioni Illimitate fino a Soddisfazione",
+    "pkg3Feat4": "Assistenza Dedicata WhatsApp 24/7",
+    "btnSelectVip": "Scegli Elite VIP",
+    "attachmentLabel": "Allega Reference / Logo / Foto",
+    "attachmentHint": "Hai un logo, una foto o un'immagine di riferimento da mostrarmi? Caricala qui (PNG, JPG, max 10MB).",
+    "optionalBadge": "Opzionale",
+    "btnRemoveAttachment": "Rimuovi",
+    "attachmentReady": "File pronto per l'invio",
+    "faqBadge": "Supporto & Chiarimenti",
+    "faqTitle": "Domande Frequenti (FAQ)",
+    "faqSubtitle": "Tutto quello che c'è da sapere su formati, tempi di consegna, revisioni e modalità di pagamento.",
+    "faqQ1": "In che formati ricevo i video e le grafiche completate?",
+    "faqA1": "I video per TikTok, YouTube Shorts e Reels vengono consegnati in formato MP4 Full HD a 60fps con aspect ratio verticale 9:16. Le animazioni e overlay per OBS Studio o streaming vengono fornite in WebM con canale alfa trasparente. Le grafiche fisse vengono fornite in PNG HD senza compressione.",
+    "faqQ2": "Quali sono le tempistiche medie di consegna?",
+    "faqA2": "I tempi standard variano da 24 a 72 ore in base alla complessità del lavoro e allo stato della coda visibile in tempo reale (Rosso = Coda piena, Giallo = In lavorazione, Verde = Slot liberi immediati).",
+    "faqQ3": "Posso richiedere modifiche e revisioni alla bozza?",
+    "faqA3": "Certamente! Prima della consegna finale inviamo sempre un'anteprima privata via WhatsApp per consentirti di verificare testi, colori ed effetti. Le revisioni sono incluse nel prezzo per garantirti piena soddisfazione.",
+    "faqQ4": "Quali metodi di pagamento sono accettati?",
+    "faqA4": "Supportiamo i metodi più sicuri e veloci tra cui PayPal, Bonifico Istantaneo, Postepay e Revolut. I dettagli per il saldo o eventuale acconto vengono concordati direttamente su WhatsApp al momento della presa in carico.",
+    "faqQ5": "I miei dati e i prezzi sono protetti e riservati?",
+    "faqA5": "Assolutamente sì! Il sito è pienamente conforme a GDPR (UE) e CCPA (USA). Il tuo vero nome, contatti, descrizioni e importi sono protetti e visibili unicamente al grafico. Nella lista pubblica appare solamente il tuo nickname con lo stato del lavoro."
   },
   "en": {
     "langName": "English",
-    "brandSubtitle": "High-Impact Esports, Gaming & Brand Identity",
+    "brandHeaderSlogan": "JL WE CREATE YOUR IDEA",
+    "brandHeaderFull": "JL Graphic Studio, JL WE CREATE YOUR IDEA",
+    "brandSubtitle": "Elite Visual Design & Epic Animations for TikTok, YouTube & Twitch",
     "viewQueue": "View Queue",
     "adminArea": "Artist Area",
     "openBadge": "Commissions Open • Instant Email & WhatsApp Notification",
@@ -857,6 +1245,12 @@
     "workTypeLabel": "Graphic Design Category",
     "workTypePrivateBadge": "Hidden from public (Visible only to the artist)",
     "workTypeSelect": "Select design service...",
+    "workTypeMvp": "🏆 CUSTOM MVP VIDEOS",
+    "workTypeFlyers": "🎉 BIRTHDAY FLYERS",
+    "workTypeRingraziamento": "⚡ LEVEL-UP THANK YOU VIDEOS",
+    "workTypeTrasformazioni": "✨ VISUAL TRANSFORMATIONS",
+    "workTypeBatalla": "⚔️ BATTLE PACK",
+    "workTypeAltreAnimazioni": "🎬 OTHER ANIMATIONS",
     "workTypeLogo": "🎨 Full Logo & Brand Identity",
     "workTypeSocial": "📱 Social Media Graphics (Posts, Stories, Carousels)",
     "workTypeBanner": "🎮 Twitch / YouTube Banner & Headers",
@@ -934,11 +1328,62 @@
     "showcaseSubtitle": "From esports logos to streamer overlays and brand identities: explore the latest high-impact projects by JL Graphic.",
     "showcaseCta": "Book a Similar Design",
     "showcaseViewHd": "View in HD",
-    "showcaseOrderThis": "I want this Design!"
+    "showcaseViewVideo": "Watch Video",
+    "showcaseOrderThis": "I want this Design!",
+    "pricingNav": "Packages",
+    "statWorks": "Delivered Works & Videos",
+    "statSatisfaction": "Satisfied Creators & Clients",
+    "statDelivery": "Average Delivery Time",
+    "statPrivacy": "Privacy & Data Protected",
+    "pricingBadge": "Transparent Pricing & Packages",
+    "pricingTitle": "Choose the Ideal Package for You",
+    "pricingSubtitle": "From avatar logos to TikTok MVP videos and full stream battle packs.",
+    "priceFrom": "from",
+    "pkg1Title": "Starter Creator",
+    "pkg1Desc": "Ideal for single graphics, social media profile avatars, or essential logos.",
+    "pkg1Feat1": "1 HD Graphic or Logo",
+    "pkg1Feat2": "Transparent PNG Format",
+    "pkg1Feat3": "2 Free Revisions Included",
+    "pkg1Feat4": "Delivery in 48-72h",
+    "btnSelectPkg": "Choose Starter",
+    "pkg2Title": "Pro MVP TikTok",
+    "pkg2Desc": "Custom 9:16 MVP video for TikTok, Shorts, and Level-Up celebration with VFX.",
+    "pkg2Feat1": "Vertical 9:16 HD TikTok Video",
+    "pkg2Feat2": "Sound Design & Dynamic Transitions",
+    "pkg2Feat3": "Cyber Neon Lighting & Particle Effects",
+    "pkg2Feat4": "Priority Delivery in 24-48h",
+    "btnSelectMvp": "Order MVP Video",
+    "pkg3Title": "Elite VIP Batalla",
+    "pkg3Desc": "Complete pack for live battles & tournaments: animated versus intro and stream overlays.",
+    "pkg3Feat1": "Full Battle Pack (Intro + Versus)",
+    "pkg3Feat2": "WebM Format with Alpha Channel for OBS",
+    "pkg3Feat3": "Unlimited Revisions until Satisfied",
+    "pkg3Feat4": "Dedicated 24/7 WhatsApp Support",
+    "btnSelectVip": "Choose Elite VIP",
+    "attachmentLabel": "Attach Reference / Logo / Photo",
+    "attachmentHint": "Do you have a reference logo, photo, or sketch? Upload it here (PNG, JPG, max 10MB).",
+    "optionalBadge": "Optional",
+    "btnRemoveAttachment": "Remove",
+    "attachmentReady": "File ready to send",
+    "faqBadge": "Support & Answers",
+    "faqTitle": "Frequently Asked Questions (FAQ)",
+    "faqSubtitle": "Everything you need to know about formats, delivery times, revisions, and payment methods.",
+    "faqQ1": "What file formats do I receive?",
+    "faqA1": "Videos for TikTok, YouTube Shorts, and Reels are delivered in vertical 9:16 Full HD MP4 at 60fps. Stream animations and overlays are provided in transparent WebM for OBS Studio. Static graphics are sent in ultra-high resolution PNG.",
+    "faqQ2": "What are the average delivery times?",
+    "faqA2": "Standard times range from 24 to 72 hours depending on project complexity and the live queue status (Red = Full Queue, Yellow = In Progress, Green = Open Immediate Slots).",
+    "faqQ3": "Can I request revisions to the draft?",
+    "faqA3": "Yes, absolutely! Before final delivery, we always send a private preview on WhatsApp for you to review texts, colors, and effects. Revisions are included in the price.",
+    "faqQ4": "What payment methods are accepted?",
+    "faqA4": "We support the safest methods including PayPal, Instant Bank Transfer, and Revolut. Payment details are coordinated directly on WhatsApp once your request is reviewed.",
+    "faqQ5": "Is my personal data and budget kept confidential?",
+    "faqA5": "Yes, 100%! The site complies strictly with EU GDPR and US CCPA. Your real name, budget, project description, and contact info are visible exclusively to the designer."
   },
   "es": {
     "langName": "Español",
-    "brandSubtitle": "Diseño Gráfico de Alto Impacto para Esports y Gaming",
+    "brandHeaderSlogan": "JL CREAMOS TU IDEA",
+    "brandHeaderFull": "JL Graphic Studio, JL CREAMOS TU IDEA",
+    "brandSubtitle": "Diseño Visual de Élite & Animaciones Épicas para TikTok, YouTube y Twitch",
     "viewQueue": "Ver Cola de Trabajos",
     "adminArea": "Área Diseñador",
     "openBadge": "Comisiones Abiertas • Notificación Inmediata por Email y WhatsApp",
@@ -966,6 +1411,12 @@
     "workTypeLabel": "Tipo de Trabajo Gráfico",
     "workTypePrivateBadge": "Oculto al público (Visible solo para el diseñador)",
     "workTypeSelect": "Selecciona el tipo de trabajo...",
+    "workTypeMvp": "🏆 VÍDEOS PERSONALIZADOS MVP",
+    "workTypeFlyers": "🎉 FLYERS DE CUMPLEAÑOS",
+    "workTypeRingraziamento": "⚡ VÍDEOS DE AGRADECIMIENTO DE NIVEL",
+    "workTypeTrasformazioni": "✨ TRANSFORMACIONES",
+    "workTypeBatalla": "⚔️ PACK BATALLA",
+    "workTypeAltreAnimazioni": "🎬 OTRAS ANIMACIONES",
     "workTypeLogo": "🎨 Logo e Identidad de Marca Completa",
     "workTypeSocial": "📱 Gráficas para Redes (Post, Stories, Carrusel)",
     "workTypeBanner": "🎮 Banners para Twitch / YouTube / Redes",
@@ -1043,7 +1494,56 @@
     "showcaseSubtitle": "De logotipos esports a diseños para streamers e identidad de marca: descubre las últimas creaciones de JL Graphic.",
     "showcaseCta": "Reserva un Diseño Similar",
     "showcaseViewHd": "Ver en HD",
-    "showcaseOrderThis": "¡Quiero este Diseño!"
+    "showcaseViewVideo": "Ver Vídeo",
+    "showcaseOrderThis": "¡Quiero este Diseño!",
+    "pricingNav": "Paquetes",
+    "statWorks": "Diseños y Vídeos Entregados",
+    "statSatisfaction": "Creadores y Clientes Satisfechos",
+    "statDelivery": "Tiempo Medio de Entrega",
+    "statPrivacy": "Privacidad y Datos Protegidos",
+    "pricingBadge": "Tarifas Transparentes y Paquetes",
+    "pricingTitle": "Elige el Paquete Ideal para Ti",
+    "pricingSubtitle": "Desde avatares y logos hasta vídeos MVP para TikTok y packs de batalla para streamers.",
+    "priceFrom": "desde",
+    "pkg1Title": "Starter Creator",
+    "pkg1Desc": "Ideal para un diseño individual, avatar para redes sociales o logotipo esencial.",
+    "pkg1Feat1": "1 Diseño o Logo en HD",
+    "pkg1Feat2": "Formato PNG Transparente",
+    "pkg1Feat3": "2 Revisiones Gratuitas Incluidas",
+    "pkg1Feat4": "Entrega en 48-72h",
+    "btnSelectPkg": "Elegir Starter",
+    "pkg2Title": "Pro MVP TikTok",
+    "pkg2Desc": "Vídeo MVP personalizado en 9:16 para TikTok, Shorts y Agradecimiento de Nivel con VFX.",
+    "pkg2Feat1": "Vídeo Vertical 9:16 HD TikTok",
+    "pkg2Feat2": "Diseño de Sonido y Transiciones Dinámicas",
+    "pkg2Feat3": "Luces Cyber Neón y Efectos de Partículas",
+    "pkg2Feat4": "Entrega Prioritaria en 24-48h",
+    "btnSelectMvp": "Pedir Vídeo MVP",
+    "pkg3Title": "Elite VIP Batalla",
+    "pkg3Desc": "Paquete completo para batallas en vivo y torneos: intro versus, alertas y overlays de stream.",
+    "pkg3Feat1": "Pack Batalla Completo (Intro + Versus)",
+    "pkg3Feat2": "Formato WebM con Transparencia para OBS",
+    "pkg3Feat3": "Revisiones Ilimitadas hasta tu Plena Satisfacción",
+    "pkg3Feat4": "Soporte Dedicado por WhatsApp 24/7",
+    "btnSelectVip": "Elegir Elite VIP",
+    "attachmentLabel": "Adjuntar Referencia / Logo / Foto",
+    "attachmentHint": "¿Tienes un logo, foto o boceto de referencia? Súbelo aquí (PNG, JPG, máx 10MB).",
+    "optionalBadge": "Opcional",
+    "btnRemoveAttachment": "Eliminar",
+    "attachmentReady": "Archivo listo para enviar",
+    "faqBadge": "Soporte y Preguntas",
+    "faqTitle": "Preguntas Frecuentes (FAQ)",
+    "faqSubtitle": "Todo lo que necesitas saber sobre formatos, tiempos de entrega, revisiones y pagos.",
+    "faqQ1": "¿En qué formatos recibo los vídeos y diseños terminados?",
+    "faqA1": "Los vídeos para TikTok, YouTube Shorts y Reels se entregan en formato MP4 Full HD vertical 9:16 a 60fps. Las animaciones y overlays para OBS Studio se entregan en WebM con transparencia. Los gráficos fijos se entregan en PNG de ultra alta resolución.",
+    "faqQ2": "¿Cuáles son los tiempos promedio de entrega?",
+    "faqA2": "Los tiempos habituales son de 24 a 72 horas según la complejidad del proyecto y el estado de la cola en vivo (Rojo = Cola llena, Amarillo = En proceso, Verde = Cupos libres inmediatos).",
+    "faqQ3": "¿Puedo solicitar revisiones y cambios al boceto?",
+    "faqA3": "¡Por supuesto! Antes de la entrega final enviamos siempre una vista previa privada por WhatsApp para revisar textos, colores y efectos. Las revisiones están incluidas en el precio.",
+    "faqQ4": "¿Qué métodos de pago son aceptados?",
+    "faqA4": "Aceptamos los métodos más seguros y rápidos, incluidos PayPal, Transferencia Inmediata y Revolut. Los detalles se coordinan directamente por WhatsApp una vez aceptada la solicitud.",
+    "faqQ5": "¿Mis datos personales y presupuesto son confidenciales?",
+    "faqA5": "¡Totalmente sí! Cumplimos rigurosamente con RGPD (UE) y CCPA (EE.UU.). Tu nombre real, presupuesto, descripción y contactos son estrictamente privados y exclusivos para el diseñador."
   }
 };
 
@@ -1059,6 +1559,7 @@
       currentLang = lang;
       localStorage.setItem("app_lang", lang);
       var dict = window.I18N[lang];
+      if (dict.brandHeaderFull) { document.title = dict.brandHeaderFull + " • Studio"; }
 
       // Aggiorna stile pulsanti lingua nell'header
       document.querySelectorAll(".lang-btn").forEach(function(btn) {
@@ -1193,6 +1694,26 @@
         });
     }
 
+    
+    function getTranslatedCategory(cat, dict) {
+      if (!cat) return "";
+      var clean = cat.trim();
+      if (clean === "VIDEO PERSONALIZZATI MVP") return dict.workTypeMvp || clean;
+      if (clean === "FLYERS COMPLEANNO") return dict.workTypeFlyers || clean;
+      if (clean === "VIDEO DI RINGRAZIAMENTO LIVELLO") return dict.workTypeRingraziamento || clean;
+      if (clean === "TRASFORMAZIONI") return dict.workTypeTrasformazioni || clean;
+      if (clean === "PACK BATALLA") return dict.workTypeBatalla || clean;
+      if (clean === "ALTRE ANIMAZIONI") return dict.workTypeAltreAnimazioni || clean;
+      return clean;
+    }
+
+    function isMediaVideo(item) {
+      if (!item) return false;
+      if (item.mediaType === "video") return true;
+      var src = (item.videoUrl || item.imageUrl || "").trim().toLowerCase();
+      return src.endsWith(".webm") || src.endsWith(".mp4") || src.endsWith(".ogg") || src.startsWith("data:video/") || src.includes(".webm?") || src.includes(".mp4?");
+    }
+
     function renderShowcase() {
       var container = document.getElementById("showcaseGrid");
       if (!container) return;
@@ -1205,26 +1726,41 @@
 
       container.innerHTML = allShowcase.map(function(item) {
         var viewText = dict.showcaseViewHd || "Visualizza in HD";
+        var isVid = isMediaVideo(item);
+        var mediaSrc = item.videoUrl || item.imageUrl;
+
+        var mediaContent = isVid
+          ? '<video src="' + escapeHtml(mediaSrc) + '" autoplay loop muted playsinline preload="metadata" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture draggable="false" oncontextmenu="return false;" class="card-img w-full h-full object-cover pointer-events-none select-none"></video>'
+          : '<img src="' + escapeHtml(mediaSrc) + '" alt="' + escapeHtml(item.title) + '" draggable="false" oncontextmenu="return false;" class="card-img w-full h-full object-cover select-none">';
+
+        var playIcon = isVid
+          ? '<div class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-black/75 border border-lime-500/50 flex items-center justify-center text-lime-400 group-hover:scale-110 group-hover:bg-lime-500 group-hover:text-black transition shadow-lg shadow-black/60"><i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i></div>'
+          : '';
+
+        var cleanTag = (item.tag || (isVid ? "🎬 VIDEO" : "✨ CREAZIONE")).replace(/\.?webm/gi, "").trim();
+        var aspectClass = isVid ? "aspect-[9/16] aspect-9-16" : "aspect-[9/16] aspect-9-16";
+
         return (
           '<div class="showcase-card flex flex-col justify-between group cursor-pointer" onclick="openShowcaseLightbox(\'' + item.id + '\')">' +
-            '<div class="relative overflow-hidden aspect-[4/3] bg-black/60">' +
-              '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.title) + '" class="card-img w-full h-full object-cover">' +
-              '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-60 transition"></div>' +
-              '<div class="absolute top-3 left-3">' +
-                '<span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-black/80 text-lime-300 border border-lime-500/40 shadow-sm backdrop-blur-sm">' +
-                  escapeHtml(item.tag || "✨ CREAZIONE") +
+            '<div class="relative overflow-hidden ' + aspectClass + ' bg-black/90">' +
+              mediaContent +
+              '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-75 group-hover:opacity-30 transition"></div>' +
+              '<div class="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">' +
+                '<span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-black/85 text-lime-300 border border-lime-500/40 shadow-sm backdrop-blur-sm">' +
+                  escapeHtml(cleanTag) +
                 '</span>' +
               '</div>' +
+              playIcon +
             '</div>' +
             '<div class="p-4 flex-1 flex flex-col justify-between space-y-2">' +
               '<div>' +
-                '<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">' + escapeHtml(item.category) + '</span>' +
+                '<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">' + escapeHtml(getTranslatedCategory(item.category, dict)) + '</span>' +
                 '<h4 class="font-heading font-bold text-sm text-white group-hover:text-lime-300 transition line-clamp-1 mt-0.5">' + escapeHtml(item.title) + '</h4>' +
                 '<p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-relaxed">' + escapeHtml(item.description || "") + '</p>' +
               '</div>' +
               '<div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">' +
                 '<span class="text-[10px] font-semibold text-lime-400/90 flex items-center gap-1 group-hover:underline">' +
-                  '<i data-lucide="eye" class="w-3 h-3"></i> ' + viewText +
+                  '<i data-lucide="' + (isVid ? 'play-circle' : 'eye') + '" class="w-3 h-3"></i> ' + (isVid ? (dict.showcaseViewVideo || "Guarda Video") : viewText) +
                 '</span>' +
                 '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500 group-hover:text-lime-400 transition"></i>' +
               '</div>' +
@@ -1241,16 +1777,55 @@
       if (!item) return;
 
       currentSelectedCategory = item.category || "";
-      document.getElementById("lightboxCategory").textContent = item.category;
+      var dict = (window.I18N && window.I18N[currentLang]) ? window.I18N[currentLang] : {};
+      document.getElementById("lightboxCategory").textContent = getTranslatedCategory(item.category, dict);
       document.getElementById("lightboxTitle").textContent = item.title;
       document.getElementById("lightboxDesc").textContent = item.description || "";
-      document.getElementById("lightboxImg").src = item.imageUrl;
+      
+      var isVid = isMediaVideo(item);
+      var mediaSrc = item.videoUrl || item.imageUrl;
+      var imgEl = document.getElementById("lightboxImg");
+      var vidEl = document.getElementById("lightboxVideo");
+      var dialogEl = document.getElementById("lightboxDialog");
+
+      if (isVid) {
+        if (dialogEl) {
+          dialogEl.classList.remove("max-w-3xl");
+          dialogEl.classList.add("max-w-md");
+        }
+        if (imgEl) imgEl.classList.add("hidden");
+        if (vidEl) {
+          vidEl.classList.remove("hidden");
+          vidEl.src = mediaSrc;
+          vidEl.currentTime = 0;
+          vidEl.play().catch(function(){});
+        }
+      } else {
+        if (dialogEl) {
+          dialogEl.classList.remove("max-w-md");
+          dialogEl.classList.add("max-w-3xl");
+        }
+        if (vidEl) {
+          vidEl.pause();
+          vidEl.src = "";
+          vidEl.classList.add("hidden");
+        }
+        if (imgEl) {
+          imgEl.classList.remove("hidden");
+          imgEl.src = mediaSrc;
+        }
+      }
 
       document.getElementById("modalShowcase").classList.remove("hidden");
       if (window.lucide) lucide.createIcons();
     };
 
     window.closeShowcaseModal = function() {
+      var vidEl = document.getElementById("lightboxVideo");
+      if (vidEl) {
+        vidEl.pause();
+        vidEl.src = "";
+      }
       var m = document.getElementById("modalShowcase");
       if (m) m.classList.add("hidden");
     };
@@ -1272,6 +1847,56 @@
           }
         }
       }
+    };
+
+    window.selectPricingPackage = function(categoryName) {
+      var prenotaEl = document.getElementById("prenota-ora");
+      if (prenotaEl) prenotaEl.scrollIntoView({ behavior: "smooth" });
+
+      if (categoryName) {
+        var workSelect = document.getElementById("workType");
+        if (workSelect) {
+          for (var i = 0; i < workSelect.options.length; i++) {
+            if (workSelect.options[i].value.toLowerCase().includes(categoryName.toLowerCase()) || 
+                categoryName.toLowerCase().includes(workSelect.options[i].value.toLowerCase())) {
+              workSelect.selectedIndex = i;
+              break;
+            }
+          }
+          workSelect.classList.add("ring-2", "ring-lime-400");
+          setTimeout(function() {
+            workSelect.classList.remove("ring-2", "ring-lime-400");
+          }, 2000);
+        }
+      }
+    };
+
+    window.toggleFaq = function(btn) {
+      var ans = btn.nextElementSibling;
+      var icon = btn.querySelector(".faq-icon");
+      if (!ans) return;
+      var isHidden = ans.classList.contains("hidden");
+      if (isHidden) {
+        ans.classList.remove("hidden");
+        if (icon) icon.style.transform = "rotate(180deg)";
+      } else {
+        ans.classList.add("hidden");
+        if (icon) icon.style.transform = "rotate(0deg)";
+      }
+    };
+
+    var clientAttachmentBase64 = "";
+    var clientAttachmentName = "";
+
+    window.clearClientAttachment = function() {
+      clientAttachmentBase64 = "";
+      clientAttachmentName = "";
+      var fileInp = document.getElementById("clientAttachmentFile");
+      if (fileInp) fileInp.value = "";
+      var pBox = document.getElementById("attachmentPreviewBox");
+      if (pBox) pBox.classList.add("hidden");
+      var btnClear = document.getElementById("btnClearAttachment");
+      if (btnClear) btnClear.classList.add("hidden");
     };
 
     // ==========================================
@@ -1323,7 +1948,7 @@
         .then(function(data) {
           if (data.studioName) {
             var bEl = document.getElementById("brandStudioName");
-            if (bEl && bEl.childNodes[0]) bEl.childNodes[0].textContent = data.studioName + " ";
+            var pEl = document.getElementById("brandNamePrefix"); if (pEl) pEl.textContent = data.studioName + ", ";
           }
         })
         .catch(function(e) { console.log(e); });
@@ -1514,6 +2139,7 @@
             description: document.getElementById("description").value.trim(),
             budget: document.getElementById("budget").value.trim(),
             deadline: document.getElementById("deadline").value,
+            attachment: clientAttachmentBase64 ? { data: clientAttachmentBase64, filename: clientAttachmentName } : null,
             privacyConsent: privBox ? privBox.checked : true,
             anonymousQueue: document.getElementById("anonymousQueue") ? document.getElementById("anonymousQueue").checked : false
           };
@@ -1527,6 +2153,7 @@
           .then(function(data) {
             if (data.error) throw new Error(data.error);
             document.getElementById("bookingForm").reset();
+            clearClientAttachment();
             document.getElementById("modalBookingId").textContent = "#" + data.booking.id;
             document.getElementById("modalClientName").textContent = "@" + data.booking.publicName;
             document.getElementById("modalStatusText").textContent = "🔴 " + (dict.statusAspetto || "ASPETTO").toUpperCase();
@@ -1584,12 +2211,119 @@
           document.getElementById("successModal").classList.add("hidden");
         });
       }
+
+      // Listener allegato file reference cliente
+      var attFileInput = document.getElementById("clientAttachmentFile");
+      if (attFileInput) {
+        attFileInput.addEventListener("change", function(e) {
+          var file = e.target.files && e.target.files[0];
+          if (!file) return;
+          if (file.size > 12 * 1024 * 1024) {
+            alert("L'immagine supera i 10MB massimi consentiti. Seleziona un file più leggero.");
+            e.target.value = "";
+            return;
+          }
+          clientAttachmentName = file.name;
+          var reader = new FileReader();
+          reader.onload = function(evt) {
+            clientAttachmentBase64 = evt.target.result;
+            var pBox = document.getElementById("attachmentPreviewBox");
+            var pImg = document.getElementById("attachmentPreviewImg");
+            var pName = document.getElementById("attachmentPreviewName");
+            var btnClear = document.getElementById("btnClearAttachment");
+            if (pImg) pImg.src = clientAttachmentBase64;
+            if (pName) pName.textContent = file.name;
+            if (pBox) pBox.classList.remove("hidden");
+            if (btnClear) btnClear.classList.remove("hidden");
+            if (window.lucide) lucide.createIcons();
+          };
+          reader.readAsDataURL(file);
+        });
+      }
     });
+
+    // ===================================================================
+    // PROTEZIONE MULTIMEDIALE ATTIVA (ANTI-DOWNLOAD, ANTI-COPIA & BLOCCO TASTO DESTRO)
+    // ===================================================================
+    (function initMediaProtection() {
+      var toastTimeout;
+      function showToastProtection() {
+        var toast = document.getElementById("protectionToast");
+        if (!toast) return;
+        var textEl = document.getElementById("protectionToastText");
+        if (textEl) {
+          if (currentLang === "es") {
+            textEl.textContent = "Contenido protegido por Copyright • Descarga y copia deshabilitadas";
+          } else if (currentLang === "en") {
+            textEl.textContent = "Copyright Protected Content • Download and copying disabled";
+          } else {
+            textEl.textContent = "Contenuto protetto da Copyright • Download e duplicazione disabilitati";
+          }
+        }
+        toast.classList.remove("hidden");
+        requestAnimationFrame(function() {
+          toast.classList.remove("opacity-0", "translate-y-4");
+          toast.classList.add("opacity-100", "translate-y-0");
+        });
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(function() {
+          toast.classList.remove("opacity-100", "translate-y-0");
+          toast.classList.add("opacity-0", "translate-y-4");
+          setTimeout(function() { toast.classList.add("hidden"); }, 300);
+        }, 2500);
+      }
+
+      // 1. Blocca click destro su immagini, video, card vetrina e lightbox
+      document.addEventListener("contextmenu", function(e) {
+        var t = e.target;
+        if (!t) return;
+        if (
+          t.tagName === "IMG" || 
+          t.tagName === "VIDEO" || 
+          t.closest(".showcase-card") || 
+          t.closest("#modalShowcase") || 
+          t.closest("aside")
+        ) {
+          e.preventDefault();
+          showToastProtection();
+          return false;
+        }
+      }, { capture: true });
+
+      // 2. Blocca trascinamento (drag) di immagini o video
+      document.addEventListener("dragstart", function(e) {
+        var t = e.target;
+        if (!t) return;
+        if (t.tagName === "IMG" || t.tagName === "VIDEO" || t.closest(".showcase-card") || t.closest("#modalShowcase") || t.closest("aside")) {
+          e.preventDefault();
+          return false;
+        }
+      }, { capture: true });
+
+      // 3. Blocca scorciatoie tastiera per salvataggio file (Ctrl+S / Cmd+S / Ctrl+P)
+      window.addEventListener("keydown", function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
+          e.preventDefault();
+          showToastProtection();
+          return false;
+        }
+        if ((e.ctrlKey || e.metaKey) && (e.key === "p" || e.key === "P")) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    })();
 
     function escapeHtml(string) {
       var entityMap = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
       return String(string).replace(/[&<>"']/g, function(s) { return entityMap[s]; });
     }
   </script>
+
+  <!-- TOAST NOTIFICA PROTEZIONE COPYRIGHT -->
+  <div id="protectionToast" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300 transform translate-y-4 opacity-0 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-950/95 border border-lime-500/50 shadow-2xl shadow-black/80 text-white text-xs font-semibold backdrop-blur-md pointer-events-none select-none">
+    <i data-lucide="shield-alert" class="w-4 h-4 text-lime-400 shrink-0"></i>
+    <span id="protectionToastText">Contenuto protetto da Copyright • Download e duplicazione disabilitati</span>
+  </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
-﻿const translations = {
+const translations = {
   it: {
     langName: "Italiano",
-    brandSubtitle: "Commissioni & Grafica Personalizzata",
+    brandSubtitle: "Design Visivo d'Élite & Animazioni Epiche per TikTok, YouTube e Twitch",
     viewQueue: "Vedi Coda Lavori",
     adminArea: "Area Grafico",
     openBadge: "Prenotazioni Aperte • Notifica Immediata Email & WhatsApp",
@@ -78,7 +78,7 @@
   },
   en: {
     langName: "English",
-    brandSubtitle: "Custom Graphics & Design Commissions",
+    brandSubtitle: "Elite Visual Design & Epic Animations for TikTok, YouTube & Twitch",
     viewQueue: "View Queue",
     adminArea: "Artist Area",
     openBadge: "Commissions Open • Instant Email & WhatsApp Notification",
@@ -155,7 +155,7 @@
   },
   es: {
     langName: "Español",
-    brandSubtitle: "Diseño Gráfico & Comisiones Personalizadas",
+    brandSubtitle: "Diseño Visual de Élite & Animaciones Épicas para TikTok, YouTube y Twitch",
     viewQueue: "Ver Cola de Trabajos",
     adminArea: "Área Diseñador",
     openBadge: "Comisiones Abiertas • Notificación Inmediata por Email y WhatsApp",

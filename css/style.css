@@ -177,6 +177,11 @@ h1, h2, h3, h4, .font-heading {
   transform: scale(1.06);
 }
 
+/* Aspect ratio 9:16 per video verticali (TikTok / Reels / Shorts) */
+.aspect-9-16 {
+  aspect-ratio: 9 / 16 !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -192,4 +197,63 @@ h1, h2, h3, h4, .font-heading {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #22c55e;
+}
+
+/* ===================================================================
+   PROTEZIONE MULTIMEDIALE ATTIVA ANTI-COPIA & ANTI-DOWNLOAD
+   =================================================================== */
+/* Disabilita selezione, trascinamento e callout mobile su immagini e video */
+img, video, .showcase-card, .card-img, aside img {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+}
+
+/* Nasconde pulsante di download e menu 3 punti dai controlli nativi dei video */
+video::-internal-media-controls-download-button {
+  display: none !important;
+}
+video::-webkit-media-controls-download-button {
+  display: none !important;
+}
+video::-webkit-media-controls-enclosure {
+  overflow: hidden !important;
+}
+
+/* Filigrana Watermark Digitale di Protezione (Anticopia / Screenshot protection) */
+.media-watermark {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 90px,
+    rgba(57, 255, 20, 0.03) 91px,
+    rgba(57, 255, 20, 0.03) 93px
+  );
+}
+
+.watermark-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(5, 8, 12, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: rgba(163, 230, 53, 0.9);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+  text-transform: uppercase;
+  z-index: 26;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }

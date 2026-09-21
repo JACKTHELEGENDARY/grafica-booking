@@ -1,10 +1,23 @@
 [
   {
+    "id": "CW-392",
+    "title": "VIDEO MVP",
+    "category": "VIDEO PERSONALIZZATI MVP",
+    "description": "",
+    "imageUrl": "uploads/marcelita_mvp_3__1789988482368.webm",
+    "videoUrl": "uploads/marcelita_mvp_3__1789988482368.webm",
+    "mediaType": "video",
+    "tag": "🎬 VIDEO",
+    "createdAt": "2026-09-21T11:01:44.818Z"
+  },
+  {
     "id": "CR-MVP-01",
     "title": "Video Personalizzato MVP • Top Player Edition",
     "category": "VIDEO PERSONALIZZATI MVP",
     "description": "Montaggio video dinamico e personalizzato per celebrare il miglior giocatore (MVP) con effetti speciali, particelle neon, transizioni e sound design.",
-    "imageUrl": "images/side_banner_left.jpg",
+    "imageUrl": "uploads/sample-mvp.webm",
+    "videoUrl": "uploads/sample-mvp.webm",
+    "mediaType": "video",
     "tag": "🏆 TOP MVP",
     "createdAt": "2026-09-21T09:39:19.285Z"
   },

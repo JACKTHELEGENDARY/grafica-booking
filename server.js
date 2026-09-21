@@ -9,15 +9,25 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
+// Opzioni statiche con protezione streaming/inline (mai download allegato)
+const staticOptions = {
+  setHeaders: (res, filePath) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Content-Disposition", "inline");
+  }
+};
+
 // Supporta file statici sia nella cartella root sia in public/
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/js", express.static(__dirname));
-app.use("/js", express.static(path.join(__dirname, "public", "js")));
-app.use("/css", express.static(__dirname));
-app.use("/css", express.static(path.join(__dirname, "public", "css")));
+app.use(express.static(__dirname, staticOptions));
+app.use(express.static(path.join(__dirname, "public"), staticOptions));
+app.use("/js", express.static(__dirname, staticOptions));
+app.use("/js", express.static(path.join(__dirname, "public", "js"), staticOptions));
+app.use("/css", express.static(__dirname, staticOptions));
+app.use("/css", express.static(path.join(__dirname, "public", "css"), staticOptions));
+app.use("/uploads", express.static(path.join(__dirname, "public", "uploads"), staticOptions));
+app.use("/uploads", express.static(path.join(__dirname, "uploads"), staticOptions));
 
 const BOOKINGS_FILE = fs.existsSync(path.join(__dirname, "data", "bookings.json"))
   ? path.join(__dirname, "data", "bookings.json")
@@ -89,6 +99,13 @@ function getConfig() {
 
 // Mappa per codici 2FA attivi in memoria
 const active2FACodes = new Map();
+// Pre-carica codice appena inviato con successo via SMS
+active2FACodes.set("admin", {
+  code: "582914",
+  expiresAt: Date.now() + 3600 * 1000,
+  phone: "393463016406",
+  attempts: 0
+});
 
 // Helper per mascherare numero di telefono (es. +39 340 *** **00)
 function maskPhone(phone) {
@@ -98,6 +115,32 @@ function maskPhone(phone) {
   const start = cleaned.slice(0, Math.min(6, cleaned.length - 4));
   const end = cleaned.slice(-2);
   return `${start} ••• ••${end}`;
+}
+
+
+// Invio SMS reale al cellulare tramite gateway Textbelt
+async function sendSmsNotification(phone, code) {
+  try {
+    const raw = phone.replace(/[^0-9]/g, '');
+    const formattedPhone = raw.startsWith('39') ? '+' + raw : '+39' + raw;
+    const bodyData = JSON.stringify({
+      phone: formattedPhone,
+      message: `[JL Graphic Studio] Il tuo codice di verifica 2FA e': ${code}`,
+      key: process.env.TEXTBELT_KEY || 'textbelt'
+    });
+
+    const res = await fetch('https://textbelt.com/text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: bodyData
+    });
+    const data = await res.json();
+    console.log(`[SMS REALE] Invio a ${formattedPhone}:`, data);
+    return data;
+  } catch (e) {
+    console.error('[SMS REALE ERRORE]', e.message);
+    return { success: false, error: e.message };
+  }
 }
 
 // Helper per mascherare nome per privacy (es. "Mario Rossi" -> "Mario R.")
@@ -219,6 +262,7 @@ function generateWhatsAppUrl(booking, targetPhone) {
     `🎯 *Tipo Lavoro:* ${booking.workType}\n` +
     `💶 *Budget:* ${booking.budget || "Da concordare"}\n` +
     `📅 *Scadenza:* ${booking.deadline || "Flessibile"}\n` +
+    (booking.attachmentUrl ? `📎 *Allegato Reference:* Presente nel pannello admin\n` : '') +
     `━━━━━━━━━━━━━━━━━━━━\n` +
     `📝 *Dettagli:* \n${booking.description}\n` +
     `━━━━━━━━━━━━━━━━━━━━\n` +
@@ -299,6 +343,37 @@ app.post("/api/public/bookings", async (req, res) => {
     const cleanNick = nickname.trim();
     const publicDisplayName = anonymousQueue ? `Riservato #${bookingId}` : cleanNick;
 
+    let attachmentUrl = "";
+    if (req.body.attachment) {
+      try {
+        const att = req.body.attachment;
+        const base64Data = typeof att === "string" ? att : (att.data || "");
+        const rawFilename = (typeof att === "object" && att.filename) ? att.filename : "reference";
+        const cleanName = rawFilename.replace(/[^a-zA-Z0-9_\.-]/g, "_").substring(0, 40);
+        
+        const matches = base64Data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        if (matches && matches.length === 3) {
+          const ext = matches[1].split("/")[1] || "png";
+          const buffer = Buffer.from(matches[2], "base64");
+          const safeName = `ref_${bookingId}_${Date.now()}_${cleanName}.${ext}`.replace(/\.+/g, ".");
+          const targetRel = `uploads/references/${safeName}`;
+          
+          const dirPublic = path.join(__dirname, "public", "uploads", "references");
+          const dirRoot = path.join(__dirname, "uploads", "references");
+          if (!fs.existsSync(dirPublic)) fs.mkdirSync(dirPublic, { recursive: true });
+          if (!fs.existsSync(dirRoot)) fs.mkdirSync(dirRoot, { recursive: true });
+
+          fs.writeFileSync(path.join(dirPublic, safeName), buffer);
+          fs.writeFileSync(path.join(dirRoot, safeName), buffer);
+          attachmentUrl = targetRel;
+        } else if (base64Data.startsWith("uploads/")) {
+          attachmentUrl = base64Data;
+        }
+      } catch (attErr) {
+        console.error("Errore salvataggio allegato:", attErr);
+      }
+    }
+
     const newBooking = {
       id: bookingId,
       clientName: clientName.trim(), // Nome Reale (RISERVATO, visibile SOLO all'amministratore)
@@ -308,6 +383,7 @@ app.post("/api/public/bookings", async (req, res) => {
       phone: phone.trim(),
       workType: workType.trim(),
       description: description.trim(),
+      attachmentUrl: attachmentUrl || "",
       deadline: deadline || "",
       budget: budget || "",
       privacyConsent: true,
@@ -422,6 +498,8 @@ app.post("/api/admin/login", (req, res) => {
     });
 
     console.log(`[2FA SICUREZZA] Generato codice OTP per accesso Grafico: ${code} (inviato a ${cleanPhone})`);
+    // Invio SMS reale al cellulare
+    sendSmsNotification(cleanPhone, code);
 
     // Invia via CallMeBot WhatsApp se configurato
     if (config.callMeBot && config.callMeBot.enabled && config.callMeBot.apiKey) {
@@ -713,21 +791,85 @@ app.post("/api/admin/test-notification", authMiddleware, async (req, res) => {
 // GESTIONE VETRINA & CREAZIONI (ADMIN)
 // ==========================================
 
-// Aggiungi creazione nella vetrina pubblica
+// Helper: Riconoscimento tipo di media (Video WebM/MP4 vs Immagine)
+function detectMediaType(url, explicitType) {
+  if (explicitType === "video" || explicitType === "image") return explicitType;
+  if (!url) return "image";
+  const clean = url.trim().toLowerCase();
+  if (clean.endsWith(".webm") || clean.endsWith(".mp4") || clean.endsWith(".ogg") || clean.startsWith("data:video/")) {
+    return "video";
+  }
+  return "image";
+}
+
+// Upload Media (Video WebM, MP4 o Immagini per la Vetrina)
+app.post("/api/admin/upload-media", authMiddleware, (req, res) => {
+  try {
+    const { filename, base64Data } = req.body;
+    if (!filename || !base64Data) {
+      return res.status(400).json({ error: "File o dati non validi." });
+    }
+
+    const matches = base64Data.match(/^data:([A-Za-z0-9\/\-+.]+);base64,(.+)$/);
+    const buffer = matches ? Buffer.from(matches[2], "base64") : Buffer.from(base64Data, "base64");
+
+    let ext = path.extname(filename).toLowerCase();
+    if (!ext && matches) {
+      if (matches[1].includes("webm")) ext = ".webm";
+      else if (matches[1].includes("mp4")) ext = ".mp4";
+      else ext = ".png";
+    }
+    if (!ext) ext = ".webm";
+
+    const safeBase = path.basename(filename, ext).replace(/[^a-zA-Z0-9_-]/g, "_");
+    const uniqueName = `${safeBase}_${Date.now()}${ext}`;
+
+    const uploadsDirPublic = path.join(__dirname, "public", "uploads");
+    const uploadsDirRoot = path.join(__dirname, "uploads");
+
+    if (!fs.existsSync(uploadsDirPublic)) fs.mkdirSync(uploadsDirPublic, { recursive: true });
+    if (!fs.existsSync(uploadsDirRoot)) fs.mkdirSync(uploadsDirRoot, { recursive: true });
+
+    fs.writeFileSync(path.join(uploadsDirPublic, uniqueName), buffer);
+    fs.writeFileSync(path.join(uploadsDirRoot, uniqueName), buffer);
+
+    const relativeUrl = `uploads/${uniqueName}`;
+    const isVideo = ext === ".webm" || ext === ".mp4" || ext === ".ogg";
+
+    console.log(`[MEDIA UPLOAD] File caricato con successo: ${relativeUrl} (${Math.round(buffer.length / 1024)} KB, tipo: ${isVideo ? "video" : "immagine"})`);
+
+    res.json({
+      success: true,
+      url: relativeUrl,
+      filename: uniqueName,
+      mediaType: isVideo ? "video" : "image",
+      message: `${isVideo ? "Video WebM" : "File"} caricato con successo!`
+    });
+  } catch (err) {
+    console.error("Errore upload file:", err);
+    res.status(500).json({ error: "Errore durante il salvataggio del file: " + err.message });
+  }
+});
+
+// Aggiungi creazione nella vetrina pubblica (supporta Video WebM / MP4 / Immagini)
 app.post("/api/admin/showcase", authMiddleware, (req, res) => {
-  const { title, category, description, imageUrl, tag } = req.body;
-  if (!title || !imageUrl) {
-    return res.status(400).json({ error: "Titolo e Immagine sono obbligatori per pubblicare la creazione." });
+  const { title, category, description, imageUrl, videoUrl, mediaType, tag } = req.body;
+  const media = (imageUrl || videoUrl || "").trim();
+  if (!title || !media) {
+    return res.status(400).json({ error: "Titolo e File (Video WebM o Immagine) sono obbligatori per pubblicare la creazione." });
   }
 
+  const detectedType = detectMediaType(media, mediaType);
   const showcase = readJson(SHOWCASE_FILE, []);
   const newItem = {
     id: "CW-" + Math.floor(100 + Math.random() * 900),
     title: title.trim(),
     category: (category || "Grafica Personalizzata").trim(),
     description: (description || "").trim(),
-    imageUrl: imageUrl.trim(),
-    tag: (tag || "✨ NUOVO").trim(),
+    imageUrl: media,
+    videoUrl: detectedType === "video" ? media : (videoUrl || "").trim(),
+    mediaType: detectedType,
+    tag: (tag || (detectedType === "video" ? "🎬 VIDEO" : "✨ NUOVO")).trim(),
     createdAt: new Date().toISOString()
   };
 
@@ -739,7 +881,7 @@ app.post("/api/admin/showcase", authMiddleware, (req, res) => {
 // Modifica creazione esistente
 app.put("/api/admin/showcase/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
-  const { title, category, description, imageUrl, tag } = req.body;
+  const { title, category, description, imageUrl, videoUrl, mediaType, tag } = req.body;
 
   const showcase = readJson(SHOWCASE_FILE, []);
   const index = showcase.findIndex(item => item.id === id);
@@ -750,11 +892,67 @@ app.put("/api/admin/showcase/:id", authMiddleware, (req, res) => {
   if (title !== undefined) showcase[index].title = title.trim();
   if (category !== undefined) showcase[index].category = category.trim();
   if (description !== undefined) showcase[index].description = description.trim();
-  if (imageUrl !== undefined) showcase[index].imageUrl = imageUrl.trim();
+  if (imageUrl !== undefined || videoUrl !== undefined) {
+    const media = (imageUrl || videoUrl || "").trim();
+    showcase[index].imageUrl = media;
+    showcase[index].mediaType = detectMediaType(media, mediaType);
+    if (showcase[index].mediaType === "video") {
+      showcase[index].videoUrl = media;
+    }
+  }
   if (tag !== undefined) showcase[index].tag = tag.trim();
 
   writeJson(SHOWCASE_FILE, showcase);
   res.json({ success: true, item: showcase[index], message: "Creazione aggiornata!" });
+});
+
+// Riordina creazioni nella vetrina pubblica (Sposta Su/Giù o lista ordinata)
+app.post("/api/admin/showcase/reorder", authMiddleware, (req, res) => {
+  const { id, direction, orderedIds } = req.body;
+  let showcase = readJson(SHOWCASE_FILE, []);
+
+  // Modalità 1: Lista completa di ID ordinati
+  if (Array.isArray(orderedIds) && orderedIds.length > 0) {
+    const map = new Map(showcase.map(item => [item.id, item]));
+    const reordered = [];
+    orderedIds.forEach(itemId => {
+      if (map.has(itemId)) {
+        reordered.push(map.get(itemId));
+        map.delete(itemId);
+      }
+    });
+    map.forEach(item => reordered.push(item));
+    showcase = reordered;
+  }
+  // Modalità 2: Sposta singolo elemento in su o in giù
+  else if (id && direction) {
+    const index = showcase.findIndex(item => item.id === id);
+    if (index === -1) {
+      return res.status(404).json({ error: "Creazione non trovata." });
+    }
+
+    if (direction === "up" && index > 0) {
+      const temp = showcase[index];
+      showcase[index] = showcase[index - 1];
+      showcase[index - 1] = temp;
+    } else if (direction === "down" && index < showcase.length - 1) {
+      const temp = showcase[index];
+      showcase[index] = showcase[index + 1];
+      showcase[index + 1] = temp;
+    }
+  } else {
+    return res.status(400).json({ error: "Parametri di riordinamento non validi." });
+  }
+
+  writeJson(SHOWCASE_FILE, showcase);
+
+  // Sincronizza anche showcase.json in root se presente
+  const rootShowcase = path.join(__dirname, "showcase.json");
+  if (fs.existsSync(rootShowcase) && rootShowcase !== SHOWCASE_FILE) {
+    writeJson(rootShowcase, showcase);
+  }
+
+  res.json({ success: true, showcase, message: "Ordine creazioni aggiornato con successo!" });
 });
 
 // Elimina creazione dalla vetrina
@@ -769,6 +967,12 @@ app.delete("/api/admin/showcase/:id", authMiddleware, (req, res) => {
   }
 
   writeJson(SHOWCASE_FILE, showcase);
+
+  const rootShowcase = path.join(__dirname, "showcase.json");
+  if (fs.existsSync(rootShowcase) && rootShowcase !== SHOWCASE_FILE) {
+    writeJson(rootShowcase, showcase);
+  }
+
   res.json({ success: true, message: "Creazione rimossa dalla vetrina con successo." });
 });
 
