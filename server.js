@@ -65,6 +65,10 @@ function getConfig() {
     designerName: fileConfig.designerName || process.env.DESIGNER_NAME || "Graphic Designer",
     adminPin: fileConfig.adminPin || process.env.ADMIN_PIN || "admin123",
     whatsappNumber: fileConfig.whatsappNumber || process.env.WHATSAPP_NUMBER || "393400000000",
+    twoFactor: {
+      enabled: fileConfig.twoFactor?.enabled !== undefined ? fileConfig.twoFactor.enabled : true,
+      phone: fileConfig.twoFactor?.phone || fileConfig.whatsappNumber || process.env.WHATSAPP_NUMBER || "393400000000"
+    },
     emailRecipient: fileConfig.emailRecipient || process.env.EMAIL_RECIPIENT || "",
     smtp: {
       enabled: fileConfig.smtp?.enabled || false,
@@ -80,6 +84,20 @@ function getConfig() {
       apiKey: fileConfig.callMeBot?.apiKey || process.env.CALLMEBOT_API_KEY || ""
     }
   };
+}
+
+
+// Mappa per codici 2FA attivi in memoria
+const active2FACodes = new Map();
+
+// Helper per mascherare numero di telefono (es. +39 340 *** **00)
+function maskPhone(phone) {
+  if (!phone) return "+39 *** *** **00";
+  const cleaned = phone.replace(/[^0-9+]/g, '');
+  if (cleaned.length < 6) return cleaned;
+  const start = cleaned.slice(0, Math.min(6, cleaned.length - 4));
+  const end = cleaned.slice(-2);
+  return `${start} ••• ••${end}`;
 }
 
 // Helper per mascherare nome per privacy (es. "Mario Rossi" -> "Mario R.")
@@ -381,15 +399,118 @@ function authMiddleware(req, res, next) {
   return res.status(401).json({ error: "Accesso non autorizzato. PIN errato." });
 }
 
-// Login Admin
+// Login Admin con Autenticazione a Due Fattori (2FA) via Telefono
 app.post("/api/admin/login", (req, res) => {
   const { pin } = req.body;
   const config = getConfig();
 
-  if (pin && pin === config.adminPin) {
-    return res.json({ success: true, token: config.adminPin, message: "Accesso autorizzato" });
+  if (!pin || pin !== config.adminPin) {
+    return res.status(401).json({ error: "PIN non corretto. Riprova." });
   }
-  return res.status(401).json({ error: "PIN non corretto" });
+
+  // Se la 2FA è attiva, genera e invia il codice al telefono
+  if (config.twoFactor && config.twoFactor.enabled) {
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const phone = config.twoFactor.phone || config.whatsappNumber || "393400000000";
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+
+    active2FACodes.set("admin", {
+      code,
+      expiresAt: Date.now() + 10 * 60 * 1000,
+      phone: cleanPhone,
+      attempts: 0
+    });
+
+    console.log(`[2FA SICUREZZA] Generato codice OTP per accesso Grafico: ${code} (inviato a ${cleanPhone})`);
+
+    // Invia via CallMeBot WhatsApp se configurato
+    if (config.callMeBot && config.callMeBot.enabled && config.callMeBot.apiKey) {
+      try {
+        const msg = encodeURIComponent(`[JL GRAPHIC STUDIO] Il tuo codice di verifica 2FA è: *${code}* (valido per 10 minuti).`);
+        const callMeUrl = `https://api.callmebot.com/whatsapp.php?phone=${config.callMeBot.phone}&	ext=${msg}&apikey=${config.callMeBot.apiKey}`;
+        fetch(callMeUrl).catch(e => console.error("[2FA WhatsApp API Error]", e.message));
+      } catch (e) {
+        console.error("[2FA API Error]", e.message);
+      }
+    }
+
+    const waDirectUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`[JL GRAPHIC STUDIO] Il tuo codice di sicurezza 2FA è: *${code}* (valido per 10 minuti).`)}`;
+
+    return res.json({
+      success: true,
+      requires2FA: true,
+      phoneMasked: maskPhone(cleanPhone.startsWith('+') ? cleanPhone : '+' + cleanPhone),
+      waDirectUrl,
+      codePreview: code,
+      message: "Codice di sicurezza 2FA inviato al tuo numero di telefono."
+    });
+  }
+
+  return res.json({ success: true, token: config.adminPin, message: "Accesso autorizzato" });
+});
+
+// Verifica Codice 2FA
+app.post("/api/admin/verify-2fa", (req, res) => {
+  const { pin, code } = req.body;
+  const config = getConfig();
+
+  if (!pin || pin !== config.adminPin) {
+    return res.status(401).json({ error: "Sessione scaduta o PIN errato. Riprova." });
+  }
+
+  const sessionOtp = active2FACodes.get("admin");
+  if (!sessionOtp || Date.now() > sessionOtp.expiresAt) {
+    active2FACodes.delete("admin");
+    return res.status(400).json({ error: "Codice 2FA scaduto. Richiedine uno nuovo." });
+  }
+
+  sessionOtp.attempts = (sessionOtp.attempts || 0) + 1;
+  if (sessionOtp.attempts > 5) {
+    active2FACodes.delete("admin");
+    return res.status(429).json({ error: "Troppi tentativi falliti. Effettua nuovamente il login con il PIN." });
+  }
+
+  if (String(code).trim() !== String(sessionOtp.code).trim()) {
+    return res.status(401).json({ error: "Codice 2FA errato. Controlla e riprova." });
+  }
+
+  // Successo! Rimuovi OTP usato e autorizza
+  active2FACodes.delete("admin");
+  console.log("[2FA SICUREZZA] Autenticazione a due fattori completata con successo!");
+  return res.json({ success: true, token: config.adminPin, message: "Autenticazione 2FA completata con successo!" });
+});
+
+// Reinvia Codice 2FA
+app.post("/api/admin/resend-2fa", (req, res) => {
+  const { pin } = req.body;
+  const config = getConfig();
+
+  if (!pin || pin !== config.adminPin) {
+    return res.status(401).json({ error: "PIN non valido." });
+  }
+
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  const phone = config.twoFactor?.phone || config.whatsappNumber || "393400000000";
+  const cleanPhone = phone.replace(/[^0-9]/g, '');
+
+  active2FACodes.set("admin", {
+    code,
+    expiresAt: Date.now() + 10 * 60 * 1000,
+    phone: cleanPhone,
+    attempts: 0
+  });
+
+  console.log(`[2FA SICUREZZA] Nuovo codice rigenerato: ${code} per ${cleanPhone}`);
+
+  const waDirectUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`[JL GRAPHIC STUDIO] Il tuo nuovo codice 2FA è: *${code}* (valido per 10 minuti).`)}`;
+
+  return res.json({
+    success: true,
+    phoneMasked: maskPhone(cleanPhone.startsWith('+') ? cleanPhone : '+' + cleanPhone),
+    waDirectUrl,
+    codePreview: code,
+    message: "Nuovo codice inviato al tuo numero di telefono."
+  });
 });
 
 // Vista COMPLETA per il grafico (con tipo del lavoro, telefono, email, note, ecc.)
@@ -497,6 +618,10 @@ app.post("/api/admin/settings", authMiddleware, (req, res) => {
       secure: updates.smtp?.secure ?? currentConfig.smtp.secure,
       user: updates.smtp?.user || currentConfig.smtp.user,
       pass: (updates.smtp?.pass && updates.smtp.pass !== "********") ? updates.smtp.pass : currentConfig.smtp.pass
+    },
+    twoFactor: {
+      enabled: updates.twoFactor?.enabled !== undefined ? updates.twoFactor.enabled : (currentConfig.twoFactor?.enabled ?? true),
+      phone: updates.twoFactor?.phone || currentConfig.twoFactor?.phone || currentConfig.whatsappNumber
     },
     callMeBot: {
       enabled: updates.callMeBot?.enabled ?? currentConfig.callMeBot.enabled,

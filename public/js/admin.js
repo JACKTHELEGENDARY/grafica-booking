@@ -1,3 +1,4 @@
+let pendingPin = "";
 // Logica Amministratore / Grafico
 let adminToken = localStorage.getItem("admin_pin") || "";
 let adminBookings = [];
@@ -85,7 +86,88 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+  // Listener per Form Autenticazione a Due Fattori (2FA)
+  const form2FA = document.getElementById("form2FA");
+  if (form2FA) {
+    form2FA.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const code = document.getElementById("otpCodeInput").value.trim();
+      const errBox = document.getElementById("twoFactorError");
+      const btnVerify = document.getElementById("btnVerify2FA");
+      if (btnVerify) btnVerify.disabled = true;
+
+      try {
+        const res = await fetch("/api/admin/verify-2fa", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pin: pendingPin, code })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          adminToken = data.token || pendingPin;
+          localStorage.setItem("admin_pin", adminToken);
+          showDashboard();
+        } else {
+          errBox.textContent = data.error || "Codice 2FA errato o scaduto. Riprova.";
+          errBox.classList.remove("hidden");
+        }
+      } catch (err) {
+        errBox.textContent = "Errore di connessione con il server.";
+        errBox.classList.remove("hidden");
+      } finally {
+        if (btnVerify) btnVerify.disabled = false;
+      }
+    });
+  }
+
+  // Reinvia codice 2FA
+  const btnResendOtp = document.getElementById("btnResendOtp");
+  if (btnResendOtp) {
+    btnResendOtp.addEventListener("click", async () => {
+      if (!pendingPin) return;
+      btnResendOtp.disabled = true;
+      btnResendOtp.textContent = "Invio in corso...";
+      try {
+        const res = await fetch("/api/admin/resend-2fa", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pin: pendingPin })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert("Nuovo codice 2FA generato e inviato!");
+          if (data.waDirectUrl) {
+            document.getElementById("btnWaDirectOtp").href = data.waDirectUrl;
+          }
+        } else {
+          alert("Errore reinvio: " + (data.error || "Riprova"));
+        }
+      } catch (e) {
+        alert("Errore di connessione.");
+      } finally {
+        btnResendOtp.disabled = false;
+        btnResendOtp.innerHTML = '<i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reinvia codice';
+        if (window.lucide) lucide.createIcons();
+      }
+    });
+  }
+
+  // Torna allo Step PIN
+  const btnBackToPin = document.getElementById("btnBackToPin");
+  if (btnBackToPin) {
+    btnBackToPin.addEventListener("click", () => {
+      document.getElementById("step2FA").classList.add("hidden");
+      document.getElementById("stepPin").classList.remove("hidden");
+      pendingPin = "";
+      if (window.lucide) lucide.createIcons();
+    });
+  }
+
 function showLogin() {
+  document.getElementById("stepPin")?.classList.remove("hidden");
+  document.getElementById("step2FA")?.classList.add("hidden");
+  pendingPin = "";
   document.getElementById("loginSection").classList.remove("hidden");
   document.getElementById("dashboardSection").classList.add("hidden");
   document.getElementById("authActions").classList.add("hidden");
@@ -109,13 +191,38 @@ async function tryLogin(pin, isAuto = false) {
     });
 
     const data = await res.json();
-    if (res.ok && data.success) {
-      adminToken = pin;
-      localStorage.setItem("admin_pin", pin);
-      showDashboard();
+    if (res.ok) {
+      if (data.requires2FA) {
+        // Mostra schermata 2FA
+        pendingPin = pin;
+        document.getElementById("stepPin").classList.add("hidden");
+        document.getElementById("step2FA").classList.remove("hidden");
+        
+        const phoneDisp = document.getElementById("twoFactorPhoneDisplay");
+        if (phoneDisp) phoneDisp.textContent = data.phoneMasked || "+39 ••• ••00";
+
+        const btnWa = document.getElementById("btnWaDirectOtp");
+        if (btnWa && data.waDirectUrl) {
+          btnWa.href = data.waDirectUrl;
+        }
+
+        const errBox = document.getElementById("twoFactorError");
+        if (errBox) errBox.classList.add("hidden");
+
+        const otpInput = document.getElementById("otpCodeInput");
+        if (otpInput) {
+          otpInput.value = "";
+          setTimeout(() => otpInput.focus(), 150);
+        }
+        if (window.lucide) lucide.createIcons();
+      } else if (data.success) {
+        adminToken = pin;
+        localStorage.setItem("admin_pin", pin);
+        showDashboard();
+      }
     } else {
       if (!isAuto) {
-        alert("PIN non valido. Riprova.");
+        alert(data.error || "PIN non valido. Riprova.");
       } else {
         showLogin();
       }
@@ -414,6 +521,12 @@ async function openSettingsModal() {
     const cfg = await res.json();
 
     document.getElementById("cfgStudioName").value = cfg.studioName || "";
+    if (document.getElementById("cfg2faEnabled")) {
+      document.getElementById("cfg2faEnabled").checked = cfg.twoFactor?.enabled !== false;
+    }
+    if (document.getElementById("cfg2faPhone")) {
+      document.getElementById("cfg2faPhone").value = cfg.twoFactor?.phone || cfg.whatsappNumber || "";
+    }
     document.getElementById("cfgAdminPin").value = cfg.adminPin || "";
     document.getElementById("cfgWhatsappNumber").value = cfg.whatsappNumber || "";
     document.getElementById("cfgEmailRecipient").value = cfg.emailRecipient || "";
@@ -438,6 +551,10 @@ async function handleSaveSettings(e) {
     studioName: document.getElementById("cfgStudioName").value.trim(),
     adminPin: document.getElementById("cfgAdminPin").value.trim(),
     whatsappNumber: document.getElementById("cfgWhatsappNumber").value.trim(),
+    twoFactor: {
+      enabled: document.getElementById("cfg2faEnabled") ? document.getElementById("cfg2faEnabled").checked : true,
+      phone: document.getElementById("cfg2faPhone") ? document.getElementById("cfg2faPhone").value.trim() : document.getElementById("cfgWhatsappNumber").value.trim()
+    },
     emailRecipient: document.getElementById("cfgEmailRecipient").value.trim(),
     smtp: {
       enabled: document.getElementById("cfgSmtpEnabled").checked,
